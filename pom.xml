@@ -8,6 +8,11 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <scm>
+        <developerConnection>scm:git:https://github.com/mcoria/uci-protocol.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
@@ -15,6 +20,7 @@
         <maven.compiler.target>21</maven.compiler.target>
 
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
 
         <lombok.version>1.18.30</lombok.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
@@ -51,6 +57,14 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
         </plugins>
