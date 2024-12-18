@@ -1,4 +1,4 @@
-module net.chesstango.uci {
+module net.chesstango.uci.protocol {
     exports net.chesstango.uci.protocol;
     exports net.chesstango.uci.protocol.requests;
     exports net.chesstango.uci.protocol.responses;
