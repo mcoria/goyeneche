@@ -10,7 +10,7 @@ import net.chesstango.uci.protocol.stream.UCIOutputStream;
  * <p>
  * La interfaz podria servir para implementar engine como gui.
  */
-public interface UciService extends UCIOutputStream {
+public interface UCIService extends UCIOutputStream {
     void open();
 
     void close();
