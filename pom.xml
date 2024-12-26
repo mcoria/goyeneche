@@ -7,9 +7,28 @@
     <version>1.0.1</version>
     <packaging>jar</packaging>
 
+    <name>uci-protocol</name>
+    <description>UCI protocol implementation</description>
+    <url>https://github.com/mcoria/uci-protocol</url>
+
+    <licenses>
+        <license>
+            <name>BSD 3-Clause License</name>
+            <url>https://github.com/mcoria/uci-protocol?tab=BSD-3-Clause-1-ov-file</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Mauricio Coria</name>
+            <email>coriamauricio@gmail.com</email>
+        </developer>
+    </developers>
+
     <scm>
+        <connection>scm:git:https://github.com/mcoria/uci-protocol.git</connection>
         <developerConnection>scm:git:https://github.com/mcoria/uci-protocol.git</developerConnection>
-        <tag>v1.0.1</tag>
+        <url>https://github.com/mcoria/uci-protocol/tree/v1.0.1</url>
     </scm>
 
     <properties>
@@ -64,6 +83,58 @@
                 <version>${maven-release-plugin.version}</version>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
                 </configuration>
             </plugin>
         </plugins>
