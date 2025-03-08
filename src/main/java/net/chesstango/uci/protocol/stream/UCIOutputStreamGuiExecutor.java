@@ -4,6 +4,8 @@ import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIMessage;
 import net.chesstango.uci.protocol.UCIResponse;
 
+import static net.chesstango.uci.protocol.UCIMessage.MessageType.Response;
+
 /**
  * @author Mauricio Coria
  */
@@ -17,8 +19,7 @@ public class UCIOutputStreamGuiExecutor implements UCIOutputStream {
 
     @Override
     public void accept(UCIMessage message) {
-        //TODO: implementar filtrado, se me ocurre una canal para descartar
-        if(message instanceof UCIResponse) {
+        if (Response.equals(message.getMessageType())) {
             ((UCIResponse) message).execute(executor);
         }
     }

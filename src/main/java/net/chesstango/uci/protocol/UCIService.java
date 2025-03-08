@@ -2,6 +2,8 @@ package net.chesstango.uci.protocol;
 
 import net.chesstango.uci.protocol.stream.UCIOutputStream;
 
+import java.util.function.Consumer;
+
 /**
  * @author Mauricio Coria
  * <p>
@@ -10,7 +12,7 @@ import net.chesstango.uci.protocol.stream.UCIOutputStream;
  * <p>
  * La interfaz podria servir para implementar engine como gui.
  */
-public interface UCIService extends UCIOutputStream {
+public interface UCIService extends Consumer<UCIMessage> {
     void open();
 
     void close();

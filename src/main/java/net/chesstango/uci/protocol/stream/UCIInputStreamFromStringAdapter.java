@@ -8,11 +8,11 @@ import java.util.function.Supplier;
 /**
  * @author Mauricio Coria
  */
-public class UCIInputStreamAdapter implements UCIInputStream {
+public class UCIInputStreamFromStringAdapter implements UCIInputStream {
     private final UCIDecoder uciDecoder = new UCIDecoder();
     private final Supplier<String> reader;
 
-    public UCIInputStreamAdapter(Supplier<String> reader) {
+    public UCIInputStreamFromStringAdapter(Supplier<String> reader) {
         this.reader = reader;
     }
 

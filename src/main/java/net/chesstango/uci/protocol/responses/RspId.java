@@ -1,5 +1,6 @@
 package net.chesstango.uci.protocol.responses;
 
+import lombok.Getter;
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIResponse;
 
@@ -12,6 +13,7 @@ public class RspId implements UCIResponse {
 
     private final RspIdType type;
 
+    @Getter
     private final String text;
 
     public RspId(RspIdType type, String text) {
@@ -21,10 +23,6 @@ public class RspId implements UCIResponse {
 
     public RspIdType getIdType() {
         return type;
-    }
-
-    public String getText() {
-        return text;
     }
 
     @Override

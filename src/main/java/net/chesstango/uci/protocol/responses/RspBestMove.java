@@ -1,11 +1,13 @@
 package net.chesstango.uci.protocol.responses;
 
+import lombok.Getter;
 import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
  */
+@Getter
 public class RspBestMove implements UCIResponse {
 
     private final String bestMove;
@@ -41,11 +43,4 @@ public class RspBestMove implements UCIResponse {
         return "bestmove " + bestMove + (ponderMove == null ? "" : " ponder " + ponderMove);
     }
 
-    public String getBestMove() {
-        return bestMove;
-    }
-
-    public String getPonderMove() {
-        return ponderMove;
-    }
 }

@@ -208,13 +208,13 @@ public class UCIDecoder {
     private UCIMessage parsePositionFEN(String[] words) {
         boolean readingFen = true;
         String fenString = "";
-        List<String> moves = new ArrayList<String>();
+        List<String> moves = new ArrayList<>();
         for (int i = 2; i < words.length; i++) {
             if (readingFen) {
                 if ("MOVES".equalsIgnoreCase(words[i])) {
                     readingFen = false;
                 } else {
-                    if (fenString.length() == 0) {
+                    if (fenString.isEmpty()) {
                         fenString = fenString.concat(words[i]);
                     } else {
                         fenString = fenString.concat(" " + words[i]);

@@ -4,9 +4,10 @@ import net.chesstango.uci.protocol.UCIEngine;
 import net.chesstango.uci.protocol.UCIMessage;
 import net.chesstango.uci.protocol.UCIRequest;
 
+import static net.chesstango.uci.protocol.UCIMessage.MessageType.Request;
+
 /**
  * @author Mauricio Coria
- * TODO: Aca deberiamos hacer el filtrado para asegurarnos que solo llegan requests
  */
 public class UCIOutputStreamEngineExecutor implements UCIOutputStream {
 
@@ -18,8 +19,7 @@ public class UCIOutputStreamEngineExecutor implements UCIOutputStream {
 
     @Override
     public void accept(UCIMessage message) {
-        //TODO: implementar filtrado, se me ocurre una canal para descartar
-        if(message instanceof UCIRequest) {
+        if (Request.equals(message.getMessageType())) {
             ((UCIRequest) message).execute(engine);
         }
     }
