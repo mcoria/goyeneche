@@ -3,8 +3,8 @@ package net.chesstango.uci.protocol.requests.go;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.uci.protocol.requests.CmdGoExecutor;
-import net.chesstango.uci.protocol.requests.CmdGo;
+import net.chesstango.uci.protocol.requests.ReqGoExecutor;
+import net.chesstango.uci.protocol.requests.ReqGo;
 
 /**
  * @author Mauricio Coria
@@ -12,11 +12,11 @@ import net.chesstango.uci.protocol.requests.CmdGo;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class CmdGoInfinite extends CmdGo {
+public class ReqGoInfinite extends ReqGo {
 
     @Override
-    public void go(CmdGoExecutor cmdGoExecutor) {
-        cmdGoExecutor.go(this);
+    public void go(ReqGoExecutor reqGoExecutor) {
+        reqGoExecutor.go(this);
     }
 
     @Override

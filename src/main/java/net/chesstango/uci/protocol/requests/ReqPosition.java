@@ -10,7 +10,7 @@ import java.util.List;
  * @author Mauricio Coria
  */
 @Getter
-public class CmdPosition implements UCIRequest {
+public class ReqPosition implements UCIRequest {
 
     public enum CmdType {STARTPOS, FEN};
 
@@ -26,19 +26,19 @@ public class CmdPosition implements UCIRequest {
      */
     private final List<String> moves;
 
-    public CmdPosition(String fen, List<String> moves) {
+    public ReqPosition(String fen, List<String> moves) {
         this.type = CmdType.FEN;
         this.fen = fen;
         this.moves = moves;
     }
 
-    public CmdPosition(List<String> moves) {
+    public ReqPosition(List<String> moves) {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = moves;
     }
 
-    public CmdPosition() {
+    public ReqPosition() {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = null;

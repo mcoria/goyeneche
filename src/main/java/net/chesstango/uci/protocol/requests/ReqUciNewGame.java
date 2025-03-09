@@ -6,7 +6,7 @@ import net.chesstango.uci.protocol.UCIRequest;
 /**
  * @author Mauricio Coria
  */
-public class CmdQuit implements UCIRequest {
+public class ReqUciNewGame implements UCIRequest {
 
     @Override
     public MessageType getMessageType() {
@@ -15,17 +15,17 @@ public class CmdQuit implements UCIRequest {
 
     @Override
     public UCIRequestType getRequestType() {
-        return UCIRequestType.QUIT;
+        return UCIRequestType.UCINEWGAME;
     }
 
 
     @Override
     public void execute(UCIEngine executor) {
-        executor.do_quit(this);
+        executor.do_newGame(this);
     }
 
     @Override
     public String toString() {
-        return "quit";
+        return "ucinewgame";
     }
 }

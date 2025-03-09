@@ -6,8 +6,7 @@ import net.chesstango.uci.protocol.UCIRequest;
 /**
  * @author Mauricio Coria
  */
-public class CmdIsReady implements UCIRequest {
-
+public class ReqStop implements UCIRequest {
 
     @Override
     public MessageType getMessageType() {
@@ -16,17 +15,16 @@ public class CmdIsReady implements UCIRequest {
 
     @Override
     public UCIRequestType getRequestType() {
-        return UCIRequestType.ISREADY;
+        return UCIRequestType.STOP;
     }
-
 
     @Override
     public void execute(UCIEngine executor) {
-        executor.do_isReady(this);
+        executor.do_stop(this);
     }
 
     @Override
     public String toString() {
-        return "isready";
+        return "stop";
     }
 }

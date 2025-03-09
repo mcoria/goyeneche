@@ -1,7 +1,7 @@
 package net.chesstango.uci.protocol.stream;
 
-import net.chesstango.uci.protocol.UCIDecoder;
-import net.chesstango.uci.protocol.UCIMessage;
+import net.chesstango.uci.protocol.internal.UCIDecoder;
+import net.chesstango.uci.protocol.UCICommand;
 
 import java.util.function.Supplier;
 
@@ -17,7 +17,7 @@ public class UCIInputStreamFromStringAdapter implements UCIInputStream {
     }
 
     @Override
-    public UCIMessage get() {
+    public UCICommand get() {
         String line = reader.get();
         return line == null ? null : uciDecoder.parseMessage(line);
     }

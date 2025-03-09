@@ -1,6 +1,6 @@
 package net.chesstango.uci.protocol.stream;
 
-import net.chesstango.uci.protocol.UCIMessage;
+import net.chesstango.uci.protocol.UCICommand;
 
 import java.util.function.Predicate;
 
@@ -11,11 +11,11 @@ public class UCIOutputStreamSwitch implements UCIOutputStream {
 
     private UCIOutputStream output;
 
-    private final Predicate<UCIMessage> predicateCondition;
+    private final Predicate<UCICommand> predicateCondition;
 
     private final Runnable execute;
 
-    public UCIOutputStreamSwitch(Predicate<UCIMessage> predicateCondition, Runnable execute) {
+    public UCIOutputStreamSwitch(Predicate<UCICommand> predicateCondition, Runnable execute) {
         this.predicateCondition = predicateCondition;
         this.execute = execute;
     }
@@ -26,7 +26,7 @@ public class UCIOutputStreamSwitch implements UCIOutputStream {
     }
 
     @Override
-    public void accept(UCIMessage message) {
+    public void accept(UCICommand message) {
         output.accept(message);
         if (predicateCondition.test(message)) {
             execute.run();

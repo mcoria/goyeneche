@@ -1,7 +1,7 @@
 package net.chesstango.uci.protocol.stream;
 
-import net.chesstango.uci.protocol.UCIMessage;
-import net.chesstango.uci.protocol.requests.CmdQuit;
+import net.chesstango.uci.protocol.UCICommand;
+import net.chesstango.uci.protocol.requests.ReqQuit;
 
 /**
  * @author Mauricio Coria
@@ -13,11 +13,11 @@ public class UCIActiveStreamReader implements Runnable {
 
     @Override
     public void run() {
-        UCIOutputStreamSwitch actionOutput = new UCIOutputStreamSwitch(uciMessage -> uciMessage instanceof CmdQuit, this::stopReading);
+        UCIOutputStreamSwitch actionOutput = new UCIOutputStreamSwitch(uciMessage -> uciMessage instanceof ReqQuit, this::stopReading);
         actionOutput.setOutputStream(output);
 
         keepReading = true;
-        UCIMessage message = null;
+        UCICommand message = null;
         while (keepReading && (message = input.get()) != null) {
             actionOutput.accept(message);
         }

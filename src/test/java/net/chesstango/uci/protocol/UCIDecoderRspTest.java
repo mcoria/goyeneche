@@ -1,5 +1,6 @@
 package net.chesstango.uci.protocol;
 
+import net.chesstango.uci.protocol.internal.UCIDecoder;
 import net.chesstango.uci.protocol.responses.RspBestMove;
 import net.chesstango.uci.protocol.responses.RspId;
 import net.chesstango.uci.protocol.responses.RspReadyOk;
@@ -25,7 +26,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_readyok(){
-		UCIMessage result =  decoder.parseMessage("readyok");
+		UCICommand result =  decoder.parseMessage("readyok");
 
 		assertTrue(result instanceof RspReadyOk);
 
@@ -34,7 +35,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_bestmove(){
-		UCIMessage result =  decoder.parseMessage("bestmove a2a4");
+		UCICommand result =  decoder.parseMessage("bestmove a2a4");
 
 		assertTrue(result instanceof RspBestMove);
 
@@ -47,7 +48,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_bestmove_ponder(){
-		UCIMessage result =  decoder.parseMessage("bestmove a2a4 ponder a5a7");
+		UCICommand result =  decoder.parseMessage("bestmove a2a4 ponder a5a7");
 
 		assertTrue(result instanceof RspBestMove);
 
@@ -61,7 +62,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_id_author(){
-		UCIMessage result =  decoder.parseMessage("id author Mauricio Coria");
+		UCICommand result =  decoder.parseMessage("id author Mauricio Coria");
 
 		assertTrue(result instanceof RspId);
 
@@ -74,7 +75,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_id_name(){
-		UCIMessage result =  decoder.parseMessage("id name Zonda");
+		UCICommand result =  decoder.parseMessage("id name Zonda");
 
 		assertTrue(result instanceof RspId);
 
@@ -87,7 +88,7 @@ public class UCIDecoderRspTest {
 
 	@Test
 	public void test_parse_uciok(){
-		UCIMessage result =  decoder.parseMessage("uciok");
+		UCICommand result =  decoder.parseMessage("uciok");
 
 		assertTrue(result instanceof RspUciOk);
 

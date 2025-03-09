@@ -7,7 +7,7 @@ import net.chesstango.uci.protocol.UCIRequest;
 /**
  * @author Mauricio Coria
  */
-public class CmdSetOption implements UCIRequest {
+public class ReqSetOption implements UCIRequest {
 
     @Getter
     private final String id;
@@ -15,7 +15,7 @@ public class CmdSetOption implements UCIRequest {
     @Getter
     private final String value;
 
-    public CmdSetOption(String id, String value) {
+    public ReqSetOption(String id, String value) {
         this.id = id;
         this.value = value;
     }

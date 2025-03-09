@@ -1,6 +1,6 @@
 package net.chesstango.uci.protocol.stream;
 
-import net.chesstango.uci.protocol.UCIMessage;
+import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.stream.strings.StringConsumer;
 
 /**
@@ -15,7 +15,7 @@ public class UCIOutputStreamToStringAdapter implements UCIOutputStream {
     }
 
     @Override
-    public void accept(UCIMessage message) {
+    public void accept(UCICommand message) {
         out.accept(message == null ? null : message.toString());
     }
 }

@@ -1,15 +1,15 @@
 package net.chesstango.uci.protocol;
 
-import static net.chesstango.uci.protocol.UCIMessage.MessageType.Unknown;
+import static net.chesstango.uci.protocol.UCICommand.MessageType.Unknown;
 
 /**
  * @author Mauricio Coria
  */
-public class UCIMessageUnknown implements UCIMessage {
+public class UCICommandUnknown implements UCICommand {
 
     private final String line;
 
-    public UCIMessageUnknown(String line) {
+    public UCICommandUnknown(String line) {
         this.line = line;
     }
 
