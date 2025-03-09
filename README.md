@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml)
+
 # chesstango-uci
 
 **chesstango-uci** is a Java library implementing the **UCI (Universal Chess Interface) Protocol**, enabling easy integration with chess engines supporting this protocol.
