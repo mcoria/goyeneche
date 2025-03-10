@@ -37,14 +37,7 @@ import java.util.function.Consumer;
  * @see AbstractUCIEngine
  */
 public class EngineSkeleton extends AbstractUCIEngine {
-
-    /**
-     * The main method serves as the entry point for the chess engine,
-     * enabling interaction with a GUI through the UCI (Universal Chess Interface) protocol.
-     *
-     * <p>This method initializes the engine, configures stream adapters for input and output,
-     * and starts a loop to continuously listen for GUI commands, ensuring the engine's responsiveness.</p>
-     */
+    
     /**
      * Entry point for running the EngineSkeleton application.
      *
