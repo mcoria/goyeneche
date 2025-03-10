@@ -1,9 +1,8 @@
 package net.chesstango.uci.protocol;
 
 /**
- * The UCIResponse interface represents messages sent from the chess engine to the GUI
- * as part of the Universal Chess Interface (UCI) protocol. These messages are classified
- * as responses to commands previously initiated by the GUI.
+ * The UCIResponse interface represents response commands sent from the chess engine to the GUI
+ * as part of the Universal Chess Interface (UCI) protocol.
  *
  * A UCIResponse is categorized by its type, which indicates the nature of the response.
  * Implementations of this interface must define the specific behavior and representation
@@ -18,6 +17,8 @@ package net.chesstango.uci.protocol;
  *
  * Each response can be executed on a UCIGui instance to process or handle the response appropriately.
  * The concrete implementation of this interface determines the specific execution logic.
+ *
+ * @author Mauricio Coria
  */
 public interface UCIResponse extends UCICommand {
 

@@ -1,7 +1,7 @@
 package net.chesstango.uci.protocol;
 
 /**
- * The UCIRequest interface represents a command or request sent to a chess engine
+ * The UCIRequest interface represents a command request sent to a chess engine
  * as part of the Universal Chess Interface (UCI) protocol. Implementations of this
  * interface encapsulate specific commands defined by the protocol and provide
  * the necessary information and functionality to process these commands.
@@ -9,6 +9,8 @@ package net.chesstango.uci.protocol;
  * Implementing classes must specify the type of request they represent and
  * provide an implementation to execute their corresponding operation with
  * a UCIEngine instance.
+ *
+ * @author Mauricio Coria
  */
 public interface UCIRequest extends UCICommand {
 

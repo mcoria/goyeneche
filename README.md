@@ -1,8 +1,8 @@
 [![Java CI with Maven](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml)
 
-# chesstango-uci
+# uci-protocol
 
-**chesstango-uci** is a Java library implementing the **UCI (Universal Chess Interface) Protocol**, enabling easy integration with chess engines supporting this protocol.
+**uci-protocol** is a Java library implementing the **UCI (Universal Chess Interface) Protocol**, enabling easy integration with chess engines or GUI controllers supporting this protocol.
 
 ## Features
 
@@ -17,7 +17,7 @@
 
 ## Installation
 
-To use **chesstango-uci** in your project, add the dependency to your `pom.xml` (for Maven) or `build.gradle` (for Gradle).
+To use **uci-protocol** in your project, add the dependency to your `pom.xml` (for Maven) or `build.gradle` (for Gradle).
 
 ### Maven
 
@@ -25,25 +25,101 @@ To use **chesstango-uci** in your project, add the dependency to your `pom.xml` 
 <dependency>
     <groupId>net.chesstango</groupId>
     <artifactId>uci-protocol</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'net.chesstango:uci-protocol:1.0.2'
+implementation 'net.chesstango:uci-protocol:1.0.3'
 ```
 
 ## Usage
 
-Follow the steps below to integrate **chesstango-uci** into your project:
+Follow the steps below to integrate **uci-protocol** into your project:
 
 1. **Initialize and Configure the UCI Client**
 
    Set up the UCI client to connect with a UCI-compatible chess engine (e.g., Stockfish).
 
    ```java
+   public class EngineSkeleton extends AbstractUCIEngine {
+
+    public static void main(String[] args) {
+
+        // Create an instance of the EngineSkeleton to handle UCI commands.
+        EngineSkeleton engineSkeleton = new EngineSkeleton();
+
+        // Configure the engine's output stream to forward responses to the GUI via standard output,
+        // using a StringConsumer for protocol-compliant communication.
+        engineSkeleton.setOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))));
+
+        // Open the engine to prepare it for communication with the GUI.
+        engineSkeleton.open();
+
+        // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
+        UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
+
+        // Start processing UCI commands in the active reader loop.
+        uciActiveStreamReader.run();
+
+        // Close the engine after completing the communication.
+        engineSkeleton.close();
+    }
+
+
+
+    private static UCIActiveStreamReader createUciActiveStreamReader(Consumer<UCICommand> uciCommandConsumer) {
+        UCIActiveStreamReader uciActiveStreamReader = new UCIActiveStreamReader();
+
+        // Configures the active stream reader to read input from the standard input (System.in)
+        // by adapting it to the UCIInputStream interface through a StringSupplier.
+        uciActiveStreamReader.setInputStream(new UCIInputStreamFromStringAdapter(new StringSupplier(new InputStreamReader(System.in))));
+
+        // Directs the output of the active stream reader to be handled by the engineSkeleton's accept method,
+        // enabling the engine to process UCI commands received from the input.
+        uciActiveStreamReader.setOutputStream(uciCommandConsumer::accept);
+
+        // Return the configured UCIActiveStreamReader instance to handle communication with the GUI.
+        return uciActiveStreamReader;
+    }
+
+
+    @Override
+    public void do_uci(ReqUci reqUci) {
+        replyResponse(new RspId(RspId.RspIdType.NAME, "Skeleton 1.0"));
+        replyResponse(new RspId(RspId.RspIdType.AUTHOR, "John Doe"));
+        replyResponse(new RspUciOk());
+    }
+
+
+    @Override
+    public void do_isReady(ReqIsReady cmdIsReady) {
+        replyResponse(new RspReadyOk());
+    }
+    
+
+    @Override
+    public void do_go(ReqGo reqGo) {
+        replyResponse(new RspBestMove("c2c4"));
+    }
+   }
+   ```
+
+   Execute EngineSkeleton and start exchanging commands as follows:
+   ```
+   >> uci
+   << id name Skeleton 1.0
+   << id author John Doe
+   << uciok
+   >> isready
+   << readyok
+   >> ucinewgame
+   >> position startpos moves e2e4 e7e5
+   >> go infinite
+   << bestmove c2c4
+   >> quit
    ```
 
 2. **Commands for UCI Protocol**
@@ -57,19 +133,11 @@ Follow the steps below to integrate **chesstango-uci** into your project:
     - `go`: Start calculating the best move.
     - `stop`: Stop the current calculation.
 
-3. **Example Interaction**
-
-   Suppose you want to analyze a game position. You can send commands like this:
-
-   ```java
-
-   ```
-
 ## Contributing
 
 Contributions are welcome! Feel free to open issues and submit pull requests.
 
 ## License
 
-This project is licensed under the **MIT License**. See the `LICENSE` file for details.
+This project is licensed under the **BSD 3-Clause License**. See the `LICENSE` file for details.
 

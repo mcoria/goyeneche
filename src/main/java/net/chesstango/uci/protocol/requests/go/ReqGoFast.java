@@ -25,7 +25,7 @@ public class ReqGoFast extends ReqGo {
     private int bInc;
 
     @Override
-    public void go(ReqGoExecutor reqGoExecutor) {
+    public void execute(ReqGoExecutor reqGoExecutor) {
         reqGoExecutor.go(this);
     }
 

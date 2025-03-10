@@ -19,8 +19,7 @@ public class StringSupplier implements Supplier<String> {
     @Override
     public String get() {
         try {
-            String line = reader.readLine();
-            return line;
+            return reader.readLine();
         } catch (IOException e) {
             e.printStackTrace(System.err);
             return null;

@@ -15,7 +15,7 @@ import net.chesstango.uci.protocol.requests.ReqGo;
 public class ReqGoInfinite extends ReqGo {
 
     @Override
-    public void go(ReqGoExecutor reqGoExecutor) {
+    public void execute(ReqGoExecutor reqGoExecutor) {
         reqGoExecutor.go(this);
     }
 

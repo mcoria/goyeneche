@@ -17,7 +17,7 @@ public class ReqGoDepth extends ReqGo {
     private int depth;
 
     @Override
-    public void go(ReqGoExecutor reqGoExecutor) {
+    public void execute(ReqGoExecutor reqGoExecutor) {
         reqGoExecutor.go(this);
     }
 

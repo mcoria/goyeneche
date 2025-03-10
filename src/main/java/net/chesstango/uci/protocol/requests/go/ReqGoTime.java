@@ -17,7 +17,7 @@ public class ReqGoTime extends ReqGo {
     private int timeOut;
 
     @Override
-    public void go(ReqGoExecutor reqGoExecutor) {
+    public void execute(ReqGoExecutor reqGoExecutor) {
         reqGoExecutor.go(this);
     }
 
