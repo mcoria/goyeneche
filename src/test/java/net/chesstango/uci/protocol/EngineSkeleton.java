@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  * @see AbstractUCIEngine
  */
 public class EngineSkeleton extends AbstractUCIEngine {
-    
+
     /**
      * Entry point for running the EngineSkeleton application.
      *
