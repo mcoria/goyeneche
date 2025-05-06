@@ -6,10 +6,7 @@ import net.chesstango.uci.protocol.requests.ReqIsReady;
 import net.chesstango.uci.protocol.requests.ReqUci;
 import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
 import net.chesstango.uci.protocol.requests.go.ReqGoFast;
-import net.chesstango.uci.protocol.responses.RspBestMove;
-import net.chesstango.uci.protocol.responses.RspId;
-import net.chesstango.uci.protocol.responses.RspReadyOk;
-import net.chesstango.uci.protocol.responses.RspUciOk;
+import net.chesstango.uci.protocol.responses.*;
 import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
 import net.chesstango.uci.protocol.stream.UCIInputStreamFromStringAdapter;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamToStringAdapter;
@@ -106,16 +103,17 @@ public class EngineSkeleton extends AbstractUCIEngine {
     public void do_uci(ReqUci reqUci) {
         replyResponse(new RspId(RspId.RspIdType.NAME, "Skeleton 1.0"));
         replyResponse(new RspId(RspId.RspIdType.AUTHOR, "John Doe"));
+        replyResponse(RspOption.createStringOption("NalimovPath", "c:\\book"));
         replyResponse(new RspUciOk());
     }
 
     /**
      * Handles the `isready` command by replying with "readyok", indicating the engine is ready.
      *
-     * @param cmdIsReady The UCI request command instance.
+     * @param reqIsReady The UCI request command instance.
      */
     @Override
-    public void do_isReady(ReqIsReady cmdIsReady) {
+    public void do_isReady(ReqIsReady reqIsReady) {
         replyResponse(new RspReadyOk());
     }
 

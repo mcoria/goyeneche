@@ -15,11 +15,6 @@ public class RspInfo implements UCIResponse {
     }
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Response;
-    }
-
-    @Override
     public UCIResponseType getResponseType() {
         return UCIResponseType.INFO;
     }

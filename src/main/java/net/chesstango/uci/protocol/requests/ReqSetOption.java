@@ -21,11 +21,6 @@ public class ReqSetOption implements UCIRequest {
     }
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public UCIRequestType getRequestType() {
         return UCIRequestType.SETOPTION;
     }

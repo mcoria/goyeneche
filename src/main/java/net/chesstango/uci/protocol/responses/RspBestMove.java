@@ -24,11 +24,6 @@ public class RspBestMove implements UCIResponse {
     }
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Response;
-    }
-
-    @Override
     public void execute(UCIGui executor) {
         executor.do_bestMove(this);
     }

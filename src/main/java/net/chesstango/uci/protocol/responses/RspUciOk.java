@@ -9,11 +9,6 @@ import net.chesstango.uci.protocol.UCIResponse;
 public class RspUciOk implements UCIResponse {
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Response;
-    }
-
-    @Override
     public UCIResponseType getResponseType() {
         return UCIResponseType.UCIOK;
     }

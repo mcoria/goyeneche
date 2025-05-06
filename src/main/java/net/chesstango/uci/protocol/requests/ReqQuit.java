@@ -9,15 +9,9 @@ import net.chesstango.uci.protocol.UCIRequest;
 public class ReqQuit implements UCIRequest {
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public UCIRequestType getRequestType() {
         return UCIRequestType.QUIT;
     }
-
 
     @Override
     public void execute(UCIEngine executor) {

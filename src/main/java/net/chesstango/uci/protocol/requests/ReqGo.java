@@ -21,11 +21,6 @@ public abstract class ReqGo implements UCIRequest {
     public abstract void execute(ReqGoExecutor reqGoExecutor);
 
     @Override
-    public final MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public final UCIRequestType getRequestType() {
         return UCIRequestType.GO;
     }

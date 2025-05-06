@@ -9,11 +9,6 @@ import net.chesstango.uci.protocol.UCIRequest;
 public class ReqUciNewGame implements UCIRequest {
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public UCIRequestType getRequestType() {
         return UCIRequestType.UCINEWGAME;
     }

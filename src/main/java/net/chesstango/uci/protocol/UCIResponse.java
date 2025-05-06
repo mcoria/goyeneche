@@ -1,5 +1,7 @@
 package net.chesstango.uci.protocol;
 
+import static net.chesstango.uci.protocol.UCICommand.MessageType.Response;
+
 /**
  * The UCIResponse interface represents response commands sent from the chess engine to the GUI
  * as part of the Universal Chess Interface (UCI) protocol.
@@ -21,9 +23,13 @@ package net.chesstango.uci.protocol;
  * @author Mauricio Coria
  */
 public interface UCIResponse extends UCICommand {
-
     enum UCIResponseType {
-        ID, UCIOK, READYOK, INFO, BESTMOVE
+        ID, OPTION, UCIOK, READYOK, INFO, BESTMOVE
+    }
+
+    @Override
+    default MessageType getMessageType() {
+        return Response;
     }
 
     UCIResponseType getResponseType();

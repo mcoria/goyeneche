@@ -13,6 +13,8 @@ import net.chesstango.uci.protocol.responses.*;
 public interface UCIGui {
     void do_uciOk(RspUciOk rspUciOk);
 
+    void do_option(RspOption rspOption);
+
     void do_id(RspId rspId);
 
     void do_readyOk(RspReadyOk rspReadyOk);

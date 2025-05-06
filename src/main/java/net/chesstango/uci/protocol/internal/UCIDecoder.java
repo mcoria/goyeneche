@@ -7,10 +7,7 @@ import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
 import net.chesstango.uci.protocol.requests.go.ReqGoFast;
 import net.chesstango.uci.protocol.requests.go.ReqGoInfinite;
 import net.chesstango.uci.protocol.requests.go.ReqGoTime;
-import net.chesstango.uci.protocol.responses.RspBestMove;
-import net.chesstango.uci.protocol.responses.RspId;
-import net.chesstango.uci.protocol.responses.RspReadyOk;
-import net.chesstango.uci.protocol.responses.RspUciOk;
+import net.chesstango.uci.protocol.responses.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +42,7 @@ public class UCIDecoder {
 
                 // ====================== RESPONSES
                 case "READYOK" -> new RspReadyOk();
+                case "OPTION" -> parseOption(words);
                 case "UCIOK" -> new RspUciOk();
                 case "BESTMOVE" -> parseBestMove(words);
                 case "ID" -> parseId(words);
@@ -230,4 +228,46 @@ public class UCIDecoder {
         return new ReqPosition(fenString, moves);
     }
 
+
+    private UCICommand parseOption(String[] words) {
+        String name = "";
+        String type = "";
+        String defaultValue = null;
+        String minValue = null;
+        String maxValue = null;
+
+        for (int i = 1; i < words.length; i++) {
+            String word = words[i].toLowerCase();
+            switch (word) {
+                case "name" -> {
+                    i++;
+                    name = words[i];
+                }
+                case "type" -> {
+                    i++;
+                    type = words[i].toLowerCase();
+                }
+                case "default" -> {
+                    i++;
+                    defaultValue = words[i];
+                }
+                case "min" -> {
+                    i++;
+                    minValue = words[i];
+                }
+                case "max" -> {
+                    i++;
+                    maxValue = words[i];
+                }
+            }
+        }
+
+        return switch (type) {
+            case "string" -> RspOption.createStringOption(name, defaultValue);
+            case "check" -> RspOption.createCheckOption(name, Boolean.valueOf(defaultValue));
+            default -> throw new IllegalStateException("Unexpected value: " + type);
+        };
+    }
+
 }
+

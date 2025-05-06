@@ -45,15 +45,9 @@ public class ReqPosition implements UCIRequest {
     }
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public UCIRequestType getRequestType() {
         return UCIRequestType.POSITION;
     }
-
 
     @Override
     public void execute(UCIEngine executor) {

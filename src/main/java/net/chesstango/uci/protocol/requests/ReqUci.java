@@ -9,15 +9,9 @@ import net.chesstango.uci.protocol.UCIRequest;
 public class ReqUci implements UCIRequest {
 
     @Override
-    public MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    @Override
     public UCIRequestType getRequestType() {
         return UCIRequestType.UCI;
     }
-
 
     @Override
     public void execute(UCIEngine executor) {
