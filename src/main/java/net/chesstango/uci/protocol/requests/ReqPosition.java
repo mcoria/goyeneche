@@ -2,7 +2,6 @@ package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 import java.util.List;
 
@@ -42,11 +41,6 @@ public class ReqPosition implements UCIRequest {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = null;
-    }
-
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.POSITION;
     }
 
     @Override

@@ -31,11 +31,6 @@ public class RspId implements UCIResponse {
     }
 
     @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.ID;
-    }
-
-    @Override
     public String toString() {
         return "id " + (RspIdType.AUTHOR.equals(type) ? "author " : "name ") + getText();
     }

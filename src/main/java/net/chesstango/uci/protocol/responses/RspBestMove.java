@@ -29,11 +29,6 @@ public class RspBestMove implements UCIResponse {
     }
 
     @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.BESTMOVE;
-    }
-
-    @Override
     public String toString() {
         return "bestmove " + bestMove + (ponderMove == null ? "" : " ponder " + ponderMove);
     }

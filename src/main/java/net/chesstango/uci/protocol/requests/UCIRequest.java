@@ -1,4 +1,7 @@
-package net.chesstango.uci.protocol;
+package net.chesstango.uci.protocol.requests;
+
+import net.chesstango.uci.protocol.UCICommand;
+import net.chesstango.uci.protocol.UCIEngine;
 
 /**
  * The UCIRequest interface represents a command request sent to a chess engine
@@ -13,17 +16,14 @@ package net.chesstango.uci.protocol;
  * @author Mauricio Coria
  */
 public interface UCIRequest extends UCICommand {
-
-    enum UCIRequestType {
-        UCI, QUIT, ISREADY, STOP, GO, SETOPTION, UCINEWGAME, POSITION
-    }
-
-    @Override
-    default MessageType getMessageType() {
-        return MessageType.Request;
-    }
-
-    UCIRequestType getRequestType();
-
+    /**
+     * Executes the request using the provided UCIEngine instance.
+     *
+     * @param executor The UCIEngine instance that will execute the request.
+     */
     void execute(UCIEngine executor);
+
+    static ReqUci uci() {
+        return ReqUci.INSTANCE;
+    }
 }

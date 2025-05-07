@@ -37,11 +37,6 @@ public class RspOption implements UCIResponse {
     }
 
     @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.OPTION;
-    }
-
-    @Override
     public void execute(UCIGui executor) {
         executor.do_option(this);
     }

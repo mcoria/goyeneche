@@ -15,11 +15,6 @@ public class RspInfo implements UCIResponse {
     }
 
     @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.INFO;
-    }
-
-    @Override
     public void execute(UCIGui executor) {
         executor.do_info(this);
     }

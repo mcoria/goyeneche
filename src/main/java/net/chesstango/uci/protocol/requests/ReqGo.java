@@ -1,7 +1,6 @@
 package net.chesstango.uci.protocol.requests;
 
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
@@ -19,11 +18,6 @@ public abstract class ReqGo implements UCIRequest {
      * @param reqGoExecutor The executor responsible for processing the `ReqGo` command.
      */
     public abstract void execute(ReqGoExecutor reqGoExecutor);
-
-    @Override
-    public final UCIRequestType getRequestType() {
-        return UCIRequestType.GO;
-    }
 
     @Override
     public final void execute(UCIEngine executor) {

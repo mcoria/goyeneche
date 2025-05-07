@@ -14,11 +14,6 @@ public class RspReadyOk implements UCIResponse {
     }
 
     @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.READYOK;
-    }
-
-    @Override
     public String toString() {
         return "readyok";
     }

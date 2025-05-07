@@ -1,18 +1,11 @@
 package net.chesstango.uci.protocol.requests;
 
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
  */
 public class ReqIsReady implements UCIRequest {
-
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.ISREADY;
-    }
-
 
     @Override
     public void execute(UCIEngine executor) {

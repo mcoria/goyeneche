@@ -1,16 +1,15 @@
 package net.chesstango.uci.protocol.requests;
 
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
  */
-public class ReqUci implements UCIRequest {
+public final class ReqUci implements UCIRequest {
 
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.UCI;
+    public static ReqUci INSTANCE = new ReqUci();
+
+    private ReqUci() {
     }
 
     @Override
@@ -22,4 +21,5 @@ public class ReqUci implements UCIRequest {
     public String toString() {
         return "uci";
     }
+
 }
