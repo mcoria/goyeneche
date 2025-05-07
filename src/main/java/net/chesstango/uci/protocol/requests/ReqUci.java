@@ -7,7 +7,7 @@ import net.chesstango.uci.protocol.UCIEngine;
  */
 public final class ReqUci implements UCIRequest {
 
-    public static ReqUci INSTANCE = new ReqUci();
+    static ReqUci INSTANCE = new ReqUci();
 
     private ReqUci() {
     }

@@ -5,8 +5,9 @@ import net.chesstango.uci.protocol.UCIEngine;
 /**
  * @author Mauricio Coria
  */
-public class ReqUciNewGame implements UCIRequest {
-    public static final ReqUciNewGame INSTANCE = new ReqUciNewGame();
+public final class ReqUciNewGame implements UCIRequest {
+
+    static final ReqUciNewGame INSTANCE = new ReqUciNewGame();
 
     private ReqUciNewGame() {
     }

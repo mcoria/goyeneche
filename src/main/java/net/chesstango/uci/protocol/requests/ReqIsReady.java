@@ -1,6 +1,5 @@
 package net.chesstango.uci.protocol.requests;
 
-import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.UCIEngine;
 
 /**

@@ -5,7 +5,7 @@ import net.chesstango.uci.protocol.UCIEngine;
 /**
  * @author Mauricio Coria
  */
-public class ReqQuit implements UCIRequest {
+public final class ReqQuit implements UCIRequest {
 
     @Override
     public void execute(UCIEngine executor) {

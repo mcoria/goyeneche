@@ -1,6 +1,9 @@
 package net.chesstango.uci.protocol.internal.antlr4;
 
 import net.chesstango.uci.protocol.UCICommand;
+import net.chesstango.uci.protocol.requests.ReqIsReady;
+import net.chesstango.uci.protocol.requests.ReqUci;
+import net.chesstango.uci.protocol.requests.ReqUciNewGame;
 import net.chesstango.uci.protocol.requests.UCIRequest;
 
 /**
@@ -25,17 +28,17 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     }
 
     @Override
-    public UCICommand visitUci(UciParser.UciContext ctx) {
+    public ReqUci visitUci(UciParser.UciContext ctx) {
         return UCIRequest.uci();
     }
 
     @Override
-    public UCICommand visitIsready(UciParser.IsreadyContext ctx) {
+    public ReqIsReady visitIsready(UciParser.IsreadyContext ctx) {
         return UCIRequest.isready();
     }
 
     @Override
-    public UCICommand visitUcinewgame(UciParser.UcinewgameContext ctx) {
+    public ReqUciNewGame visitUcinewgame(UciParser.UcinewgameContext ctx) {
         return UCIRequest.ucinewgame();
     }
 
