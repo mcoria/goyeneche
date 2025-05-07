@@ -35,4 +35,12 @@ public interface UCIRequest extends UCICommand {
     static ReqUciNewGame ucinewgame() {
         return ReqUciNewGame.INSTANCE;
     }
+
+    static ReqQuit quit() {
+        return ReqQuit.INSTANCE;
+    }
+
+    static ReqStop stop() {
+        return ReqStop.INSTANCE;
+    }
 }

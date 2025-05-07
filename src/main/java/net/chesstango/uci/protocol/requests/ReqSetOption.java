@@ -6,7 +6,7 @@ import net.chesstango.uci.protocol.UCIEngine;
 /**
  * @author Mauricio Coria
  */
-public class ReqSetOption implements UCIRequest {
+public final class ReqSetOption implements UCIRequest {
 
     @Getter
     private final String id;

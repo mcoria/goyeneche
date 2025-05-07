@@ -1,10 +1,7 @@
 package net.chesstango.uci.protocol.internal.antlr4;
 
 import net.chesstango.uci.protocol.UCICommand;
-import net.chesstango.uci.protocol.requests.ReqIsReady;
-import net.chesstango.uci.protocol.requests.ReqUci;
-import net.chesstango.uci.protocol.requests.ReqUciNewGame;
-import net.chesstango.uci.protocol.requests.UCIRequest;
+import net.chesstango.uci.protocol.requests.*;
 
 /**
  * @author Mauricio Coria
@@ -24,7 +21,9 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         UciParser.UciContext uciCtx = ctx.uci();
         UciParser.IsreadyContext isReadyCtx = ctx.isready();
         UciParser.UcinewgameContext uciNewGameCtx = ctx.ucinewgame();
-        return uciCtx != null ? visitUci(uciCtx) : isReadyCtx != null ? visitIsready(isReadyCtx) : uciNewGameCtx != null ? visitUcinewgame(uciNewGameCtx) : null;
+        UciParser.StopContext stopCtx = ctx.stop();
+        UciParser.QuitContext quitCtx = ctx.quit();
+        return uciCtx != null ? visitUci(uciCtx) : isReadyCtx != null ? visitIsready(isReadyCtx) : uciNewGameCtx != null ? visitUcinewgame(uciNewGameCtx) : stopCtx != null ? visitStop(stopCtx) : quitCtx != null ? visitQuit(quitCtx) : null;
     }
 
     @Override
@@ -42,4 +41,13 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         return UCIRequest.ucinewgame();
     }
 
+    @Override
+    public ReqStop visitStop(UciParser.StopContext ctx) {
+        return UCIRequest.stop();
+    }
+
+    @Override
+    public ReqQuit visitQuit(UciParser.QuitContext ctx) {
+        return UCIRequest.quit();
+    }
 }

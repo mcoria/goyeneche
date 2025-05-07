@@ -5,7 +5,9 @@ import net.chesstango.uci.protocol.UCIEngine;
 /**
  * @author Mauricio Coria
  */
-public class ReqStop implements UCIRequest {
+public final class ReqStop implements UCIRequest {
+
+    static final ReqStop INSTANCE = new ReqStop();
 
     @Override
     public void execute(UCIEngine executor) {

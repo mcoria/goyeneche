@@ -9,6 +9,8 @@ request
     : uci
     | isready
     | ucinewgame
+    | stop
+    | quit
     ;
 
 uci: 'uci';
@@ -16,6 +18,10 @@ uci: 'uci';
 isready: 'isready' ;
 
 ucinewgame: 'ucinewgame';
+
+stop: 'stop';
+
+quit: 'quit';
 
 response
     : id

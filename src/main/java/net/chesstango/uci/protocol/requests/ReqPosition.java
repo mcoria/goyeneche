@@ -9,7 +9,7 @@ import java.util.List;
  * @author Mauricio Coria
  */
 @Getter
-public class ReqPosition implements UCIRequest {
+public final class ReqPosition implements UCIRequest {
 
     public enum CmdType {STARTPOS, FEN};
 

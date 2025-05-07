@@ -7,6 +7,11 @@ import net.chesstango.uci.protocol.UCIEngine;
  */
 public final class ReqQuit implements UCIRequest {
 
+    static final ReqQuit INSTANCE = new ReqQuit();
+
+    private ReqQuit() {
+    }
+
     @Override
     public void execute(UCIEngine executor) {
         executor.do_quit(this);

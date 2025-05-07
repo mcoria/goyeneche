@@ -5,7 +5,7 @@ import net.chesstango.uci.protocol.UCIEngine;
 /**
  * @author Mauricio Coria
  */
-public class ReqIsReady implements UCIRequest {
+public final class ReqIsReady implements UCIRequest {
 
     static final ReqIsReady INSTANCE = new ReqIsReady();
 
