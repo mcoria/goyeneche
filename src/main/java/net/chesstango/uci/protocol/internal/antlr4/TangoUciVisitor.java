@@ -20,7 +20,8 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     public UCICommand visitRequest(UciParser.RequestContext ctx) {
         UciParser.UciContext uciCtx = ctx.uci();
         UciParser.IsreadyContext isReadyCtx = ctx.isready();
-        return uciCtx != null ? visitUci(uciCtx) : isReadyCtx != null ? visitIsready(isReadyCtx) : null;
+        UciParser.UcinewgameContext uciNewGameCtx = ctx.ucinewgame();
+        return uciCtx != null ? visitUci(uciCtx) : isReadyCtx != null ? visitIsready(isReadyCtx) : uciNewGameCtx != null ? visitUcinewgame(uciNewGameCtx) : null;
     }
 
     @Override
@@ -31,6 +32,11 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     @Override
     public UCICommand visitIsready(UciParser.IsreadyContext ctx) {
         return UCIRequest.isready();
+    }
+
+    @Override
+    public UCICommand visitUcinewgame(UciParser.UcinewgameContext ctx) {
+        return UCIRequest.ucinewgame();
     }
 
 }

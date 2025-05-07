@@ -17,7 +17,6 @@ import net.chesstango.uci.protocol.UCIEngine;
  */
 public interface UCIRequest extends UCICommand {
 
-
     /**
      * Executes the request using the provided UCIEngine instance.
      *
@@ -29,7 +28,11 @@ public interface UCIRequest extends UCICommand {
         return ReqUci.INSTANCE;
     }
 
-    static UCICommand isready() {
+    static ReqIsReady isready() {
         return ReqIsReady.INSTANCE;
+    }
+
+    static ReqUciNewGame ucinewgame() {
+        return ReqUciNewGame.INSTANCE;
     }
 }

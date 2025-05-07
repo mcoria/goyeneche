@@ -8,11 +8,14 @@ command: (request | response) EOF;
 request
     : uci
     | isready
+    | ucinewgame
     ;
 
 uci: 'uci';
 
 isready: 'isready' ;
+
+ucinewgame: 'ucinewgame';
 
 response
     : id

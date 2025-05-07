@@ -8,7 +8,7 @@ import net.chesstango.uci.protocol.UCIEngine;
  */
 public class ReqIsReady implements UCIRequest {
 
-    static final UCICommand INSTANCE = new ReqIsReady();
+    static final ReqIsReady INSTANCE = new ReqIsReady();
 
     private ReqIsReady() {
     }
