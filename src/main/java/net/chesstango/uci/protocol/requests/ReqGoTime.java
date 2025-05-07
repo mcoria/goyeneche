@@ -1,10 +1,8 @@
-package net.chesstango.uci.protocol.requests.go;
+package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.uci.protocol.requests.ReqGoExecutor;
-import net.chesstango.uci.protocol.requests.ReqGo;
 
 /**
  * @author Mauricio Coria

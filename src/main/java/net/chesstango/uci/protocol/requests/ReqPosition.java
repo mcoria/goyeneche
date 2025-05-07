@@ -16,28 +16,29 @@ public final class ReqPosition implements UCIRequest {
     private final CmdType type;
 
     /**
-     * FEN string tal cual se recibe
+     * FEN string. If null, then the position is the starting position.
      */
     private final String fen;
 
     /**
-     * La lista de movimientos tal cual se recibe
+     * List of moves in UCI format. If null, then no moves are made.
      */
     private final List<String> moves;
 
-    public ReqPosition(String fen, List<String> moves) {
+
+    ReqPosition(String fen, List<String> moves) {
         this.type = CmdType.FEN;
         this.fen = fen;
         this.moves = moves;
     }
 
-    public ReqPosition(List<String> moves) {
+    ReqPosition(List<String> moves) {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = moves;
     }
 
-    public ReqPosition() {
+    ReqPosition() {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = null;

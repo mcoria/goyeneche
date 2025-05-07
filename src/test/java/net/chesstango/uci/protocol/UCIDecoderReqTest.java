@@ -2,10 +2,10 @@ package net.chesstango.uci.protocol;
 
 import net.chesstango.uci.protocol.internal.UCIDecoder;
 import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
-import net.chesstango.uci.protocol.requests.go.ReqGoFast;
-import net.chesstango.uci.protocol.requests.go.ReqGoInfinite;
-import net.chesstango.uci.protocol.requests.go.ReqGoTime;
+import net.chesstango.uci.protocol.requests.ReqGoDepth;
+import net.chesstango.uci.protocol.requests.ReqGoFast;
+import net.chesstango.uci.protocol.requests.ReqGoInfinite;
+import net.chesstango.uci.protocol.requests.ReqGoTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
