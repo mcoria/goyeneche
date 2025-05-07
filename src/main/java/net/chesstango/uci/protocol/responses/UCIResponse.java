@@ -1,4 +1,7 @@
-package net.chesstango.uci.protocol;
+package net.chesstango.uci.protocol.responses;
+
+import net.chesstango.uci.protocol.UCICommand;
+import net.chesstango.uci.protocol.UCIGui;
 
 /**
  * The UCIResponse interface represents response commands sent from the chess engine to the GUI

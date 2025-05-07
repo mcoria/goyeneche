@@ -2,7 +2,7 @@ package net.chesstango.uci.protocol.stream;
 
 import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
+import net.chesstango.uci.protocol.responses.UCIResponse;
 
 /**
  * @author Mauricio Coria

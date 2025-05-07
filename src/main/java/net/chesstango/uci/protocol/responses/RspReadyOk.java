@@ -1,7 +1,6 @@
 package net.chesstango.uci.protocol.responses;
 
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria

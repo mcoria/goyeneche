@@ -2,7 +2,6 @@ package net.chesstango.uci.protocol.responses;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
