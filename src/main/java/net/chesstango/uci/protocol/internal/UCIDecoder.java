@@ -29,11 +29,11 @@ public class UCIDecoder {
         UciLexer calcLexer = new UciLexer(stream);
         CommonTokenStream tokenStream = new CommonTokenStream(calcLexer);
         UciParser calcParser = new UciParser(tokenStream);
-        UciParser.UciContext uciContext = calcParser.uci();
+        UciParser.CommandContext cmdContext = calcParser.command();
 
         TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
 
-        return uciContext.accept(tangoUciVisitor);
+        return cmdContext.accept(tangoUciVisitor);
     }
 
 }

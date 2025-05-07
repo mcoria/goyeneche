@@ -2,8 +2,8 @@ package net.chesstango.uci.protocol;
 
 import net.chesstango.uci.protocol.internal.UCIDecoder;
 import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.requests.go.ReqGoFast;
 import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
+import net.chesstango.uci.protocol.requests.go.ReqGoFast;
 import net.chesstango.uci.protocol.requests.go.ReqGoInfinite;
 import net.chesstango.uci.protocol.requests.go.ReqGoTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,12 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * @author Mauricio Coria
  */
-public class UCIDecoderCmdTest {
+public class UCIDecoderReqTest {
 
     private UCIDecoder decoder = null;
 
@@ -193,7 +194,7 @@ public class UCIDecoderCmdTest {
 
 
     @Test
-    public void test_parse_ready() {
+    public void test_parse_isready() {
         UCICommand result = decoder.parseMessage("isready");
 
         assertInstanceOf(ReqIsReady.class, result);

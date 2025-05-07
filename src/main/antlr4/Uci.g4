@@ -3,32 +3,32 @@
 
 grammar Uci;
 
-uci: (request | response) EOF;
+command: (request | response) EOF;
 
 request
-    : uciRequest
-    | isReadyRequest
+    : uci
+    | isready
     ;
 
-uciRequest: 'uci';
+uci: 'uci';
 
-isReadyRequest: 'isready' ;
+isready: 'isready' ;
 
 response
-    : idResponse
-    | uciOkResponse
-    | readyOkResponse
+    : id
+    | uciok
+    | readyok
     ;
 
-idResponse: 'id' (name | author);
+id: 'id' (name | author);
 
 author: 'name' ' ' STRING;
 
 name: 'author';
 
-uciOkResponse: 'uciok';
+uciok: 'uciok';
 
-readyOkResponse: 'readyok';
+readyok: 'readyok';
 
 STRING : ~('\r' | '\n')+ ;
 

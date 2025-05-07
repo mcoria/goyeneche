@@ -9,25 +9,28 @@ import net.chesstango.uci.protocol.requests.UCIRequest;
 public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
 
     @Override
-    public UCICommand visitUci(UciParser.UciContext ctx) {
-        UciParser.RequestContext request = ctx.request();
-        UciParser.ResponseContext response = ctx.response();
+    public UCICommand visitCommand(UciParser.CommandContext ctx) {
+        UciParser.RequestContext requestCtx = ctx.request();
+        UciParser.ResponseContext responseCtx = ctx.response();
 
-        return request != null ? visitRequest(request) : response != null ? visitResponse(response) : null;
+        return requestCtx != null ? visitRequest(requestCtx) : responseCtx != null ? visitResponse(responseCtx) : null;
     }
 
     @Override
     public UCICommand visitRequest(UciParser.RequestContext ctx) {
-        UciParser.UciRequestContext uciRequest = ctx.uciRequest();
-        UciParser.IsReadyRequestContext isReadyRequest = ctx.isReadyRequest();
-
-        return uciRequest != null ? visitUciRequest(uciRequest) : isReadyRequest != null ? visitIsReadyRequest(isReadyRequest) : null;
+        UciParser.UciContext uciCtx = ctx.uci();
+        UciParser.IsreadyContext isReadyCtx = ctx.isready();
+        return uciCtx != null ? visitUci(uciCtx) : isReadyCtx != null ? visitIsready(isReadyCtx) : null;
     }
 
     @Override
-    public UCICommand visitUciRequest(UciParser.UciRequestContext ctx) {
+    public UCICommand visitUci(UciParser.UciContext ctx) {
         return UCIRequest.uci();
     }
 
+    @Override
+    public UCICommand visitIsready(UciParser.IsreadyContext ctx) {
+        return UCIRequest.isready();
+    }
 
 }

@@ -16,6 +16,8 @@ import net.chesstango.uci.protocol.UCIEngine;
  * @author Mauricio Coria
  */
 public interface UCIRequest extends UCICommand {
+
+
     /**
      * Executes the request using the provided UCIEngine instance.
      *
@@ -25,5 +27,9 @@ public interface UCIRequest extends UCICommand {
 
     static ReqUci uci() {
         return ReqUci.INSTANCE;
+    }
+
+    static UCICommand isready() {
+        return ReqIsReady.INSTANCE;
     }
 }
