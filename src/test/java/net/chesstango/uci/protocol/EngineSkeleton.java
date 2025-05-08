@@ -99,7 +99,7 @@ public class EngineSkeleton extends AbstractUCIEngine {
     public void do_uci(ReqUci reqUci) {
         replyResponse(UCIResponse.idName("Skeleton 1.0"));
         replyResponse(UCIResponse.idAuthor("John Doe"));
-        replyResponse(RspOption.createStringOption("NalimovPath", "c:\\book"));
+        replyResponse(UCIResponse.createStringOption("NalimovPath", "c:\\book"));
         replyResponse(UCIResponse.uciok());
     }
 

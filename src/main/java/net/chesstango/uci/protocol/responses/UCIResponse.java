@@ -55,4 +55,12 @@ public interface UCIResponse extends UCICommand {
     static RspBestMove bestMove(String bestMove) {
         return new RspBestMove(bestMove);
     }
+
+    static RspOption createStringOption(String name, String defaultValue) {
+        return new RspOption(name, RspOption.OptionType.STRING, defaultValue, null, null);
+    }
+
+    static RspOption createCheckOption(String name, boolean defaultValue) {
+        return new RspOption(name, RspOption.OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+    }
 }

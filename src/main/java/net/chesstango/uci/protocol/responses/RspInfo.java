@@ -5,11 +5,11 @@ import net.chesstango.uci.protocol.UCIGui;
 /**
  * @author Mauricio Coria
  */
-public class RspInfo implements UCIResponse {
+public final class RspInfo implements UCIResponse {
 
     private final String info;
 
-    public RspInfo(String info){
+    RspInfo(String info){
         this.info = info;
     }
 

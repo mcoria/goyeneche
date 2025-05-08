@@ -5,7 +5,7 @@ import net.chesstango.uci.protocol.UCIGui;
 /**
  * @author Mauricio Coria
  */
-public class RspReadyOk implements UCIResponse {
+public final class RspReadyOk implements UCIResponse {
 
     static final RspReadyOk INSTANCE = new RspReadyOk();
 

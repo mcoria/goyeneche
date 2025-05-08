@@ -6,7 +6,7 @@ import net.chesstango.uci.protocol.UCIGui;
 /**
  * @author Mauricio Coria
  */
-public class RspId implements UCIResponse {
+public final class RspId implements UCIResponse {
 
     public enum RspIdType {NAME, AUTHOR}
 

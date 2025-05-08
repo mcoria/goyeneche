@@ -5,6 +5,7 @@ import net.chesstango.uci.protocol.requests.ReqGo;
 import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.requests.UCIRequest;
 import net.chesstango.uci.protocol.responses.RspId;
+import net.chesstango.uci.protocol.responses.RspOption;
 import net.chesstango.uci.protocol.responses.UCIResponse;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
@@ -109,6 +110,8 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             } else if (moves.size() == 2) {
                 return UCIResponse.bestMove(moves.getFirst().STRING().getText(), moves.get(1).STRING().getText());
             }
+        } else if ("option".equals(firstTokenText)) {
+            return visitOption(ctx.option());
         }
 
         throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
@@ -137,6 +140,26 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
     }
 
+    @Override
+    public RspOption visitOption(UciParser.OptionContext ctx) {
+        return visitOptiontype(ctx.optiontype());
+    }
+
+    @Override
+    public RspOption visitOptiontype(UciParser.OptiontypeContext ctx) {
+        Token firstToken = ctx.getStart();
+        String firstTokenText = firstToken.getText();
+
+        UciParser.OptionContext optionContext = (UciParser.OptionContext) ctx.getParent();
+        String name = optionContext.optionname().STRING().getText();
+
+        if ("string".equals(firstTokenText)) {
+            String defaultValue = ctx.STRING().getText();
+            return UCIResponse.createStringOption(name, defaultValue);
+        }
+
+        throw new UnsupportedOperationException("Unsupported option: " + firstTokenText);
+    }
 
     private List<String> decodeMoves(List<UciParser.MoveContext> moveCtxList) {
         if (moveCtxList == null) {

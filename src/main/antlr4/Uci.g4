@@ -31,6 +31,7 @@ response
     | 'uciok'
     | 'readyok'
     | 'bestmove' move ('ponder' move)?
+    | 'option' option
     ;
 
 id: ('name' name | 'author' author);
@@ -40,6 +41,15 @@ name: STRING*;
 author: STRING*;
 
 move: STRING;
+
+option: 'name' optionname 'type' optiontype;
+
+optionname: STRING;
+
+optiontype
+    : 'check'
+    | 'string' 'default' STRING;
+
 
 STRING : ~[ \t\r\n]+;
 
