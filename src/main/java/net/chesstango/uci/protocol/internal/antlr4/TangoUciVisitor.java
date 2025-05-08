@@ -3,6 +3,7 @@ package net.chesstango.uci.protocol.internal.antlr4;
 import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.requests.ReqGo;
 import net.chesstango.uci.protocol.requests.ReqPosition;
+import net.chesstango.uci.protocol.requests.ReqSetOption;
 import net.chesstango.uci.protocol.requests.UCIRequest;
 import net.chesstango.uci.protocol.responses.RspId;
 import net.chesstango.uci.protocol.responses.RspOption;
@@ -35,6 +36,8 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return UCIRequest.uci();
         } else if ("isready".equals(firstTokenText)) {
             return UCIRequest.isready();
+        } else if ("setoption".equals(firstTokenText)) {
+            return visitSetoption(ctx.setoption());
         } else if ("ucinewgame".equals(firstTokenText)) {
             return UCIRequest.ucinewgame();
         } else if ("position".equals(firstTokenText)) {
@@ -48,6 +51,16 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         }
 
         throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+    }
+
+    @Override
+    public ReqSetOption visitSetoption(UciParser.SetoptionContext ctx) {
+        String optionName = ctx.optionname().STRING().getText();
+        if (ctx.STRING() != null) {
+            String optionValue = ctx.STRING().getText();
+            return UCIRequest.setOption(optionName, optionValue);
+        }
+        return UCIRequest.setOption(optionName);
     }
 
     @Override

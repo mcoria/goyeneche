@@ -5,12 +5,15 @@ command: (request | response) EOF;
 request
     : 'uci'
     | 'isready'
+    | 'setoption' setoption
     | 'ucinewgame'
     | 'position' position
     | 'go' (go)?
     | 'stop'
     | 'quit'
     ;
+
+setoption: 'name' optionname ('value' STRING)?;
 
 position: ('startpos' | 'fen' fen) ('moves' move+)?;
 
@@ -47,7 +50,7 @@ option: 'name' optionname 'type' optiontype;
 optionname: STRING;
 
 optiontype
-    : 'check'
+    : 'button'
     | 'string' 'default' STRING;
 
 

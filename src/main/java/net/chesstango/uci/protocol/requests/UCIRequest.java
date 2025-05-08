@@ -66,4 +66,12 @@ public interface UCIRequest extends UCICommand {
     static ReqStop stop() {
         return ReqStop.INSTANCE;
     }
+
+    static ReqSetOption setOption(String name) {
+        return new ReqSetOption(name, null);
+    }
+
+    static ReqSetOption setOption(String name, String value) {
+        return new ReqSetOption(name, value);
+    }
 }
