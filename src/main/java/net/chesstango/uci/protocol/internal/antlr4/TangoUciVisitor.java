@@ -100,9 +100,15 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         } else if ("movetime".equals(firstTokenText)) {
             int depth = Integer.parseInt(goCtx.movetime().STRING().getText());
             return UCIRequest.goTime(depth);
+        } else if ("wtime".equals(firstTokenText)) {
+            int wTime = Integer.parseInt(goCtx.wtime().STRING().getText());
+            int wInc = Integer.parseInt(goCtx.winc().STRING().getText());
+            int bTime = Integer.parseInt(goCtx.btime().STRING().getText());
+            int bInc = Integer.parseInt(goCtx.binc().STRING().getText());
+            return UCIRequest.goFast(wTime, wInc, bTime, bInc);
         }
 
-        throw new UnsupportedOperationException("Unsupported go command: " + firstTokenText);
+        throw new UnsupportedOperationException("Unsupported go option: " + firstTokenText);
     }
 
     @Override

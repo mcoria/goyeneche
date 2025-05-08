@@ -47,16 +47,20 @@ public interface UCIRequest extends UCICommand {
         return new ReqPosition(moves);
     }
 
-    static ReqGo go() {
+    static ReqGoInfinite go() {
         return ReqGoInfinite.INSTANCE;
     }
 
-    static ReqGo goDepth(int depth) {
+    static ReqGoDepth goDepth(int depth) {
         return new ReqGoDepth(depth);
     }
 
-    static ReqGo goTime(int time) {
+    static ReqGoTime goTime(int time) {
         return new ReqGoTime(time);
+    }
+
+    static ReqGoFast goFast(int wTime, int wInc, int bTime, int bInc) {
+        return new ReqGoFast(wTime, wInc, bTime, bInc);
     }
 
     static ReqQuit quit() {

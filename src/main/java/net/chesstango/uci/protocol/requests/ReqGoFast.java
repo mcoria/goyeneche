@@ -10,17 +10,23 @@ import lombok.experimental.Accessors;
  * @author Mauricio Coria
  */
 @Getter
-@Setter
 @Accessors(chain = true)
 public final class ReqGoFast extends ReqGo {
 
-    private int wTime;
+    private final int wTime;
 
-    private int wInc;
+    private final int wInc;
 
-    private int bTime;
+    private final int bTime;
 
-    private int bInc;
+    private final int bInc;
+
+    ReqGoFast(int wTime, int wInc, int bTime, int bInc) {
+        this.wTime = wTime;
+        this.wInc = wInc;
+        this.bTime = bTime;
+        this.bInc = bInc;
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {

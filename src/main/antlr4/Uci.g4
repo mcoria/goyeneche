@@ -23,11 +23,15 @@ go
     : 'infinite'
     | 'depth' depthparam
     | 'movetime' movetime
+    | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc
     ;
 
 depthparam: STRING;
-
 movetime: STRING;
+wtime: STRING;
+btime: STRING;
+winc: STRING;
+binc: STRING;
 
 response
     : 'id' id
