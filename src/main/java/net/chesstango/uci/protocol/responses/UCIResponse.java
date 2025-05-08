@@ -30,4 +30,9 @@ public interface UCIResponse extends UCICommand {
      * @param executor The UCIGui instance that will execute the response.
      */
     void execute(UCIGui executor);
+
+
+    static RspUciOk uciok() {
+        return RspUciOk.INSTANCE;
+    }
 }

@@ -6,32 +6,29 @@ request
     : 'uci'
     | 'isready'
     | 'ucinewgame'
-    | 'position' positionparams
+    | 'position' position
     | 'stop'
     | 'quit'
     ;
 
-positionparams: ('startpos' | 'fen' fen) ('moves' moves)?;
+position: ('startpos' | 'fen' fen) ('moves' moves)?;
 
 fen: STRING STRING STRING STRING STRING STRING;
 
 moves: STRING*;
 
 response
-    : id
-    | uciok
-    | readyok
+    : 'id' id
+    | 'uciok'
+    | 'readyok'
     ;
 
-id: 'id' (name | author);
 
-author: 'name' STRING;
+id: ('name' name | 'author' author);
 
-name: 'author';
+name: STRING*;
 
-uciok: 'uciok';
-
-readyok: 'readyok';
+author: STRING*;
 
 STRING : ~[ \t\r\n]+;
 

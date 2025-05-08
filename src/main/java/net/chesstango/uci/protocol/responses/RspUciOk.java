@@ -7,6 +7,8 @@ import net.chesstango.uci.protocol.UCIGui;
  */
 public class RspUciOk implements UCIResponse {
 
+    static final RspUciOk INSTANCE = new RspUciOk();
+
     @Override
     public void execute(UCIGui executor) {
         executor.do_uciOk(this);

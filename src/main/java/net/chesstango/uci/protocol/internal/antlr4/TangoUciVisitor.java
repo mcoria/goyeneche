@@ -3,6 +3,7 @@ package net.chesstango.uci.protocol.internal.antlr4;
 import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.requests.UCIRequest;
+import net.chesstango.uci.protocol.responses.UCIResponse;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -35,7 +36,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         } else if ("ucinewgame".equals(firstTokenText)) {
             return UCIRequest.ucinewgame();
         } else if ("position".equals(firstTokenText)) {
-            return visitPositionparams(ctx.positionparams());
+            return visitPosition(ctx.position());
         } else if ("stop".equals(firstTokenText)) {
             return UCIRequest.stop();
         } else if ("quit".equals(firstTokenText)) {
@@ -45,9 +46,22 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
     }
 
+    @Override
+    public UCICommand visitResponse(UciParser.ResponseContext ctx) {
+        Token firstToken = ctx.getStart();
+
+        String firstTokenText = firstToken.getText();
+
+        if ("uciok".equals(firstTokenText)) {
+            return UCIResponse.uciok();
+        }
+
+        throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
+    }
+
 
     @Override
-    public ReqPosition visitPositionparams(UciParser.PositionparamsContext positionparams) {
+    public ReqPosition visitPosition(UciParser.PositionContext positionparams) {
         Token firstToken = positionparams.getStart();
 
         String firstTokenText = firstToken.getText();
