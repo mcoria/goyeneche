@@ -1,17 +1,15 @@
 package net.chesstango.uci.protocol.responses;
 
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
  */
-public class RspUciOk implements UCIResponse {
+public final class RspUciOk implements UCIResponse {
 
-    @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.UCIOK;
-    }
+    static final RspUciOk INSTANCE = new RspUciOk();
+
+    private RspUciOk() {}
 
     @Override
     public void execute(UCIGui executor) {

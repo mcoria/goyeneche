@@ -2,23 +2,22 @@ package net.chesstango.uci.protocol.responses;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
  */
 @Getter
-public class RspBestMove implements UCIResponse {
+public final class RspBestMove implements UCIResponse {
 
     private final String bestMove;
     private final String ponderMove;
 
-    public RspBestMove(String bestMove) {
+    RspBestMove(String bestMove) {
         this.bestMove = bestMove;
         this.ponderMove = null;
     }
 
-    public RspBestMove(String bestMove, String ponderMove) {
+    RspBestMove(String bestMove, String ponderMove) {
         this.bestMove = bestMove;
         this.ponderMove = ponderMove;
     }
@@ -26,11 +25,6 @@ public class RspBestMove implements UCIResponse {
     @Override
     public void execute(UCIGui executor) {
         executor.do_bestMove(this);
-    }
-
-    @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.BESTMOVE;
     }
 
     @Override

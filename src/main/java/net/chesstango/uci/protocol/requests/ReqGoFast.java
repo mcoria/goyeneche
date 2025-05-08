@@ -1,10 +1,8 @@
-package net.chesstango.uci.protocol.requests.go;
+package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.uci.protocol.requests.ReqGoExecutor;
-import net.chesstango.uci.protocol.requests.ReqGo;
 
 /**
  * Fast chess: https://en.wikipedia.org/wiki/Fast_chess
@@ -12,17 +10,23 @@ import net.chesstango.uci.protocol.requests.ReqGo;
  * @author Mauricio Coria
  */
 @Getter
-@Setter
 @Accessors(chain = true)
-public class ReqGoFast extends ReqGo {
+public final class ReqGoFast extends ReqGo {
 
-    private int wTime;
+    private final int wTime;
 
-    private int wInc;
+    private final int wInc;
 
-    private int bTime;
+    private final int bTime;
 
-    private int bInc;
+    private final int bInc;
+
+    ReqGoFast(int wTime, int wInc, int bTime, int bInc) {
+        this.wTime = wTime;
+        this.wInc = wInc;
+        this.bTime = bTime;
+        this.bInc = bInc;
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {

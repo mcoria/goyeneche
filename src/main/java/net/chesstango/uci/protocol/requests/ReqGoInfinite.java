@@ -1,10 +1,8 @@
-package net.chesstango.uci.protocol.requests.go;
+package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.uci.protocol.requests.ReqGoExecutor;
-import net.chesstango.uci.protocol.requests.ReqGo;
 
 /**
  * @author Mauricio Coria
@@ -12,9 +10,12 @@ import net.chesstango.uci.protocol.requests.ReqGo;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoTime extends ReqGo {
+public final class ReqGoInfinite extends ReqGo {
 
-    private int timeOut;
+    static final ReqGoInfinite INSTANCE = new ReqGoInfinite();
+
+    private ReqGoInfinite() {
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {
@@ -23,6 +24,6 @@ public class ReqGoTime extends ReqGo {
 
     @Override
     public String toString() {
-        return String.format("go movetime %d", timeOut);
+        return "go infinite";
     }
 }

@@ -2,12 +2,11 @@ package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
  */
-public class ReqSetOption implements UCIRequest {
+public final class ReqSetOption implements UCIRequest {
 
     @Getter
     private final String id;
@@ -19,12 +18,6 @@ public class ReqSetOption implements UCIRequest {
         this.id = id;
         this.value = value;
     }
-
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.SETOPTION;
-    }
-
 
     @Override
     public void execute(UCIEngine executor) {

@@ -1,10 +1,8 @@
 package net.chesstango.uci.protocol.stream;
 
-import net.chesstango.uci.protocol.UCIGui;
 import net.chesstango.uci.protocol.UCICommand;
-import net.chesstango.uci.protocol.UCIResponse;
-
-import static net.chesstango.uci.protocol.UCICommand.MessageType.Response;
+import net.chesstango.uci.protocol.UCIGui;
+import net.chesstango.uci.protocol.responses.UCIResponse;
 
 /**
  * @author Mauricio Coria
@@ -18,9 +16,9 @@ public class UCIOutputStreamGuiExecutor implements UCIOutputStream {
     }
 
     @Override
-    public void accept(UCICommand message) {
-        if (Response.equals(message.getMessageType())) {
-            ((UCIResponse) message).execute(executor);
+    public void accept(UCICommand uciCommand) {
+        if (uciCommand instanceof UCIResponse response) {
+            response.execute(executor);
         }
     }
 }

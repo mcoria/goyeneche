@@ -2,7 +2,6 @@ package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 import java.util.List;
 
@@ -10,43 +9,33 @@ import java.util.List;
  * @author Mauricio Coria
  */
 @Getter
-public class ReqPosition implements UCIRequest {
+public final class ReqPosition implements UCIRequest {
 
-    public enum CmdType {STARTPOS, FEN};
+    public enum CmdType {STARTPOS, FEN}
 
     private final CmdType type;
 
     /**
-     * FEN string tal cual se recibe
+     * FEN string. If null, then the position is the starting position.
      */
     private final String fen;
 
     /**
-     * La lista de movimientos tal cual se recibe
+     * List of moves in UCI format. If null, then no moves are made.
      */
     private final List<String> moves;
 
-    public ReqPosition(String fen, List<String> moves) {
+
+    ReqPosition(String fen, List<String> moves) {
         this.type = CmdType.FEN;
         this.fen = fen;
         this.moves = moves;
     }
 
-    public ReqPosition(List<String> moves) {
+    ReqPosition(List<String> moves) {
         this.type = CmdType.STARTPOS;
         this.fen = null;
         this.moves = moves;
-    }
-
-    public ReqPosition() {
-        this.type = CmdType.STARTPOS;
-        this.fen = null;
-        this.moves = null;
-    }
-
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.POSITION;
     }
 
     @Override
@@ -63,7 +52,6 @@ public class ReqPosition implements UCIRequest {
         } else {
             sb.append("fen ").append(fen);
         }
-
         if (moves != null && !moves.isEmpty()) {
             sb.append(" moves");
             for (String move : moves) {
@@ -71,7 +59,6 @@ public class ReqPosition implements UCIRequest {
                 sb.append(move);
             }
         }
-
         return sb.toString();
     }
 }

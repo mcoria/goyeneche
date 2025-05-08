@@ -1,18 +1,16 @@
 package net.chesstango.uci.protocol.requests;
 
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
  */
-public class ReqUciNewGame implements UCIRequest {
+public final class ReqUciNewGame implements UCIRequest {
 
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.UCINEWGAME;
+    static final ReqUciNewGame INSTANCE = new ReqUciNewGame();
+
+    private ReqUciNewGame() {
     }
-
 
     @Override
     public void execute(UCIEngine executor) {

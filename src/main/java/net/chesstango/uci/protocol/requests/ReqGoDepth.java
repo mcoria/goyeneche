@@ -1,10 +1,8 @@
-package net.chesstango.uci.protocol.requests.go;
+package net.chesstango.uci.protocol.requests;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.chesstango.uci.protocol.requests.ReqGoExecutor;
-import net.chesstango.uci.protocol.requests.ReqGo;
 
 /**
  * @author Mauricio Coria
@@ -12,7 +10,13 @@ import net.chesstango.uci.protocol.requests.ReqGo;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoInfinite extends ReqGo {
+public final class ReqGoDepth extends ReqGo {
+
+    private int depth;
+
+    ReqGoDepth(int depth) {
+        this.depth = depth;
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {
@@ -21,6 +25,6 @@ public class ReqGoInfinite extends ReqGo {
 
     @Override
     public String toString() {
-        return "go infinite";
+        return String.format("go depth %d", depth);
     }
 }

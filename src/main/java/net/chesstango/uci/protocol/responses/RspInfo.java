@@ -1,22 +1,16 @@
 package net.chesstango.uci.protocol.responses;
 
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
  */
-public class RspInfo implements UCIResponse {
+public final class RspInfo implements UCIResponse {
 
     private final String info;
 
-    public RspInfo(String info){
+    RspInfo(String info){
         this.info = info;
-    }
-
-    @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.INFO;
     }
 
     @Override

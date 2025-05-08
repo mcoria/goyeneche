@@ -2,23 +2,18 @@ package net.chesstango.uci.protocol;
 
 import net.chesstango.uci.protocol.internal.UCIDecoder;
 import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.requests.go.ReqGoFast;
-import net.chesstango.uci.protocol.requests.go.ReqGoDepth;
-import net.chesstango.uci.protocol.requests.go.ReqGoInfinite;
-import net.chesstango.uci.protocol.requests.go.ReqGoTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * @author Mauricio Coria
  */
-public class UCIDecoderCmdTest {
-
+public class UCIDecoderReqTest {
     private UCIDecoder decoder = null;
 
     @BeforeEach
@@ -30,9 +25,9 @@ public class UCIDecoderCmdTest {
     public void test_parse_position_startpos() {
         UCICommand result = decoder.parseMessage("position startpos");
 
-        assertTrue(result instanceof UCIRequest);
+        assertInstanceOf(UCIRequest.class, result);
 
-        assertTrue(result instanceof ReqPosition);
+        assertInstanceOf(ReqPosition.class, result);
 
         ReqPosition command = (ReqPosition) result;
 
@@ -48,7 +43,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_postition_startpos_with_1_move() {
         UCICommand result = decoder.parseMessage("position startpos moves f2f4");
 
-        assertTrue(result instanceof ReqPosition);
+        assertInstanceOf(ReqPosition.class, result);
 
         ReqPosition command = (ReqPosition) result;
 
@@ -65,7 +60,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_postition_startpos_with_2_move() {
         UCICommand result = decoder.parseMessage("position startpos moves e2e3 e7e5");
 
-        assertTrue(result instanceof ReqPosition);
+        assertInstanceOf(ReqPosition.class, result);
 
         ReqPosition command = (ReqPosition) result;
 
@@ -84,24 +79,42 @@ public class UCIDecoderCmdTest {
     public void test_parse_postition_fen_with_1_move() {
         UCICommand result = decoder.parseMessage("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4");
 
-        assertTrue(result instanceof ReqPosition);
+        assertInstanceOf(ReqPosition.class, result);
 
         ReqPosition command = (ReqPosition) result;
 
-        List<String> moves = command.getMoves();
-
-        assertEquals(1, moves.size());
         assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
-        assertEquals("e2e4", moves.get(0));
+
+        List<String> moves = command.getMoves();
+        assertEquals(1, moves.size());
+        assertEquals("e2e4", moves.getFirst());
 
         assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4", result.toString());
+    }
+
+    @Test
+    public void test_parse_postition_fen_with_2_move() {
+        UCICommand result = decoder.parseMessage("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4 e7e5");
+
+        assertInstanceOf(ReqPosition.class, result);
+
+        ReqPosition command = (ReqPosition) result;
+
+        assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
+
+        List<String> moves = command.getMoves();
+        assertEquals(2, moves.size());
+        assertEquals("e2e4", moves.get(0));
+        assertEquals("e7e5", moves.get(1));
+
+        assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4 e7e5", result.toString());
     }
 
     @Test
     public void test_parse_uci() {
         UCICommand result = decoder.parseMessage("uci");
 
-        assertTrue(result instanceof ReqUci);
+        assertInstanceOf(ReqUci.class, result);
 
         assertEquals("uci", result.toString());
     }
@@ -110,7 +123,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_ucinewgame() {
         UCICommand result = decoder.parseMessage("ucinewgame");
 
-        assertTrue(result instanceof ReqUciNewGame);
+        assertInstanceOf(ReqUciNewGame.class, result);
 
         assertEquals("ucinewgame", result.toString());
     }
@@ -119,7 +132,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_stop() {
         UCICommand result = decoder.parseMessage("stop");
 
-        assertTrue(result instanceof ReqStop);
+        assertInstanceOf(ReqStop.class, result);
 
         assertEquals("stop", result.toString());
     }
@@ -128,7 +141,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_quit() {
         UCICommand result = decoder.parseMessage("quit");
 
-        assertTrue(result instanceof ReqQuit);
+        assertInstanceOf(ReqQuit.class, result);
 
         assertEquals("quit", result.toString());
     }
@@ -137,8 +150,8 @@ public class UCIDecoderCmdTest {
     public void test_parse_go() {
         UCICommand result = decoder.parseMessage("go");
 
-        assertTrue(result instanceof ReqGo);
-        assertTrue(result instanceof ReqGoInfinite);
+        assertInstanceOf(ReqGo.class, result);
+        assertInstanceOf(ReqGoInfinite.class, result);
 
         assertEquals("go infinite", result.toString());
     }
@@ -147,8 +160,8 @@ public class UCIDecoderCmdTest {
     public void test_parse_go_infinite() {
         UCICommand result = decoder.parseMessage("go infinite");
 
-        assertTrue(result instanceof ReqGo);
-        assertTrue(result instanceof ReqGoInfinite);
+        assertInstanceOf(ReqGo.class, result);
+        assertInstanceOf(ReqGoInfinite.class, result);
 
         assertEquals("go infinite", result.toString());
     }
@@ -157,7 +170,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_go_depth() {
         UCICommand result = decoder.parseMessage("go depth 1");
 
-        assertTrue(result instanceof ReqGo);
+        assertInstanceOf(ReqGo.class, result);
 
         ReqGoDepth go = (ReqGoDepth) result;
         assertEquals(1, go.getDepth());
@@ -169,7 +182,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_go_movetime() {
         UCICommand result = decoder.parseMessage("go movetime 20000");
 
-        assertTrue(result instanceof ReqGo);
+        assertInstanceOf(ReqGo.class, result);
 
         ReqGoTime go = (ReqGoTime) result;
         assertEquals(20000, go.getTimeOut());
@@ -181,7 +194,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_go_movebyclock() {
         UCICommand result = decoder.parseMessage("go wtime 120000 btime 130000 winc 6000 binc 7000");
 
-        assertTrue(result instanceof ReqGo);
+        assertInstanceOf(ReqGo.class, result);
 
         ReqGoFast go = (ReqGoFast) result;
         assertEquals(120000, go.getWTime());
@@ -194,10 +207,10 @@ public class UCIDecoderCmdTest {
 
 
     @Test
-    public void test_parse_ready() {
+    public void test_parse_isready() {
         UCICommand result = decoder.parseMessage("isready");
 
-        assertTrue(result instanceof ReqIsReady);
+        assertInstanceOf(ReqIsReady.class, result);
 
         assertEquals("isready", result.toString());
     }
@@ -206,7 +219,7 @@ public class UCIDecoderCmdTest {
     public void test_parse_setoption() {
         UCICommand result = decoder.parseMessage("setoption name tablebase value c:/bla/ble.bin");
 
-        assertTrue(result instanceof ReqSetOption);
+        assertInstanceOf(ReqSetOption.class, result);
 
         ReqSetOption option = (ReqSetOption) result;
 

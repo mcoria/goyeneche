@@ -1,16 +1,15 @@
 package net.chesstango.uci.protocol.requests;
 
 import net.chesstango.uci.protocol.UCIEngine;
-import net.chesstango.uci.protocol.UCIRequest;
 
 /**
  * @author Mauricio Coria
  */
-public class ReqQuit implements UCIRequest {
+public final class ReqQuit implements UCIRequest {
 
-    @Override
-    public UCIRequestType getRequestType() {
-        return UCIRequestType.QUIT;
+    static final ReqQuit INSTANCE = new ReqQuit();
+
+    private ReqQuit() {
     }
 
     @Override

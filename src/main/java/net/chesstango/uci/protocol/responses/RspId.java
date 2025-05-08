@@ -2,12 +2,11 @@ package net.chesstango.uci.protocol.responses;
 
 import lombok.Getter;
 import net.chesstango.uci.protocol.UCIGui;
-import net.chesstango.uci.protocol.UCIResponse;
 
 /**
  * @author Mauricio Coria
  */
-public class RspId implements UCIResponse {
+public final class RspId implements UCIResponse {
 
     public enum RspIdType {NAME, AUTHOR}
 
@@ -16,7 +15,7 @@ public class RspId implements UCIResponse {
     @Getter
     private final String text;
 
-    public RspId(RspIdType type, String text) {
+    RspId(RspIdType type, String text) {
         this.type = type;
         this.text = text;
     }
@@ -28,11 +27,6 @@ public class RspId implements UCIResponse {
     @Override
     public void execute(UCIGui executor) {
         executor.do_id(this);
-    }
-
-    @Override
-    public UCIResponseType getResponseType() {
-        return UCIResponseType.ID;
     }
 
     @Override
