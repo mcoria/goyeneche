@@ -18,10 +18,13 @@ fen: STRING STRING STRING STRING STRING STRING;
 
 go
     : 'infinite'
-    | 'depth' depths
+    | 'depth' depthparam
+    | 'movetime' movetime
     ;
 
-depths: STRING;
+depthparam: STRING;
+
+movetime: STRING;
 
 response
     : 'id' id

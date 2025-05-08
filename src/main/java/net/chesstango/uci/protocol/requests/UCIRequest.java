@@ -55,6 +55,10 @@ public interface UCIRequest extends UCICommand {
         return new ReqGoDepth(depth);
     }
 
+    static ReqGo goTime(int time) {
+        return new ReqGoTime(time);
+    }
+
     static ReqQuit quit() {
         return ReqQuit.INSTANCE;
     }
