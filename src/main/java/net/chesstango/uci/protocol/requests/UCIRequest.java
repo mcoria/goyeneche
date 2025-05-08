@@ -3,6 +3,8 @@ package net.chesstango.uci.protocol.requests;
 import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.UCIEngine;
 
+import java.util.List;
+
 /**
  * The UCIRequest interface represents a command request sent to a chess engine
  * as part of the Universal Chess Interface (UCI) protocol. Implementations of this
@@ -34,6 +36,14 @@ public interface UCIRequest extends UCICommand {
 
     static ReqUciNewGame ucinewgame() {
         return ReqUciNewGame.INSTANCE;
+    }
+
+    static ReqPosition positionFEN(String fen, List<String> moves) {
+        return new ReqPosition(fen, moves);
+    }
+
+    static ReqPosition position(List<String> moves) {
+        return new ReqPosition(moves);
     }
 
     static ReqQuit quit() {

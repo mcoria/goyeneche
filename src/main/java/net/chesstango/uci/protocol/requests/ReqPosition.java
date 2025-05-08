@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public final class ReqPosition implements UCIRequest {
 
-    public enum CmdType {STARTPOS, FEN};
+    public enum CmdType {STARTPOS, FEN}
 
     private final CmdType type;
 
@@ -38,12 +38,6 @@ public final class ReqPosition implements UCIRequest {
         this.moves = moves;
     }
 
-    ReqPosition() {
-        this.type = CmdType.STARTPOS;
-        this.fen = null;
-        this.moves = null;
-    }
-
     @Override
     public void execute(UCIEngine executor) {
         executor.do_position(this);
@@ -58,7 +52,6 @@ public final class ReqPosition implements UCIRequest {
         } else {
             sb.append("fen ").append(fen);
         }
-
         if (moves != null && !moves.isEmpty()) {
             sb.append(" moves");
             for (String move : moves) {
@@ -66,7 +59,6 @@ public final class ReqPosition implements UCIRequest {
                 sb.append(move);
             }
         }
-
         return sb.toString();
     }
 }
