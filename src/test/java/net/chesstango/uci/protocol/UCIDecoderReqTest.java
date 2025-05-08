@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
  * @author Mauricio Coria
  */
 public class UCIDecoderReqTest {
-
     private UCIDecoder decoder = null;
 
     @BeforeEach

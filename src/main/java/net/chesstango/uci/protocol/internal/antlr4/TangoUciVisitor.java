@@ -102,6 +102,13 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return UCIResponse.uciok();
         } else if ("readyok".equals(firstTokenText)) {
             return UCIResponse.readyok();
+        } else if ("bestmove".equals(firstTokenText)) {
+            List<UciParser.MoveContext> moves = ctx.move();
+            if (moves.size() == 1) {
+                return UCIResponse.bestMove(moves.getFirst().STRING().getText());
+            } else if (moves.size() == 2) {
+                return UCIResponse.bestMove(moves.getFirst().STRING().getText(), moves.get(1).STRING().getText());
+            }
         }
 
         throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
