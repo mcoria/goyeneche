@@ -1,6 +1,7 @@
 package net.chesstango.uci.protocol.internal.antlr4;
 
 import net.chesstango.uci.protocol.UCICommand;
+import net.chesstango.uci.protocol.requests.ReqGo;
 import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.requests.UCIRequest;
 import net.chesstango.uci.protocol.responses.RspId;
@@ -27,7 +28,6 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     @Override
     public UCIRequest visitRequest(UciParser.RequestContext ctx) {
         Token firstToken = ctx.getStart();
-
         String firstTokenText = firstToken.getText();
 
         if ("uci".equals(firstTokenText)) {
@@ -38,6 +38,8 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return UCIRequest.ucinewgame();
         } else if ("position".equals(firstTokenText)) {
             return visitPosition(ctx.position());
+        } else if ("go".equals(firstTokenText)) {
+            return visitGo(ctx.go());
         } else if ("stop".equals(firstTokenText)) {
             return UCIRequest.stop();
         } else if ("quit".equals(firstTokenText)) {
@@ -48,30 +50,11 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     }
 
     @Override
-    public UCIResponse visitResponse(UciParser.ResponseContext ctx) {
-        Token firstToken = ctx.getStart();
-
-        String firstTokenText = firstToken.getText();
-
-        if ("id".equals(firstTokenText)) {
-            return visitId(ctx.id());
-        } else if ("uciok".equals(firstTokenText)) {
-            return UCIResponse.uciok();
-        } else if ("readyok".equals(firstTokenText)) {
-            return UCIResponse.readyok();
-        }
-
-        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
-    }
-
-
-    @Override
     public ReqPosition visitPosition(UciParser.PositionContext positionparams) {
         Token firstToken = positionparams.getStart();
-
         String firstTokenText = firstToken.getText();
 
-        List<String> moves = decodeMoves(positionparams.moves());
+        List<String> moves = decodeMoves(positionparams.move());
 
         if ("startpos".equals(firstTokenText)) {
             return UCIRequest.position(moves);
@@ -85,6 +68,35 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
 
         throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
     }
+
+    @Override
+    public ReqGo visitGo(UciParser.GoContext goCtx) {
+        if (goCtx == null) {
+            return UCIRequest.go();
+        }
+
+        Token firstToken = goCtx.getStart();
+        String firstTokenText = firstToken.getText();
+
+        throw new UnsupportedOperationException("Unsupported go command: " + firstTokenText);
+    }
+
+    @Override
+    public UCIResponse visitResponse(UciParser.ResponseContext ctx) {
+        Token firstToken = ctx.getStart();
+        String firstTokenText = firstToken.getText();
+
+        if ("id".equals(firstTokenText)) {
+            return visitId(ctx.id());
+        } else if ("uciok".equals(firstTokenText)) {
+            return UCIResponse.uciok();
+        } else if ("readyok".equals(firstTokenText)) {
+            return UCIResponse.readyok();
+        }
+
+        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+    }
+
 
     @Override
     public RspId visitId(UciParser.IdContext idCtx) {
@@ -109,13 +121,14 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     }
 
 
-    private List<String> decodeMoves(UciParser.MovesContext movesCtx) {
-        if (movesCtx == null) {
+    private List<String> decodeMoves(List<UciParser.MoveContext> moveCtxList) {
+        if (moveCtxList == null) {
             return Collections.emptyList();
         }
 
-        return movesCtx.STRING()
+        return moveCtxList
                 .stream()
+                .map(UciParser.MoveContext::STRING)
                 .map(TerminalNode::getText)
                 .toList();
     }

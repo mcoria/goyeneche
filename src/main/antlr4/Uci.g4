@@ -7,28 +7,31 @@ request
     | 'isready'
     | 'ucinewgame'
     | 'position' position
+    | 'go' (go)?
     | 'stop'
     | 'quit'
     ;
 
-position: ('startpos' | 'fen' fen) ('moves' moves)?;
+position: ('startpos' | 'fen' fen) ('moves' move+)?;
 
 fen: STRING STRING STRING STRING STRING STRING;
 
-moves: STRING*;
+go: 'infinite';
 
 response
     : 'id' id
     | 'uciok'
     | 'readyok'
+    | 'bestmove' move ('ponder' move)?
     ;
-
 
 id: ('name' name | 'author' author);
 
 name: STRING*;
 
 author: STRING*;
+
+move: STRING;
 
 STRING : ~[ \t\r\n]+;
 

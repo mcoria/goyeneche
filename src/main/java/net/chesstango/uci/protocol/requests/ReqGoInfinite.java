@@ -10,7 +10,12 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoInfinite extends ReqGo {
+public final class ReqGoInfinite extends ReqGo {
+
+    static final ReqGoInfinite INSTANCE = new ReqGoInfinite();
+
+    private ReqGoInfinite() {
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {

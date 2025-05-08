@@ -46,6 +46,10 @@ public interface UCIRequest extends UCICommand {
         return new ReqPosition(moves);
     }
 
+    static ReqGo go() {
+        return ReqGoInfinite.INSTANCE;
+    }
+
     static ReqQuit quit() {
         return ReqQuit.INSTANCE;
     }
