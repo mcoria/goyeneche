@@ -7,17 +7,17 @@ import net.chesstango.uci.protocol.UCIGui;
  * @author Mauricio Coria
  */
 @Getter
-public class RspBestMove implements UCIResponse {
+public final class RspBestMove implements UCIResponse {
 
     private final String bestMove;
     private final String ponderMove;
 
-    public RspBestMove(String bestMove) {
+    RspBestMove(String bestMove) {
         this.bestMove = bestMove;
         this.ponderMove = null;
     }
 
-    public RspBestMove(String bestMove, String ponderMove) {
+    RspBestMove(String bestMove, String ponderMove) {
         this.bestMove = bestMove;
         this.ponderMove = ponderMove;
     }

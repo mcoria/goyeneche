@@ -1,12 +1,8 @@
 package net.chesstango.uci.protocol;
 
-import net.chesstango.uci.protocol.requests.ReqGo;
-import net.chesstango.uci.protocol.requests.ReqGoExecutor;
-import net.chesstango.uci.protocol.requests.ReqIsReady;
-import net.chesstango.uci.protocol.requests.ReqUci;
-import net.chesstango.uci.protocol.requests.ReqGoDepth;
-import net.chesstango.uci.protocol.requests.ReqGoFast;
-import net.chesstango.uci.protocol.responses.*;
+import net.chesstango.uci.protocol.requests.*;
+import net.chesstango.uci.protocol.responses.RspOption;
+import net.chesstango.uci.protocol.responses.UCIResponse;
 import net.chesstango.uci.protocol.stream.UCIActiveStreamReader;
 import net.chesstango.uci.protocol.stream.UCIInputStreamFromStringAdapter;
 import net.chesstango.uci.protocol.stream.UCIOutputStreamToStringAdapter;
@@ -101,10 +97,10 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_uci(ReqUci reqUci) {
-        replyResponse(new RspId(RspId.RspIdType.NAME, "Skeleton 1.0"));
-        replyResponse(new RspId(RspId.RspIdType.AUTHOR, "John Doe"));
+        replyResponse(UCIResponse.idName("Skeleton 1.0"));
+        replyResponse(UCIResponse.idAuthor("John Doe"));
         replyResponse(RspOption.createStringOption("NalimovPath", "c:\\book"));
-        replyResponse(new RspUciOk());
+        replyResponse(UCIResponse.uciok());
     }
 
     /**
@@ -114,7 +110,7 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_isReady(ReqIsReady reqIsReady) {
-        replyResponse(new RspReadyOk());
+        replyResponse(UCIResponse.readyok());
     }
 
 
@@ -142,6 +138,6 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_go(ReqGo reqGo) {
-        replyResponse(new RspBestMove("c2c4"));
+        replyResponse(UCIResponse.bestMove("c2c4"));
     }
 }

@@ -5,9 +5,11 @@ import net.chesstango.uci.protocol.UCIGui;
 /**
  * @author Mauricio Coria
  */
-public class RspUciOk implements UCIResponse {
+public final class RspUciOk implements UCIResponse {
 
     static final RspUciOk INSTANCE = new RspUciOk();
+
+    private RspUciOk() {}
 
     @Override
     public void execute(UCIGui executor) {

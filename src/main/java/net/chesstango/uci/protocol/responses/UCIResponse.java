@@ -35,4 +35,24 @@ public interface UCIResponse extends UCICommand {
     static RspUciOk uciok() {
         return RspUciOk.INSTANCE;
     }
+
+    static RspReadyOk readyok() {
+        return RspReadyOk.INSTANCE;
+    }
+
+    static RspId idName(String author) {
+        return new RspId(RspId.RspIdType.NAME, author);
+    }
+
+    static RspId idAuthor(String author) {
+        return new RspId(RspId.RspIdType.AUTHOR, author);
+    }
+
+    static RspBestMove bestMove(String bestMove, String ponderMove) {
+        return new RspBestMove(bestMove, ponderMove);
+    }
+
+    static RspBestMove bestMove(String bestMove) {
+        return new RspBestMove(bestMove);
+    }
 }

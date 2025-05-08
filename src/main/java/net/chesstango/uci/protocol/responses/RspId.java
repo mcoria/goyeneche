@@ -15,7 +15,7 @@ public class RspId implements UCIResponse {
     @Getter
     private final String text;
 
-    public RspId(RspIdType type, String text) {
+    RspId(RspIdType type, String text) {
         this.type = type;
         this.text = text;
     }

@@ -54,6 +54,8 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
 
         if ("uciok".equals(firstTokenText)) {
             return UCIResponse.uciok();
+        } else if ("readyok".equals(firstTokenText)) {
+            return UCIResponse.readyok();
         }
 
         throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
