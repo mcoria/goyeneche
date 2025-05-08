@@ -13,7 +13,7 @@ request
 
 positionparams: ('startpos' | 'fen' fen) ('moves' moves)?;
 
-fen: STRING*;
+fen: STRING STRING STRING STRING STRING STRING;
 
 moves: STRING*;
 

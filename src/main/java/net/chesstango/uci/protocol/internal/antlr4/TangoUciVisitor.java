@@ -4,8 +4,9 @@ import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.requests.UCIRequest;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +57,11 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         if ("startpos".equals(firstTokenText)) {
             return UCIRequest.position(moves);
         } else if ("fen".equals(firstTokenText)) {
-            return UCIRequest.position(positionparams.fen().getText(), moves);
+            UciParser.FenContext fenCtx = positionparams.fen();
+            Token fenStart = fenCtx.getStart();
+            Token fenStop = fenCtx.getStop();
+            String fenText = fenStart.getInputStream().getText(Interval.of(fenStart.getStartIndex(), fenStop.getStopIndex()));
+            return UCIRequest.position(fenText, moves);
         }
 
         throw new UnsupportedOperationException("Unsupported positionparams: " + positionparams.getText());
@@ -68,10 +73,9 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return Collections.emptyList();
         }
 
-        List<String> moves = new ArrayList<>();
-
-        movesCtx.STRING().forEach(moveCtx -> moves.add(moveCtx.getText()));
-
-        return moves;
+        return movesCtx.STRING()
+                .stream()
+                .map(TerminalNode::getText)
+                .toList();
     }
 }

@@ -84,12 +84,11 @@ public class UCIDecoderReqTest {
 
         ReqPosition command = (ReqPosition) result;
 
-        List<String> moves = command.getMoves();
-
         assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
 
+        List<String> moves = command.getMoves();
         assertEquals(1, moves.size());
-        assertEquals("e2e4", moves.get(0));
+        assertEquals("e2e4", moves.getFirst());
 
         assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4", result.toString());
     }
@@ -102,7 +101,6 @@ public class UCIDecoderReqTest {
 
         ReqPosition command = (ReqPosition) result;
 
-
         assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
 
         List<String> moves = command.getMoves();
@@ -110,7 +108,7 @@ public class UCIDecoderReqTest {
         assertEquals("e2e4", moves.get(0));
         assertEquals("e7e5", moves.get(1));
 
-        assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4", result.toString());
+        assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4 e7e5", result.toString());
     }
 
     @Test
