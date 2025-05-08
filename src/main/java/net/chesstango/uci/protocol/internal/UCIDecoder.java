@@ -9,20 +9,38 @@ import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 /**
+ * The UCIDecoder class provides functionality to parse strings formatted in the Universal Chess
+ * Interface (UCI) protocol into UCICommand objects.
+ *
+ * The UCI protocol is a standard protocol used for communication between chess engines and
+ * graphical user interfaces (GUIs). This class serves as a utility to interpret textual commands
+ * and convert them into corresponding representations for further processing within a chess engine
+ * or GUI implementation.
+ *
+ * The main responsibility of the UCIDecoder is to process input strings, tokenize and analyze
+ * their structure using the underlying lexer and parser, and return a UCICommand object that can
+ * be acted upon by the associated system components.
+ *
  * @author Mauricio Coria
  */
 public class UCIDecoder {
 
 
+    /**
+     * Parses a given input string in the Universal Chess Interface (UCI) protocol format
+     * and returns the corresponding UCICommand.
+     *
+     * @param input the input string in UCI protocol format to be parsed
+     * @return the UCICommand object representing the parsed UCI command
+     */
     public UCICommand parseMessage(String input) {
         CodePointCharStream stream = CharStreams.fromString(input);
-        UciLexer calcLexer = new UciLexer(stream);
-        CommonTokenStream tokenStream = new CommonTokenStream(calcLexer);
-        UciParser calcParser = new UciParser(tokenStream);
-        UciParser.CommandContext cmdContext = calcParser.command();
+        UciLexer lexer = new UciLexer(stream);
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        UciParser parser = new UciParser(tokenStream);
+        UciParser.CommandContext rootContext = parser.command();
         TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
-        return cmdContext.accept(tangoUciVisitor);
+        return rootContext.accept(tangoUciVisitor);
     }
-
 }
 
