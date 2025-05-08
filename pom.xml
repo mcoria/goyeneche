@@ -3,18 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.chesstango</groupId>
-    <artifactId>uci-protocol</artifactId>
+    <artifactId>goyeneche</artifactId>
     <version>1.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>uci-protocol</name>
+    <name>goyeneche</name>
     <description>UCI protocol implementation</description>
-    <url>https://github.com/mcoria/uci-protocol</url>
+    <url>https://github.com/mcoria/goyeneche</url>
 
     <licenses>
         <license>
             <name>BSD 3-Clause License</name>
-            <url>https://github.com/mcoria/uci-protocol?tab=BSD-3-Clause-1-ov-file</url>
+            <url>https://github.com/mcoria/goyeneche?tab=BSD-3-Clause-1-ov-file</url>
         </license>
     </licenses>
 
@@ -26,9 +26,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/mcoria/uci-protocol.git</connection>
-        <developerConnection>scm:git:https://github.com/mcoria/uci-protocol.git</developerConnection>
-        <url>https://github.com/mcoria/uci-protocol/tree/main</url>
+        <connection>scm:git:https://github.com/mcoria/goyeneche.git</connection>
+        <developerConnection>scm:git:https://github.com/mcoria/goyeneche.git</developerConnection>
+        <url>https://github.com/mcoria/goyeneche/tree/main</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -158,7 +158,7 @@
                     <listener>false</listener>
                     <arguments>
                         <argument>-package</argument>
-                        <argument>net.chesstango.uci.protocol.internal.antlr4</argument>
+                        <argument>net.chesstango.goyeneche.internal.antlr4</argument>
                         <argument>-o</argument>
                         <argument>${project.build.directory}/generated-sources/antlr4/net/chesstango/uci/protocol/internal/antlr4</argument>
                     </arguments>

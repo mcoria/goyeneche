@@ -1,8 +1,8 @@
-[![Java CI with Maven](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/uci-protocol/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/mcoria/goyeneche/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/goyeneche/actions/workflows/maven.yml)
 
-# uci-protocol
+# goyeneche
 
-**uci-protocol** is a Java library implementing the **UCI (Universal Chess Interface) Protocol**, enabling easy integration with chess engines or GUI controllers supporting this protocol.
+**goyeneche** is a Java library implementing the **UCI (Universal Chess Interface) Protocol**, enabling easy integration with chess engines or GUI controllers supporting this protocol.
 
 ## Features
 
@@ -17,14 +17,14 @@
 
 ## Installation
 
-To use **uci-protocol** in your project, add the dependency to your `pom.xml` (for Maven) or `build.gradle` (for Gradle).
+To use **goyeneche** in your project, add the dependency to your `pom.xml` (for Maven) or `build.gradle` (for Gradle).
 
 ### Maven
 
 ```xml
 <dependency>
     <groupId>net.chesstango</groupId>
-    <artifactId>uci-protocol</artifactId>
+    <artifactId>goyeneche</artifactId>
     <version>1.0.3</version>
 </dependency>
 ```
@@ -32,12 +32,12 @@ To use **uci-protocol** in your project, add the dependency to your `pom.xml` (f
 ### Gradle
 
 ```groovy
-implementation 'net.chesstango:uci-protocol:1.0.3'
+implementation 'net.chesstango:goyeneche:1.0.3'
 ```
 
 ## Usage
 
-Follow the steps below to integrate **uci-protocol** into your project:
+Follow the steps below to integrate **goyeneche** into your project:
 
 1. **Initialize and Configure the UCI Client**
 
