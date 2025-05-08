@@ -38,7 +38,7 @@ public interface UCIRequest extends UCICommand {
         return ReqUciNewGame.INSTANCE;
     }
 
-    static ReqPosition positionFEN(String fen, List<String> moves) {
+    static ReqPosition position(String fen, List<String> moves) {
         return new ReqPosition(fen, moves);
     }
 

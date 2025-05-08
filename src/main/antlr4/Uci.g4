@@ -3,31 +3,19 @@ grammar Uci;
 command: (request | response) EOF;
 
 request
-    : uci
-    | isready
-    | ucinewgame
-    | position
-    | stop
-    | quit
+    : 'uci'
+    | 'isready'
+    | 'ucinewgame'
+    | 'position' positionparams
+    | 'stop'
+    | 'quit'
     ;
 
-uci: 'uci';
+positionparams: ('startpos' | 'fen' fen) ('moves' moves)?;
 
-isready: 'isready' ;
+fen: STRING*;
 
-ucinewgame: 'ucinewgame';
-
-position: 'position' (startpos | fen) ('moves' move*)?;
-
-startpos: 'startpos';
-
-fen: 'fen' STRING;
-
-move: STRING;
-
-stop: 'stop';
-
-quit: 'quit';
+moves: STRING*;
 
 response
     : id

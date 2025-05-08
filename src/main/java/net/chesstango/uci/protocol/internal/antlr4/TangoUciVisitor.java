@@ -1,7 +1,9 @@
 package net.chesstango.uci.protocol.internal.antlr4;
 
 import net.chesstango.uci.protocol.UCICommand;
-import net.chesstango.uci.protocol.requests.*;
+import net.chesstango.uci.protocol.requests.ReqPosition;
+import net.chesstango.uci.protocol.requests.UCIRequest;
+import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,78 +23,55 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
 
     @Override
     public UCICommand visitRequest(UciParser.RequestContext ctx) {
-        UciParser.UciContext uciCtx = ctx.uci();
-        UciParser.IsreadyContext isReadyCtx = ctx.isready();
-        UciParser.UcinewgameContext uciNewGameCtx = ctx.ucinewgame();
-        UciParser.PositionContext positionCtx = ctx.position();
-        UciParser.StopContext stopCtx = ctx.stop();
-        UciParser.QuitContext quitCtx = ctx.quit();
+        Token firstToken = ctx.getStart();
 
-        if (uciCtx != null) {
-            return visitUci(uciCtx);
-        } else if (isReadyCtx != null) {
-            return visitIsready(isReadyCtx);
-        } else if (uciNewGameCtx != null) {
-            return visitUcinewgame(uciNewGameCtx);
-        } else if (stopCtx != null) {
-            return visitStop(stopCtx);
-        } else if (quitCtx != null) {
-            return visitQuit(quitCtx);
-        } else if (positionCtx != null) {
-            return visitPosition(positionCtx);
+        String firstTokenText = firstToken.getText();
+
+        if ("uci".equals(firstTokenText)) {
+            return UCIRequest.uci();
+        } else if ("isready".equals(firstTokenText)) {
+            return UCIRequest.isready();
+        } else if ("ucinewgame".equals(firstTokenText)) {
+            return UCIRequest.ucinewgame();
+        } else if ("position".equals(firstTokenText)) {
+            return visitPositionparams(ctx.positionparams());
+        } else if ("stop".equals(firstTokenText)) {
+            return UCIRequest.stop();
+        } else if ("quit".equals(firstTokenText)) {
+            return UCIRequest.quit();
         }
 
         throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
     }
 
-    @Override
-    public ReqUci visitUci(UciParser.UciContext ctx) {
-        return UCIRequest.uci();
-    }
 
     @Override
-    public ReqIsReady visitIsready(UciParser.IsreadyContext ctx) {
-        return UCIRequest.isready();
-    }
+    public ReqPosition visitPositionparams(UciParser.PositionparamsContext positionparams) {
+        Token firstToken = positionparams.getStart();
 
-    @Override
-    public ReqUciNewGame visitUcinewgame(UciParser.UcinewgameContext ctx) {
-        return UCIRequest.ucinewgame();
-    }
+        String firstTokenText = firstToken.getText();
 
-    @Override
-    public ReqStop visitStop(UciParser.StopContext ctx) {
-        return UCIRequest.stop();
-    }
+        List<String> moves = decodeMoves(positionparams.moves());
 
-    @Override
-    public ReqQuit visitQuit(UciParser.QuitContext ctx) {
-        return UCIRequest.quit();
-    }
-
-    @Override
-    public ReqPosition visitPosition(UciParser.PositionContext ctx) {
-        UciParser.StartposContext startPosCtx = ctx.startpos();
-        UciParser.FenContext fenCtx = ctx.fen();
-
-        List<String> moves = decodeMovesCtx(ctx.move());
-
-        if (startPosCtx != null) {
+        if ("startpos".equals(firstTokenText)) {
             return UCIRequest.position(moves);
-        } else if (fenCtx != null) {
-            return UCIRequest.positionFEN(fenCtx.getText(), moves);
+        } else if ("fen".equals(firstTokenText)) {
+            return UCIRequest.position(positionparams.fen().getText(), moves);
         }
-        return null;
+
+        throw new UnsupportedOperationException("Unsupported positionparams: " + positionparams.getText());
     }
 
-    private List<String> decodeMovesCtx(List<UciParser.MoveContext> movesCtx) {
+
+    private List<String> decodeMoves(UciParser.MovesContext movesCtx) {
         if (movesCtx == null) {
             return Collections.emptyList();
         }
+
         List<String> moves = new ArrayList<>();
-        for (UciParser.MoveContext moveCtx : movesCtx) {
-            moves.add(moveCtx.getText());
-        }
+
+        movesCtx.STRING().forEach(moveCtx -> moves.add(moveCtx.getText()));
+
         return moves;
     }
 }

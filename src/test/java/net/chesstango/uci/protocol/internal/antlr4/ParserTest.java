@@ -6,6 +6,7 @@ import net.chesstango.uci.protocol.requests.UCIRequest;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -17,14 +18,14 @@ public class ParserTest {
     @Test
     public void test_parse() {
         CodePointCharStream stream = CharStreams.fromString("uci");
-        UciLexer calcLexer = new UciLexer(stream);
-        CommonTokenStream tokenStream = new CommonTokenStream(calcLexer);
-        UciParser calcParser = new UciParser(tokenStream);
-        UciParser.UciContext uciContext = calcParser.uci();
+        UciLexer lexer = new UciLexer(stream);
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        UciParser parser = new UciParser(tokenStream);
+        ParserRuleContext commandContext = parser.command();
 
         TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
 
-        UCICommand command = uciContext.accept(tangoUciVisitor);
+        UCICommand command = commandContext.accept(tangoUciVisitor);
 
         assertInstanceOf(UCIRequest.class, command);
 

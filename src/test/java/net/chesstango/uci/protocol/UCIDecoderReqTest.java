@@ -2,10 +2,6 @@ package net.chesstango.uci.protocol;
 
 import net.chesstango.uci.protocol.internal.UCIDecoder;
 import net.chesstango.uci.protocol.requests.*;
-import net.chesstango.uci.protocol.requests.ReqGoDepth;
-import net.chesstango.uci.protocol.requests.ReqGoFast;
-import net.chesstango.uci.protocol.requests.ReqGoInfinite;
-import net.chesstango.uci.protocol.requests.ReqGoTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -90,9 +86,29 @@ public class UCIDecoderReqTest {
 
         List<String> moves = command.getMoves();
 
-        assertEquals(1, moves.size());
         assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
+
+        assertEquals(1, moves.size());
         assertEquals("e2e4", moves.get(0));
+
+        assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4", result.toString());
+    }
+
+    @Test
+    public void test_parse_postition_fen_with_2_move() {
+        UCICommand result = decoder.parseMessage("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4 e7e5");
+
+        assertInstanceOf(ReqPosition.class, result);
+
+        ReqPosition command = (ReqPosition) result;
+
+
+        assertEquals("2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1", command.getFen());
+
+        List<String> moves = command.getMoves();
+        assertEquals(2, moves.size());
+        assertEquals("e2e4", moves.get(0));
+        assertEquals("e7e5", moves.get(1));
 
         assertEquals("position fen 2Q4R/5p2/2bPkb1B/p1p2p1p/7P/P4PP1/4n2Q/4K1NR b - - 0 1 moves e2e4", result.toString());
     }
