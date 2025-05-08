@@ -31,7 +31,6 @@ public interface UCIResponse extends UCICommand {
      */
     void execute(UCIGui executor);
 
-
     static RspUciOk uciok() {
         return RspUciOk.INSTANCE;
     }
@@ -62,5 +61,9 @@ public interface UCIResponse extends UCICommand {
 
     static RspOption createCheckOption(String name, boolean defaultValue) {
         return new RspOption(name, RspOption.OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+    }
+
+    static RspInfo info(String info) {
+        return new RspInfo(info);
     }
 }
