@@ -10,9 +10,13 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoDepth extends ReqGo {
+public final class ReqGoDepth extends ReqGo {
 
     private int depth;
+
+    ReqGoDepth(int depth) {
+        this.depth = depth;
+    }
 
     @Override
     public void execute(ReqGoExecutor reqGoExecutor) {

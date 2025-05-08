@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoFast extends ReqGo {
+public final class ReqGoFast extends ReqGo {
 
     private int wTime;
 

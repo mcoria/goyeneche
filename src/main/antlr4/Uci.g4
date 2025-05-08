@@ -16,7 +16,12 @@ position: ('startpos' | 'fen' fen) ('moves' move+)?;
 
 fen: STRING STRING STRING STRING STRING STRING;
 
-go: 'infinite';
+go
+    : 'infinite'
+    | 'depth' depths
+    ;
+
+depths: STRING;
 
 response
     : 'id' id

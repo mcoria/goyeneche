@@ -78,6 +78,14 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         Token firstToken = goCtx.getStart();
         String firstTokenText = firstToken.getText();
 
+        if ("infinite".equals(firstTokenText)) {
+            return UCIRequest.go();
+        } else if ("depth".equals(firstTokenText)) {
+            int depth = Integer.parseInt(goCtx.depths().STRING().getText());
+            return UCIRequest.goDepth(depth);
+        }
+
+
         throw new UnsupportedOperationException("Unsupported go command: " + firstTokenText);
     }
 

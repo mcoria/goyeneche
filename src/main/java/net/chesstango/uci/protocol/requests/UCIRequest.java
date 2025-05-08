@@ -19,6 +19,7 @@ import java.util.List;
  */
 public interface UCIRequest extends UCICommand {
 
+
     /**
      * Executes the request using the provided UCIEngine instance.
      *
@@ -48,6 +49,10 @@ public interface UCIRequest extends UCICommand {
 
     static ReqGo go() {
         return ReqGoInfinite.INSTANCE;
+    }
+
+    static ReqGo goDepth(int depth) {
+        return new ReqGoDepth(depth);
     }
 
     static ReqQuit quit() {

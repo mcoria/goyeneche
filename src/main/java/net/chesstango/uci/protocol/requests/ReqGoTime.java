@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ReqGoTime extends ReqGo {
+public final class ReqGoTime extends ReqGo {
 
     private int timeOut;
 
