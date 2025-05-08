@@ -3,6 +3,7 @@ package net.chesstango.uci.protocol.internal.antlr4;
 import net.chesstango.uci.protocol.UCICommand;
 import net.chesstango.uci.protocol.requests.ReqPosition;
 import net.chesstango.uci.protocol.requests.UCIRequest;
+import net.chesstango.uci.protocol.responses.RspId;
 import net.chesstango.uci.protocol.responses.UCIResponse;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
@@ -24,7 +25,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
     }
 
     @Override
-    public UCICommand visitRequest(UciParser.RequestContext ctx) {
+    public UCIRequest visitRequest(UciParser.RequestContext ctx) {
         Token firstToken = ctx.getStart();
 
         String firstTokenText = firstToken.getText();
@@ -43,22 +44,24 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return UCIRequest.quit();
         }
 
-        throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
+        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
     }
 
     @Override
-    public UCICommand visitResponse(UciParser.ResponseContext ctx) {
+    public UCIResponse visitResponse(UciParser.ResponseContext ctx) {
         Token firstToken = ctx.getStart();
 
         String firstTokenText = firstToken.getText();
 
-        if ("uciok".equals(firstTokenText)) {
+        if ("id".equals(firstTokenText)) {
+            return visitId(ctx.id());
+        } else if ("uciok".equals(firstTokenText)) {
             return UCIResponse.uciok();
         } else if ("readyok".equals(firstTokenText)) {
             return UCIResponse.readyok();
         }
 
-        throw new UnsupportedOperationException("Unsupported command: " + ctx.getText());
+        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
     }
 
 
@@ -80,7 +83,29 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             return UCIRequest.position(fenText, moves);
         }
 
-        throw new UnsupportedOperationException("Unsupported positionparams: " + positionparams.getText());
+        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+    }
+
+    @Override
+    public RspId visitId(UciParser.IdContext idCtx) {
+        Token firstToken = idCtx.getStart();
+        String firstTokenText = firstToken.getText();
+
+        if ("author".equals(firstTokenText)) {
+            UciParser.AuthorContext authorCtx = idCtx.author();
+            Token start = authorCtx.getStart();
+            Token stop = authorCtx.getStop();
+            String text = start.getInputStream().getText(Interval.of(start.getStartIndex(), stop.getStopIndex()));
+            return UCIResponse.idAuthor(text);
+        } else if ("name".equals(firstTokenText)) {
+            UciParser.NameContext nameCtx = idCtx.name();
+            Token start = nameCtx.getStart();
+            Token stop = nameCtx.getStop();
+            String text = start.getInputStream().getText(Interval.of(start.getStartIndex(), stop.getStopIndex()));
+            return UCIResponse.idName(text);
+        }
+
+        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
     }
 
 
