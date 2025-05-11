@@ -9,6 +9,8 @@ public final class ReqStop implements UCIRequest {
 
     static final ReqStop INSTANCE = new ReqStop();
 
+    private ReqStop() {}
+
     @Override
     public void execute(UCIEngine executor) {
         executor.do_stop(this);

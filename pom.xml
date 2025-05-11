@@ -160,7 +160,7 @@
                         <argument>-package</argument>
                         <argument>net.chesstango.goyeneche.internal.antlr4</argument>
                         <argument>-o</argument>
-                        <argument>${project.build.directory}/generated-sources/antlr4/net/chesstango/uci/protocol/internal/antlr4</argument>
+                        <argument>${project.build.directory}/generated-sources/antlr4/net/chesstango/goyeneche/internal/antlr4</argument>
                     </arguments>
                 </configuration>
                 <executions>

@@ -14,7 +14,7 @@ public final class ReqSetOption implements UCIRequest {
     @Getter
     private final String value;
 
-    public ReqSetOption(String id, String value) {
+    ReqSetOption(String id, String value) {
         this.id = id;
         this.value = value;
     }

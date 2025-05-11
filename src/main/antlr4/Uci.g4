@@ -1,6 +1,6 @@
 grammar Uci;
 
-command: (request | response) EOF;
+command: (request | response ) EOF;
 
 request
     : 'uci'
@@ -57,8 +57,7 @@ optiontype
     : 'button'
     | 'string' 'default' STRING;
 
-
-STRING : ~[ \t\r\n]+;
+STRING: ~[ \t\r\n]+;
 
 WS: [ \t\r\n]+ -> skip;
 

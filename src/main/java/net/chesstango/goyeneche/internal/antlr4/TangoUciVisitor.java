@@ -1,6 +1,7 @@
 package net.chesstango.goyeneche.internal.antlr4;
 
 import net.chesstango.goyeneche.UCICommand;
+import net.chesstango.goyeneche.UCICommandUnknown;
 import net.chesstango.goyeneche.requests.ReqGo;
 import net.chesstango.goyeneche.requests.ReqPosition;
 import net.chesstango.goyeneche.requests.ReqSetOption;
@@ -10,6 +11,7 @@ import net.chesstango.goyeneche.responses.RspOption;
 import net.chesstango.goyeneche.responses.UCIResponse;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.Collections;
@@ -49,8 +51,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         } else if ("quit".equals(firstTokenText)) {
             return UCIRequest.quit();
         }
-
-        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+        return null;
     }
 
     @Override
@@ -79,8 +80,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             String fenText = fenStart.getInputStream().getText(Interval.of(fenStart.getStartIndex(), fenStop.getStopIndex()));
             return UCIRequest.position(fenText, moves);
         }
-
-        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+        return null;
     }
 
     @Override
@@ -107,8 +107,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             int bInc = Integer.parseInt(goCtx.binc().STRING().getText());
             return UCIRequest.goFast(wTime, wInc, bTime, bInc);
         }
-
-        throw new UnsupportedOperationException("Unsupported go option: " + firstTokenText);
+        return null;
     }
 
     @Override
@@ -132,8 +131,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
         } else if ("option".equals(firstTokenText)) {
             return visitOption(ctx.option());
         }
-
-        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+        return null;
     }
 
 
@@ -155,8 +153,7 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             String text = start.getInputStream().getText(Interval.of(start.getStartIndex(), stop.getStopIndex()));
             return UCIResponse.idName(text);
         }
-
-        throw new UnsupportedOperationException("Unsupported command: " + firstTokenText);
+        return null;
     }
 
     @Override
@@ -176,8 +173,12 @@ public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
             String defaultValue = ctx.STRING().getText();
             return UCIResponse.createStringOption(name, defaultValue);
         }
+        return null;
+    }
 
-        throw new UnsupportedOperationException("Unsupported option: " + firstTokenText);
+    @Override
+    public UCICommandUnknown visitErrorNode(ErrorNode node) {
+        return new UCICommandUnknown("???");
     }
 
     private List<String> decodeMoves(List<UciParser.MoveContext> moveCtxList) {

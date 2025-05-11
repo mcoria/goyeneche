@@ -11,7 +11,6 @@ public class UCICommandUnknown implements UCICommand {
         this.line = line;
     }
 
-
     @Override
     public String toString() {
         return line;
