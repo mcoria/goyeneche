@@ -4,7 +4,7 @@
 
     <groupId>net.chesstango</groupId>
     <artifactId>goyeneche</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>goyeneche</name>
@@ -29,7 +29,7 @@
         <connection>scm:git:https://github.com/mcoria/goyeneche.git</connection>
         <developerConnection>scm:git:https://github.com/mcoria/goyeneche.git</developerConnection>
         <url>https://github.com/mcoria/goyeneche/tree/main</url>
-        <tag>v1.0.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
