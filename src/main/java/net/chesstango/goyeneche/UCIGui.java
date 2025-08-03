@@ -20,7 +20,8 @@ public interface UCIGui {
      * @param rspUciOk The response object representing the "uciok" signal from the chess engine.
      *                 It indicates that the engine is ready and acknowledges the UCI protocol.
      */
-    void do_uciOk(RspUciOk rspUciOk);
+    default void do_uciOk(RspUciOk rspUciOk){
+    }
 
     /**
      * Handles the "option" response as part of the Universal Chess Interface (UCI) protocol.
@@ -32,7 +33,8 @@ public interface UCIGui {
      *                  the name of the option, its type (e.g., CHECK, STRING, COMBO, BUTTON, SPIN),
      *                  the default value, and optional minimum or maximum values, if applicable.
      */
-    void do_option(RspOption rspOption);
+    default void do_option(RspOption rspOption){
+    }
 
     /**
      * Processes an "id" response as part of the Universal Chess Interface (UCI) protocol.
@@ -44,7 +46,8 @@ public interface UCIGui {
      *              - The type of identification (`RspIdType`), which could be either NAME or AUTHOR.
      *              - The text content containing the actual identification data (e.g., the engine's name or author's name).
      */
-    void do_id(RspId rspId);
+    default void do_id(RspId rspId){
+    }
 
     /**
      * Handles the "readyok" response as part of the Universal Chess Interface (UCI) protocol.
@@ -54,7 +57,8 @@ public interface UCIGui {
      * @param rspReadyOk The response object representing the "readyok" signal from the chess engine.
      *                   It confirms the engine's readiness to process subsequent commands.
      */
-    void do_readyOk(RspReadyOk rspReadyOk);
+    default void do_readyOk(RspReadyOk rspReadyOk){
+    }
 
     /**
      * Handles the "bestmove" response as part of the Universal Chess Interface (UCI) protocol.
@@ -66,7 +70,8 @@ public interface UCIGui {
      *                    - The best move in UCI format (e.g., "e2e4").
      *                    - An optional pondering move in UCI format to prepare for the opponent's response.
      */
-    void do_bestMove(RspBestMove rspBestMove);
+    default void do_bestMove(RspBestMove rspBestMove){
+    }
 
     /**
      * Processes the "info" response as part of the Universal Chess Interface (UCI) protocol.
@@ -78,5 +83,6 @@ public interface UCIGui {
      * @param rspInfo The response object containing information provided by the chess engine.
      *                It encapsulates various details about the engine's ongoing computations or state.
      */
-    void do_info(RspInfo rspInfo);
+    default void do_info(RspInfo rspInfo){
+    }
 }

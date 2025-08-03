@@ -8,7 +8,7 @@ import net.chesstango.goyeneche.requests.*;
  * responsible for processing various commands and executing the corresponding operations.
  * Each command is represented by a specific class that implements the UCIRequest interface.
  *
- *  @author Mauricio Coria
+ * @author Mauricio Coria
  */
 public interface UCIEngine {
     /**
@@ -18,7 +18,8 @@ public interface UCIEngine {
      *
      * @param reqUci The request object representing the "uci" command.
      */
-    void do_uci(ReqUci reqUci);
+    default void do_uci(ReqUci reqUci) {
+    }
 
     /**
      * Handles the "setoption" command as part of the Universal Chess Interface (UCI) protocol.
@@ -28,7 +29,8 @@ public interface UCIEngine {
      * @param reqSetOption The request object representing the "setoption" command. It contains
      *                     the name of the option to be configured (id) and the value to set, if applicable.
      */
-    void do_setOption(ReqSetOption reqSetOption);
+    default void do_setOption(ReqSetOption reqSetOption){
+    }
 
     /**
      * Handles the "isready" command as part of the Universal Chess Interface (UCI) protocol.
@@ -37,7 +39,8 @@ public interface UCIEngine {
      *
      * @param reqIsReady The request object representing the "isready" command.
      */
-    void do_isReady(ReqIsReady reqIsReady);
+    default void do_isReady(ReqIsReady reqIsReady){
+    }
 
     /**
      * Handles the "ucinewgame" command as part of the Universal Chess Interface (UCI) protocol.
@@ -48,7 +51,8 @@ public interface UCIEngine {
      * @param reqUciNewGame The request object representing the "ucinewgame" command. It informs
      *                      the engine to reinitialize itself for handling a new game session.
      */
-    void do_newGame(ReqUciNewGame reqUciNewGame);
+    default void do_newGame(ReqUciNewGame reqUciNewGame){
+    }
 
     /**
      * Handles the "position" command as part of the Universal Chess Interface (UCI) protocol.
@@ -59,7 +63,8 @@ public interface UCIEngine {
      *                    It includes the type of position (starting position or FEN), the FEN string (if provided),
      *                    and a list of moves in UCI format to apply to the position.
      */
-    void do_position(ReqPosition reqPosition);
+    default void do_position(ReqPosition reqPosition){
+    }
 
     /**
      * Handles the "go" command as part of the Universal Chess Interface (UCI) protocol.
@@ -72,7 +77,8 @@ public interface UCIEngine {
      *              the parameters for configuring the engine's search, such as limits on
      *              time or depth, move ordering, or other search-related constraints.
      */
-    void do_go(ReqGo reqGo);
+    default void do_go(ReqGo reqGo){
+    }
 
     /**
      * Handles the "stop" command as part of the Universal Chess Interface (UCI) protocol.
@@ -83,7 +89,8 @@ public interface UCIEngine {
      * @param reqStop The request object representing the "stop" command.
      *                It indicates that the engine should cease its ongoing operations.
      */
-    void do_stop(ReqStop reqStop);
+    default void do_stop(ReqStop reqStop){
+    }
 
     /**
      * Handles the "quit" command as part of the Universal Chess Interface (UCI) protocol.
@@ -92,5 +99,6 @@ public interface UCIEngine {
      *
      * @param reqQuit The request object representing the "quit" command.
      */
-    void do_quit(ReqQuit reqQuit);
+    default void do_quit(ReqQuit reqQuit){
+    }
 }
