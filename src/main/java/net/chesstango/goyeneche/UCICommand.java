@@ -1,5 +1,7 @@
 package net.chesstango.goyeneche;
 
+import java.io.Serializable;
+
 /**
  * Represents a command in the Universal Chess Interface (UCI) protocol.
  *
@@ -21,10 +23,9 @@ package net.chesstango.goyeneche;
  *   <li>Handling of unknown or unexpected commands gracefully by ignoring them.</li>
  * </ul>
  *
- * @see <a href="http://download.shredderchess.com/div/uci.zip">UCI Protocol Specification</a>
- *
  * @author Mauricio Coria
+ * @see <a href="http://download.shredderchess.com/div/uci.zip">UCI Protocol Specification</a>
  */
 
-public interface UCICommand {
+public interface UCICommand extends Serializable {
 }
