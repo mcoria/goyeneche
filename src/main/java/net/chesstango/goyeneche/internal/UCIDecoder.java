@@ -2,7 +2,6 @@ package net.chesstango.goyeneche.internal;
 
 import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.UCICommandUnknown;
-import net.chesstango.goyeneche.internal.antlr4.TangoUciVisitor;
 import net.chesstango.goyeneche.internal.antlr4.UciLexer;
 import net.chesstango.goyeneche.internal.antlr4.UciParser;
 import org.antlr.v4.runtime.CharStreams;
@@ -42,11 +41,11 @@ public class UCIDecoder {
         UciParser parser = new UciParser(tokenStream);
         parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
         UciParser.CommandContext rootContext = parser.command();
-        TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
+        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
 
         UCICommand command = null;
         try {
-            command = rootContext.accept(tangoUciVisitor);
+            command = rootContext.accept(uciCommandVisitor);
 
             if (command == null) {
                 command = new UCICommandUnknown(input);

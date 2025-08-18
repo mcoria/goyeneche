@@ -1,7 +1,9 @@
-package net.chesstango.goyeneche.internal.antlr4;
+package net.chesstango.goyeneche.internal;
 
 import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.UCICommandUnknown;
+import net.chesstango.goyeneche.internal.antlr4.UciBaseVisitor;
+import net.chesstango.goyeneche.internal.antlr4.UciParser;
 import net.chesstango.goyeneche.requests.ReqGo;
 import net.chesstango.goyeneche.requests.ReqPosition;
 import net.chesstango.goyeneche.requests.ReqSetOption;
@@ -20,7 +22,7 @@ import java.util.List;
 /**
  * @author Mauricio Coria
  */
-public class TangoUciVisitor extends UciBaseVisitor<UCICommand> {
+public class UCICommandVisitor extends UciBaseVisitor<UCICommand> {
 
     @Override
     public UCICommand visitCommand(UciParser.CommandContext ctx) {

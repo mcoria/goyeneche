@@ -32,54 +32,13 @@ public class AbstractUCIEngine implements UCIService, UCIEngine {
         engineExecutor = new UCIOutputStreamEngineExecutor(this);
     }
 
-    @Override
-    public void do_uci(ReqUci reqUci) {
-
-    }
-
-    @Override
-    public void do_setOption(ReqSetOption reqSetOption) {
-
-    }
-
-    @Override
-    public void do_isReady(ReqIsReady reqIsReady) {
-
-    }
-
-    @Override
-    public void do_newGame(ReqUciNewGame reqUciNewGame) {
-
-    }
-
-    @Override
-    public void do_position(ReqPosition reqPosition) {
-
-    }
-
-    @Override
-    public void do_go(ReqGo reqGo) {
-
-    }
-
-    @Override
-    public void do_stop(ReqStop reqStop) {
-
-    }
-
-    @Override
-    public void do_quit(ReqQuit reqQuit) {
-
-    }
 
     @Override
     public void open() {
-
     }
 
     @Override
     public void close() {
-
     }
 
     @Override

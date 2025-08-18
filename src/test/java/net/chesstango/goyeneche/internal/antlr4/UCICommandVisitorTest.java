@@ -1,6 +1,7 @@
 package net.chesstango.goyeneche.internal.antlr4;
 
 import net.chesstango.goyeneche.UCICommand;
+import net.chesstango.goyeneche.internal.UCICommandVisitor;
 import net.chesstango.goyeneche.requests.ReqUci;
 import net.chesstango.goyeneche.requests.UCIRequest;
 import org.antlr.v4.runtime.*;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * @author Mauricio Coria
  */
-public class TangoUciVisitorTest {
+public class UCICommandVisitorTest {
     @Test
     public void test_parse() {
         CodePointCharStream stream = CharStreams.fromString("uci");
@@ -22,9 +23,9 @@ public class TangoUciVisitorTest {
         UciParser parser = new UciParser(tokenStream);
         ParserRuleContext commandContext = parser.command();
 
-        TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
+        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
 
-        UCICommand command = commandContext.accept(tangoUciVisitor);
+        UCICommand command = commandContext.accept(uciCommandVisitor);
 
         assertInstanceOf(UCIRequest.class, command);
 
@@ -44,9 +45,9 @@ public class TangoUciVisitorTest {
 
         ParserRuleContext commandContext = parser.command();
 
-        TangoUciVisitor tangoUciVisitor = new TangoUciVisitor();
+        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
 
-        UCICommand command = commandContext.accept(tangoUciVisitor);
+        UCICommand command = commandContext.accept(uciCommandVisitor);
 
         assertNull(command);
     }
