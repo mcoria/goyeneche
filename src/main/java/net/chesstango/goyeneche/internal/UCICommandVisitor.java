@@ -107,7 +107,9 @@ public class UCICommandVisitor extends UciBaseVisitor<UCICommand> {
             int wInc = Integer.parseInt(goCtx.winc().STRING().getText());
             int bTime = Integer.parseInt(goCtx.btime().STRING().getText());
             int bInc = Integer.parseInt(goCtx.binc().STRING().getText());
-            return UCIRequest.goFast(wTime, wInc, bTime, bInc);
+            return goCtx.movestogo() == null
+                    ? UCIRequest.goFast(wTime, wInc, bTime, bInc)
+                    : UCIRequest.goFast(wTime, wInc, bTime, bInc, Integer.parseInt(goCtx.movestogo().STRING().getText()));
         }
         return null;
     }
@@ -180,7 +182,7 @@ public class UCICommandVisitor extends UciBaseVisitor<UCICommand> {
 
     @Override
     public UCICommandUnknown visitErrorNode(ErrorNode node) {
-        return new UCICommandUnknown("???");
+        return new UCICommandUnknown(node.getText());
     }
 
     private List<String> decodeMoves(List<UciParser.MoveContext> moveCtxList) {

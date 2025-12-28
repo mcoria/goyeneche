@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Mauricio Coria
@@ -150,7 +149,6 @@ public class UCIDecoderReqTest {
     public void test_parse_go() {
         UCICommand result = decoder.parseMessage("go");
 
-        assertInstanceOf(ReqGo.class, result);
         assertInstanceOf(ReqGoInfinite.class, result);
 
         assertEquals("go infinite", result.toString());
@@ -170,7 +168,7 @@ public class UCIDecoderReqTest {
     public void test_parse_go_depth() {
         UCICommand result = decoder.parseMessage("go depth 1");
 
-        assertInstanceOf(ReqGo.class, result);
+        assertInstanceOf(ReqGoDepth.class, result);
 
         ReqGoDepth go = (ReqGoDepth) result;
         assertEquals(1, go.getDepth());
@@ -182,7 +180,7 @@ public class UCIDecoderReqTest {
     public void test_parse_go_movetime() {
         UCICommand result = decoder.parseMessage("go movetime 20000");
 
-        assertInstanceOf(ReqGo.class, result);
+        assertInstanceOf(ReqGoTime.class, result);
 
         ReqGoTime go = (ReqGoTime) result;
         assertEquals(20000, go.getTimeOut());
@@ -191,18 +189,35 @@ public class UCIDecoderReqTest {
     }
 
     @Test
-    public void test_parse_go_movebyclock() {
+    public void test_parse_go_movebyclock01() {
         UCICommand result = decoder.parseMessage("go wtime 120000 btime 130000 winc 6000 binc 7000");
 
-        assertInstanceOf(ReqGo.class, result);
+        assertInstanceOf(ReqGoFast.class, result);
 
         ReqGoFast go = (ReqGoFast) result;
         assertEquals(120000, go.getWTime());
         assertEquals(6000, go.getWInc());
         assertEquals(130000, go.getBTime());
         assertEquals(7000, go.getBInc());
+        assertNull( go.getMovesToGo());
 
         assertEquals("go wtime 120000 btime 130000 winc 6000 binc 7000", result.toString());
+    }
+
+    @Test
+    public void test_parse_go_movebyclock_movetogo() {
+        UCICommand result = decoder.parseMessage("go wtime 120000 btime 130000 winc 6000 binc 7000 movestogo 22");
+
+        assertInstanceOf(ReqGoFast.class, result);
+
+        ReqGoFast go = (ReqGoFast) result;
+        assertEquals(120000, go.getWTime());
+        assertEquals(6000, go.getWInc());
+        assertEquals(130000, go.getBTime());
+        assertEquals(7000, go.getBInc());
+        assertEquals(22, go.getMovesToGo());
+
+        assertEquals("go wtime 120000 btime 130000 winc 6000 binc 7000 movestogo 22", result.toString());
     }
 
 
@@ -228,4 +243,16 @@ public class UCIDecoderReqTest {
 
         assertEquals("setoption name tablebase value c:/bla/ble.bin", option.toString());
     }
+
+    @Test
+    public void test_unknown_command() {
+        UCICommand result = decoder.parseMessage("xx xxx");
+
+        assertInstanceOf(UCICommandUnknown.class, result);
+
+        UCICommandUnknown cmdUnknown = (UCICommandUnknown) result;
+
+        assertEquals("xx xxx", cmdUnknown.getText());
+    }
+
 }

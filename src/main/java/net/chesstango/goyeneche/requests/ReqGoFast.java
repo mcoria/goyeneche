@@ -1,7 +1,6 @@
 package net.chesstango.goyeneche.requests;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
@@ -21,11 +20,22 @@ public final class ReqGoFast extends ReqGo {
 
     private final int bInc;
 
+    private final Integer movesToGo;
+
+    ReqGoFast(int wTime, int wInc, int bTime, int bInc, Integer movesToGo) {
+        this.wTime = wTime;
+        this.wInc = wInc;
+        this.bTime = bTime;
+        this.bInc = bInc;
+        this.movesToGo = movesToGo;
+    }
+
     ReqGoFast(int wTime, int wInc, int bTime, int bInc) {
         this.wTime = wTime;
         this.wInc = wInc;
         this.bTime = bTime;
         this.bInc = bInc;
+        this.movesToGo = null;
     }
 
     @Override
@@ -35,6 +45,8 @@ public final class ReqGoFast extends ReqGo {
 
     @Override
     public String toString() {
-        return String.format("go wtime %d btime %d winc %d binc %d", wTime, bTime, wInc, bInc);
+        return movesToGo == null
+                ? String.format("go wtime %d btime %d winc %d binc %d", wTime, bTime, wInc, bInc)
+                : String.format("go wtime %d btime %d winc %d binc %d movestogo %d", wTime, bTime, wInc, bInc, movesToGo);
     }
 }

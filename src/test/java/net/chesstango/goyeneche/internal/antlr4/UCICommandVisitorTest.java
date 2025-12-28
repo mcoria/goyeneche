@@ -35,13 +35,12 @@ public class UCICommandVisitorTest {
     @Test
     public void test_unknown_command() {
         CodePointCharStream stream = CharStreams.fromString("xx xxx");
+
         UciLexer lexer = new UciLexer(stream);
 
-
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+
         UciParser parser = new UciParser(tokenStream);
-
-
 
         ParserRuleContext commandContext = parser.command();
 

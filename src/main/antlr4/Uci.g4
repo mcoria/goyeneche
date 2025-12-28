@@ -23,7 +23,7 @@ go
     : 'infinite'
     | 'depth' depthparam
     | 'movetime' movetime
-    | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc
+    | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc ('movestogo' movestogo)?
     ;
 
 depthparam: STRING;
@@ -32,6 +32,7 @@ wtime: STRING;
 btime: STRING;
 winc: STRING;
 binc: STRING;
+movestogo: STRING;
 
 response
     : 'id' id

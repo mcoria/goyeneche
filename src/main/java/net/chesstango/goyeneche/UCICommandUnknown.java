@@ -1,18 +1,21 @@
 package net.chesstango.goyeneche;
 
+import lombok.Getter;
+
 /**
  * @author Mauricio Coria
  */
 public class UCICommandUnknown implements UCICommand {
 
-    private final String line;
+    @Getter
+    private final String text;
 
-    public UCICommandUnknown(String line) {
-        this.line = line;
+    public UCICommandUnknown(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
-        return line;
+        return text;
     }
 }

@@ -63,6 +63,10 @@ public interface UCIRequest extends UCICommand {
         return new ReqGoFast(wTime, wInc, bTime, bInc);
     }
 
+    static ReqGoFast goFast(int wTime, int wInc, int bTime, int bInc, Integer movesToGo) {
+        return new ReqGoFast(wTime, wInc, bTime, bInc, movesToGo);
+    }
+
     static ReqQuit quit() {
         return ReqQuit.INSTANCE;
     }
