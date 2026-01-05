@@ -42,10 +42,14 @@ fen: STRING STRING STRING STRING STRING STRING;
 go: 'go' goparam?;
 
 goparam
-    : 'infinite'
+    : go_infinite
     | 'depth' depthparam
     | 'movetime' movetime
     | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc ('movestogo' movestogo)?
+    ;
+
+go_infinite
+    : 'infinite'
     ;
 
 depthparam: STRING;

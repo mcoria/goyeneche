@@ -47,7 +47,7 @@ public interface UCIRequest extends UCICommand {
         return new ReqPosition(moves);
     }
 
-    static ReqGoInfinite go() {
+    static ReqGoInfinite goInfinite() {
         return ReqGoInfinite.INSTANCE;
     }
 

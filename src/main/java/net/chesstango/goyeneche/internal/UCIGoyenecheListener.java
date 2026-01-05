@@ -58,5 +58,16 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.setOption(optionName, optionValue);
     }
 
+    @Override
+    public void enterGo_infinite(UCIParser.Go_infiniteContext ctx) {
+        command = UCIRequest.goInfinite();
+    }
+
+    @Override
+    public void exitGo(UCIParser.GoContext ctx) {
+        if (command == null) {
+            command = UCIRequest.goInfinite();
+        }
+    }
 
 }
