@@ -6,11 +6,11 @@ request
     : uci
     | ucinewgame
     | isready
+    | stop
+    | quit
     | 'setoption' setoption
     | 'position' position
     | 'go' (go)?
-    | 'stop'
-    | 'quit'
     ;
 
 uci
@@ -23,6 +23,14 @@ isready
 
 ucinewgame
     : 'ucinewgame'
+    ;
+
+stop
+    : 'stop'
+    ;
+
+quit
+    : 'quit'
     ;
 
 setoption: 'name' optionname ('value' STRING)?;
