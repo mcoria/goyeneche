@@ -5,6 +5,7 @@ import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.internal.antlr4.UCIBaseListener;
 import net.chesstango.goyeneche.internal.antlr4.UCIParser;
 import net.chesstango.goyeneche.requests.UCIRequest;
+import net.chesstango.goyeneche.responses.UCIResponse;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.LinkedList;
@@ -138,5 +139,18 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         moves.add(ctx.getText());
     }
 
+    /**
+     * RESPONSES
+     */
+
+    @Override
+    public void enterUciok(UCIParser.UciokContext ctx) {
+        command = UCIResponse.uciok();
+    }
+
+    @Override
+    public void enterReadyok(UCIParser.ReadyokContext ctx) {
+        command = UCIResponse.readyok();
+    }
 
 }

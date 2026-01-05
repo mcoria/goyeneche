@@ -63,12 +63,16 @@ go_time: 'wtime' INTEGER 'btime' INTEGER 'winc' INTEGER 'binc' INTEGER ('movesto
 // movestogo: INTEGER;
 
 response
-    : 'id' id
-    | 'uciok'
-    | 'readyok'
+    : uciok
+    | readyok
+    | 'id' id
     | 'bestmove' move ('ponder' move)?
     | 'option' option
     ;
+
+uciok: 'uciok';
+
+readyok: 'readyok';
 
 id: ('name' name | 'author' author);
 
