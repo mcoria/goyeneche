@@ -37,7 +37,7 @@ setoption: 'setoption' 'name' optionname ('value' optionvalue)?;
 
 position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
 
-fen: STRING STRING STRING STRING STRING STRING;
+fen: STRING STRING STRING STRING INTEGER INTEGER;
 
 go: 'go' goparam?;
 

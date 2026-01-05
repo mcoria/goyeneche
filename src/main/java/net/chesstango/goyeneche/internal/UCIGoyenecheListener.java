@@ -7,6 +7,9 @@ import net.chesstango.goyeneche.internal.antlr4.UCIParser;
 import net.chesstango.goyeneche.requests.UCIRequest;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author Mauricio Coria
  */
@@ -17,6 +20,9 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     private String optionName;
     private String optionValue;
+
+    private String fen;
+    private List<String> moves;
 
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
@@ -102,5 +108,35 @@ public class UCIGoyenecheListener extends UCIBaseListener {
             command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
         }
     }
+
+    @Override
+    public void enterFen(UCIParser.FenContext ctx) {
+        this.fen = String.format("%s %s %s %s %s %s",
+                ctx.STRING(0).getText(),
+                ctx.STRING(1).getText(),
+                ctx.STRING(2).getText(),
+                ctx.STRING(3).getText(),
+                ctx.INTEGER(0).getText(),
+                ctx.INTEGER(1).getText()
+        );
+    }
+
+    @Override
+    public void enterPosition(UCIParser.PositionContext ctx) {
+        moves = new LinkedList<>();
+    }
+
+    @Override
+    public void exitPosition(UCIParser.PositionContext ctx) {
+        command = fen == null
+                ? UCIRequest.position(moves)
+                : UCIRequest.position(fen, moves);
+    }
+
+    @Override
+    public void enterMove(UCIParser.MoveContext ctx) {
+        moves.add(ctx.getText());
+    }
+
 
 }
