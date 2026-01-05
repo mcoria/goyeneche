@@ -45,7 +45,7 @@ goparam
     : go_infinite
     | go_depth
     | go_movetime
-    | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc ('movestogo' movestogo)?
+    | go_time
     ;
 
 go_infinite: 'infinite';
@@ -54,11 +54,13 @@ go_depth: 'depth' INTEGER;
 
 go_movetime: 'movetime' INTEGER;
 
-wtime: INTEGER;
-btime: INTEGER;
-winc: INTEGER;
-binc: INTEGER;
-movestogo: INTEGER;
+go_time: 'wtime' INTEGER 'btime' INTEGER 'winc' INTEGER 'binc' INTEGER ('movestogo' INTEGER)?;
+
+// wtime: INTEGER;
+// btime: INTEGER;
+// winc: INTEGER;
+// binc: INTEGER;
+// movestogo: INTEGER;
 
 response
     : 'id' id

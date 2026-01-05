@@ -82,4 +82,18 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.goTime(Integer.parseInt(time));
     }
 
+    @Override
+    public void enterGo_time(UCIParser.Go_timeContext ctx) {
+        String wtime = ctx.INTEGER(0).getText();
+
+        String btime = ctx.INTEGER(1).getText();
+
+        String winc = ctx.INTEGER(2).getText();
+
+        String binc = ctx.INTEGER(3).getText();
+
+        command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
+        //String movestogo  = ctx.INTEGER(0).getText();
+    }
+
 }
