@@ -76,4 +76,10 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.goDepth(Integer.parseInt(depth));
     }
 
+    @Override
+    public void enterGo_movetime(UCIParser.Go_movetimeContext ctx) {
+        String time = ctx.STRING().getText();
+        command = UCIRequest.goTime(Integer.parseInt(time));
+    }
+
 }

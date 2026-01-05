@@ -44,7 +44,7 @@ go: 'go' goparam?;
 goparam
     : go_infinite
     | go_depth
-    | 'movetime' movetime
+    | go_movetime
     | 'wtime' wtime 'btime' btime 'winc' winc 'binc' binc ('movestogo' movestogo)?
     ;
 
@@ -52,7 +52,8 @@ go_infinite: 'infinite';
 
 go_depth: 'depth' STRING;
 
-movetime: STRING;
+go_movetime: 'movetime' STRING;
+
 wtime: STRING;
 btime: STRING;
 winc: STRING;
