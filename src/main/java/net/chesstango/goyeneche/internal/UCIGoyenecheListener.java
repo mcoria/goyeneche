@@ -72,13 +72,13 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     @Override
     public void enterGo_depth(UCIParser.Go_depthContext ctx) {
-        String depth = ctx.STRING().getText();
+        String depth = ctx.INTEGER().getText();
         command = UCIRequest.goDepth(Integer.parseInt(depth));
     }
 
     @Override
     public void enterGo_movetime(UCIParser.Go_movetimeContext ctx) {
-        String time = ctx.STRING().getText();
+        String time = ctx.INTEGER().getText();
         command = UCIRequest.goTime(Integer.parseInt(time));
     }
 

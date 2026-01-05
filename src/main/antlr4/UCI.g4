@@ -50,15 +50,15 @@ goparam
 
 go_infinite: 'infinite';
 
-go_depth: 'depth' STRING;
+go_depth: 'depth' INTEGER;
 
-go_movetime: 'movetime' STRING;
+go_movetime: 'movetime' INTEGER;
 
-wtime: STRING;
-btime: STRING;
-winc: STRING;
-binc: STRING;
-movestogo: STRING;
+wtime: INTEGER;
+btime: INTEGER;
+winc: INTEGER;
+binc: INTEGER;
+movestogo: INTEGER;
 
 response
     : 'id' id
@@ -86,7 +86,8 @@ optiontype
     : 'button'
     | 'string' 'default' STRING;
 
+INTEGER: [0-9]+;
+
 STRING: ~[ \t\r\n]+;
 
 WS: [ \t\r\n]+ -> skip;
-
