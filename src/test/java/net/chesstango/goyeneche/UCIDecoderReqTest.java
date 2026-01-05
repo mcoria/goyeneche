@@ -201,7 +201,7 @@ public class UCIDecoderReqTest {
     }
 
     @Test
-    public void test_parse_go_movebyclock01() {
+    public void test_parse_go_movebyclock() {
         UCICommand result = decoder.parseMessage("go wtime 120000 btime 130000 winc 6000 binc 7000");
 
         assertInstanceOf(ReqGoFast.class, result);

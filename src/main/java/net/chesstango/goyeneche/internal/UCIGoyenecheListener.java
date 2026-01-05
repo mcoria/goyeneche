@@ -5,6 +5,7 @@ import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.internal.antlr4.UCIBaseListener;
 import net.chesstango.goyeneche.internal.antlr4.UCIParser;
 import net.chesstango.goyeneche.requests.UCIRequest;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * @author Mauricio Coria
@@ -92,8 +93,14 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
         String binc = ctx.INTEGER(3).getText();
 
-        command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
-        //String movestogo  = ctx.INTEGER(0).getText();
+        TerminalNode movesToGoNode = ctx.INTEGER(4);
+
+        if (movesToGoNode != null) {
+            String movesToGoText = movesToGoNode.getText();
+            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc), Integer.parseInt(movesToGoText));
+        } else {
+            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
+        }
     }
 
 }
