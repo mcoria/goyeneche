@@ -14,6 +14,9 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Getter
     private UCICommand command;
 
+    private String optionName;
+    private String optionValue;
+
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
         command = UCIRequest.uci();
@@ -37,6 +40,22 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Override
     public void enterQuit(UCIParser.QuitContext ctx) {
         command = UCIRequest.quit();
+    }
+
+
+    @Override
+    public void enterOptionname(UCIParser.OptionnameContext ctx) {
+        optionName = ctx.getText();
+    }
+
+    @Override
+    public void enterOptionvalue(UCIParser.OptionvalueContext ctx) {
+        optionValue = ctx.getText();
+    }
+
+    @Override
+    public void exitSetoption(UCIParser.SetoptionContext ctx) {
+        command = UCIRequest.setOption(optionName, optionValue);
     }
 
 

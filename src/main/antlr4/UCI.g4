@@ -8,9 +8,9 @@ request
     | isready
     | stop
     | quit
-    | 'setoption' setoption
-    | 'position' position
-    | 'go' (go)?
+    | setoption
+    | position
+    | go
     ;
 
 uci
@@ -33,13 +33,15 @@ quit
     : 'quit'
     ;
 
-setoption: 'name' optionname ('value' STRING)?;
+setoption: 'setoption' 'name' optionname ('value' optionvalue)?;
 
-position: ('startpos' | 'fen' fen) ('moves' move+)?;
+position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
 
 fen: STRING STRING STRING STRING STRING STRING;
 
-go
+go: 'go' goparam?;
+
+goparam
     : 'infinite'
     | 'depth' depthparam
     | 'movetime' movetime
@@ -73,6 +75,8 @@ move: STRING;
 option: 'name' optionname 'type' optiontype;
 
 optionname: STRING;
+
+optionvalue: STRING;
 
 optiontype
     : 'button'
