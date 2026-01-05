@@ -2,12 +2,13 @@ package net.chesstango.goyeneche.internal;
 
 import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.UCICommandUnknown;
-import net.chesstango.goyeneche.internal.antlr4.UciLexer;
-import net.chesstango.goyeneche.internal.antlr4.UciParser;
+import net.chesstango.goyeneche.internal.antlr4.UCILexer;
+import net.chesstango.goyeneche.internal.antlr4.UCIParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ConsoleErrorListener;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
  * The UCIDecoder class provides functionality to parse strings formatted in the Universal Chess
@@ -36,16 +37,26 @@ public class UCIDecoder {
      */
     public UCICommand parseMessage(String input) {
         CodePointCharStream stream = CharStreams.fromString(input);
-        UciLexer lexer = new UciLexer(stream);
+        UCILexer lexer = new UCILexer(stream);
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        UciParser parser = new UciParser(tokenStream);
+
+        // 4. Create a parser that feeds off the tokens buffer
+        UCIParser parser = new UCIParser(tokenStream);
         parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
-        UciParser.CommandContext rootContext = parser.command();
-        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
+
+        // 5. Begin parsing at the 'command' rule
+        UCIParser.CommandContext tree = parser.command();
+
+        // 6. Create the walker and hook up the listener
+        ParseTreeWalker walker = ParseTreeWalker.DEFAULT;
+
+        UCIGoyenecheListener listener = new UCIGoyenecheListener();
+
+        walker.walk(listener, tree); // Initiate the walk through the parse tree
 
         UCICommand command = null;
         try {
-            command = rootContext.accept(uciCommandVisitor);
+            command = listener.getCommand();
 
             if (command == null) {
                 command = new UCICommandUnknown(input);

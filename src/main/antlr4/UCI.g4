@@ -1,9 +1,9 @@
-grammar Uci;
+grammar UCI;
 
 command: (request | response ) EOF;
 
 request
-    : 'uci'
+    : uci
     | 'isready'
     | 'setoption' setoption
     | 'ucinewgame'
@@ -11,6 +11,10 @@ request
     | 'go' (go)?
     | 'stop'
     | 'quit'
+    ;
+
+uci
+    : 'uci'
     ;
 
 setoption: 'name' optionname ('value' STRING)?;

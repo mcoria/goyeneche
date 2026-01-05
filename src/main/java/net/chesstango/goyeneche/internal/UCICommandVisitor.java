@@ -1,29 +1,13 @@
 package net.chesstango.goyeneche.internal;
 
-import net.chesstango.goyeneche.UCICommand;
-import net.chesstango.goyeneche.UCICommandUnknown;
-import net.chesstango.goyeneche.internal.antlr4.UciBaseVisitor;
-import net.chesstango.goyeneche.internal.antlr4.UciParser;
-import net.chesstango.goyeneche.requests.ReqGo;
-import net.chesstango.goyeneche.requests.ReqPosition;
-import net.chesstango.goyeneche.requests.ReqSetOption;
-import net.chesstango.goyeneche.requests.UCIRequest;
-import net.chesstango.goyeneche.responses.RspId;
-import net.chesstango.goyeneche.responses.RspOption;
-import net.chesstango.goyeneche.responses.UCIResponse;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author Mauricio Coria
  */
-public class UCICommandVisitor extends UciBaseVisitor<UCICommand> {
+public class UCICommandVisitor {
 
+    // extends UciBaseVisitor<UCICommand>
+
+    /*
     @Override
     public UCICommand visitCommand(UciParser.CommandContext ctx) {
         UciParser.RequestContext requestCtx = ctx.request();
@@ -196,4 +180,5 @@ public class UCICommandVisitor extends UciBaseVisitor<UCICommand> {
                 .map(TerminalNode::getText)
                 .toList();
     }
+     */
 }
