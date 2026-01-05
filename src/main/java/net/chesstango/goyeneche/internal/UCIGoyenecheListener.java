@@ -70,4 +70,10 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         }
     }
 
+    @Override
+    public void enterGo_depth(UCIParser.Go_depthContext ctx) {
+        String depth = ctx.STRING().getText();
+        command = UCIRequest.goDepth(Integer.parseInt(depth));
+    }
+
 }
