@@ -6,6 +6,9 @@ import net.chesstango.goyeneche.internal.antlr4.UCIBaseListener;
 import net.chesstango.goyeneche.internal.antlr4.UCIParser;
 import net.chesstango.goyeneche.requests.UCIRequest;
 import net.chesstango.goyeneche.responses.UCIResponse;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.LinkedList;
@@ -24,6 +27,9 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     private String fen;
     private List<String> moves;
+
+    private String idAuthor;
+    private String idName;
 
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
@@ -151,6 +157,32 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Override
     public void enterReadyok(UCIParser.ReadyokContext ctx) {
         command = UCIResponse.readyok();
+    }
+
+    @Override
+    public void enterName(UCIParser.NameContext ctx) {
+        command = UCIResponse.idName(getOriginalText(ctx));
+    }
+
+    @Override
+    public void enterAuthor(UCIParser.AuthorContext ctx) {
+        command = UCIResponse.idAuthor(getOriginalText(ctx));
+    }
+
+    private String getOriginalText(ParserRuleContext ctx) {
+        // 1. Get the start and stop token indices from the context
+        int startIndex = ctx.start.getStartIndex();
+        int stopIndex = ctx.stop.getStopIndex();
+
+        // 2. Define the interval using these indices
+        Interval interval = new Interval(startIndex, stopIndex);
+
+        // 3. Access the CharStream from the start token
+        CharStream input = ctx.start.getInputStream();
+
+        // 4. Retrieve the original text for the defined interval
+        return input.getText(interval);
+
     }
 
 }
