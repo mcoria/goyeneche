@@ -19,4 +19,12 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.uci();
     }
 
+    @Override public void enterIsready(UCIParser.IsreadyContext ctx) {
+        command = UCIRequest.isready();
+    }
+
+    @Override public void enterUcinewgame(UCIParser.UcinewgameContext ctx) {
+        command = UCIRequest.ucinewgame();
+    }
+
 }

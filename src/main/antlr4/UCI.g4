@@ -4,9 +4,9 @@ command: (request | response ) EOF;
 
 request
     : uci
-    | 'isready'
+    | ucinewgame
+    | isready
     | 'setoption' setoption
-    | 'ucinewgame'
     | 'position' position
     | 'go' (go)?
     | 'stop'
@@ -15,6 +15,14 @@ request
 
 uci
     : 'uci'
+    ;
+
+isready
+    : 'isready'
+    ;
+
+ucinewgame
+    : 'ucinewgame'
     ;
 
 setoption: 'name' optionname ('value' STRING)?;
