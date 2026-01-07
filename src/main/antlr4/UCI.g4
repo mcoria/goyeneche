@@ -13,29 +13,23 @@ request
     | go
     ;
 
-uci
-    : 'uci'
-    ;
+uci: 'uci';
 
-isready
-    : 'isready'
-    ;
+isready: 'isready';
 
-ucinewgame
-    : 'ucinewgame'
-    ;
+ucinewgame: 'ucinewgame';
 
-stop
-    : 'stop'
-    ;
+stop: 'stop';
 
-quit
-    : 'quit'
-    ;
+quit: 'quit';
 
-setoption: 'setoption' 'name' optionname ('value' optionvalue)?;
+setoption: 'setoption' 'name' setoption_name ('value' setoption_value)?;
 
 position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
+
+setoption_name: STRING;
+
+setoption_value: STRING;
 
 fen: STRING STRING STRING STRING INTEGER INTEGER;
 
@@ -65,16 +59,16 @@ go_time: 'wtime' INTEGER 'btime' INTEGER 'winc' INTEGER 'binc' INTEGER ('movesto
 response
     : uciok
     | readyok
-    | 'id' id
+    | id
+    | option
     | 'bestmove' move ('ponder' move)?
-    | 'option' option
     ;
 
 uciok: 'uciok';
 
 readyok: 'readyok';
 
-id: ('name' name | 'author' author);
+id: 'id' ('name' name | 'author' author);
 
 name: STRING*;
 
@@ -82,15 +76,17 @@ author: STRING*;
 
 move: STRING;
 
-option: 'name' optionname 'type' optiontype;
+option: 'option' 'name' optionname 'type' optiontype;
 
 optionname: STRING;
 
-optionvalue: STRING;
-
 optiontype
-    : 'button'
-    | 'string' 'default' STRING;
+    : optiontype_button
+    | optiontype_string;
+
+optiontype_button: 'button';
+
+optiontype_string: 'string' 'default' STRING;
 
 INTEGER: [0-9]+;
 

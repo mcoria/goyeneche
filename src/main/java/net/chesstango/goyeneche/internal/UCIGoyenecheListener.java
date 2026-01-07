@@ -22,14 +22,21 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Getter
     private UCICommand command;
 
-    private String optionName;
-    private String optionValue;
+    private String setOptionName;
+    private String setOptionValue;
 
     private String fen;
     private List<String> moves;
 
-    private String idAuthor;
-    private String idName;
+
+    private String optionName;
+
+    private enum OptionType {BUTTON, STRING}
+
+    ;
+    private OptionType optionType;
+
+    private String optionDefaultValue;
 
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
@@ -56,20 +63,19 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.quit();
     }
 
-
     @Override
-    public void enterOptionname(UCIParser.OptionnameContext ctx) {
-        optionName = ctx.getText();
+    public void enterSetoption_name(UCIParser.Setoption_nameContext ctx) {
+        setOptionName = ctx.getText();
     }
 
     @Override
-    public void enterOptionvalue(UCIParser.OptionvalueContext ctx) {
-        optionValue = ctx.getText();
+    public void enterSetoption_value(UCIParser.Setoption_valueContext ctx) {
+        setOptionValue = ctx.getText();
     }
 
     @Override
     public void exitSetoption(UCIParser.SetoptionContext ctx) {
-        command = UCIRequest.setOption(optionName, optionValue);
+        command = UCIRequest.setOption(setOptionName, setOptionValue);
     }
 
     @Override
@@ -169,6 +175,31 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIResponse.idAuthor(getOriginalText(ctx));
     }
 
+    @Override
+    public void enterOptionname(UCIParser.OptionnameContext ctx) {
+        optionName = getOriginalText(ctx);
+    }
+
+    @Override
+    public void enterOptiontype_button(UCIParser.Optiontype_buttonContext ctx) {
+        optionType = OptionType.BUTTON;
+    }
+
+    @Override
+    public void enterOptiontype_string(UCIParser.Optiontype_stringContext ctx) {
+        optionType = OptionType.STRING;
+        optionDefaultValue = ctx.STRING().getText();
+    }
+
+    @Override
+    public void exitOption(UCIParser.OptionContext ctx) {
+        if (optionType == OptionType.BUTTON) {
+            command = UCIResponse.createButtonOption(optionName);
+        } else if (optionType == OptionType.STRING) {
+            command = UCIResponse.createStringOption(optionName, optionDefaultValue);
+        }
+    }
+
     private String getOriginalText(ParserRuleContext ctx) {
         // 1. Get the start and stop token indices from the context
         int startIndex = ctx.start.getStartIndex();
@@ -184,5 +215,6 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         return input.getText(interval);
 
     }
+
 
 }
