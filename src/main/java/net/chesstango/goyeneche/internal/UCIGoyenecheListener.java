@@ -28,15 +28,16 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     private String fen;
     private List<String> moves;
 
-
     private String optionName;
+    private String ponderMove;
 
     private enum OptionType {BUTTON, STRING}
 
-    ;
     private OptionType optionType;
 
     private String optionDefaultValue;
+
+    private String bestMove;
 
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
@@ -216,5 +217,23 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     }
 
+    @Override
+    public void enterBest_move(UCIParser.Best_moveContext ctx) {
+        bestMove = ctx.getText();
+    }
+
+    @Override
+    public void enterPoder_move(UCIParser.Poder_moveContext ctx) {
+        this.ponderMove = ctx.getText();
+    }
+
+    @Override
+    public void exitBestmove(UCIParser.BestmoveContext ctx) {
+        if (bestMove != null && ponderMove != null) {
+            command = UCIResponse.bestMove(bestMove, ponderMove);
+        } else if (bestMove != null) {
+            command = UCIResponse.bestMove(bestMove);
+        }
+    }
 
 }

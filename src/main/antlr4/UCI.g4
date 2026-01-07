@@ -61,7 +61,7 @@ response
     | readyok
     | id
     | option
-    | 'bestmove' move ('ponder' move)?
+    | bestmove
     ;
 
 uciok: 'uciok';
@@ -70,11 +70,17 @@ readyok: 'readyok';
 
 id: 'id' ('name' name | 'author' author);
 
+bestmove: 'bestmove' best_move ('ponder' poder_move)?;
+
 name: STRING*;
 
 author: STRING*;
 
 move: STRING;
+
+best_move: STRING;
+
+poder_move: STRING;
 
 option: 'option' 'name' optionname 'type' optiontype;
 
