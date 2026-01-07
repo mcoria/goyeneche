@@ -1,10 +1,14 @@
 package net.chesstango.goyeneche.internal.antlr4;
 
 import net.chesstango.goyeneche.UCICommand;
-import net.chesstango.goyeneche.internal.UCICommandVisitor;
+import net.chesstango.goyeneche.internal.UCIGoyenecheListener;
 import net.chesstango.goyeneche.requests.ReqUci;
 import net.chesstango.goyeneche.requests.UCIRequest;
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CodePointCharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -14,39 +18,45 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @author Mauricio Coria
  */
 public class UCICommandVisitorTest {
+
+    private UCIGoyenecheListener listener;
+    private ParseTreeWalker walker;
+
+    @BeforeEach
+    void setup() {
+        listener = new UCIGoyenecheListener();
+        walker = ParseTreeWalker.DEFAULT;
+    }
+
     @Test
     public void test_parse() {
         CodePointCharStream stream = CharStreams.fromString("uci");
-        UciLexer lexer = new UciLexer(stream);
+        UCILexer lexer = new UCILexer(stream);
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        UciParser parser = new UciParser(tokenStream);
-        ParserRuleContext commandContext = parser.command();
+        UCIParser parser = new UCIParser(tokenStream);
+        UCIParser.CommandContext tree = parser.command();
 
-        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
+        walker.walk(listener, tree); // Initiate the walk through the parse tree
 
-        UCICommand command = commandContext.accept(uciCommandVisitor);
+        UCICommand command = listener.getCommand();
 
         assertInstanceOf(UCIRequest.class, command);
-
         assertInstanceOf(ReqUci.class, command);
     }
 
     @Test
     public void test_unknown_command() {
         CodePointCharStream stream = CharStreams.fromString("xx xxx");
-
-        UciLexer lexer = new UciLexer(stream);
+        UCILexer lexer = new UCILexer(stream);
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        UCIParser parser = new UCIParser(tokenStream);
+        UCIParser.CommandContext tree = parser.command();
 
-        UciParser parser = new UciParser(tokenStream);
+        walker.walk(listener, tree); // Initiate the walk through the parse tree
 
-        ParserRuleContext commandContext = parser.command();
-
-        UCICommandVisitor uciCommandVisitor = new UCICommandVisitor();
-
-        UCICommand command = commandContext.accept(uciCommandVisitor);
+        UCICommand command = listener.getCommand();
 
         assertNull(command);
     }

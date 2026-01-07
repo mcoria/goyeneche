@@ -56,11 +56,15 @@ public interface UCIResponse extends UCICommand {
     }
 
     static RspOption createStringOption(String name, String defaultValue) {
-        return new RspOption(name, RspOption.OptionType.STRING, defaultValue, null, null);
+        return  RspOption.buildStringOption(name, defaultValue);
     }
 
-    static RspOption createCheckOption(String name, boolean defaultValue) {
-        return new RspOption(name, RspOption.OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+    static RspOption createButtonOption(String name) {
+        return RspOption.buildButtonOption(name);
+    }
+
+    static RspOption createCheckOption(String name) {
+        return RspOption.buildButtonOption(name);
     }
 
     static RspInfo info(String info) {

@@ -86,8 +86,8 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>${antlr.version}</version>
                 <configuration>
-                    <visitor>true</visitor>
-                    <listener>false</listener>
+                    <visitor>false</visitor>
+                    <listener>true</listener>
                     <arguments>
                         <argument>-package</argument>
                         <argument>net.chesstango.goyeneche.internal.antlr4</argument>

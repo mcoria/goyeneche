@@ -165,7 +165,7 @@ public class UCIDecoderReqTest {
     }
 
     @Test
-    public void test_parse_go_depth() {
+    public void test_parse_go_depth01() {
         UCICommand result = decoder.parseMessage("go depth 1");
 
         assertInstanceOf(ReqGoDepth.class, result);
@@ -174,6 +174,18 @@ public class UCIDecoderReqTest {
         assertEquals(1, go.getDepth());
 
         assertEquals("go depth 1", result.toString());
+    }
+
+    @Test
+    public void test_parse_go_depth02() {
+        UCICommand result = decoder.parseMessage("go depth 2");
+
+        assertInstanceOf(ReqGoDepth.class, result);
+
+        ReqGoDepth go = (ReqGoDepth) result;
+        assertEquals(2, go.getDepth());
+
+        assertEquals("go depth 2", result.toString());
     }
 
     @Test
@@ -189,7 +201,7 @@ public class UCIDecoderReqTest {
     }
 
     @Test
-    public void test_parse_go_movebyclock01() {
+    public void test_parse_go_movebyclock() {
         UCICommand result = decoder.parseMessage("go wtime 120000 btime 130000 winc 6000 binc 7000");
 
         assertInstanceOf(ReqGoFast.class, result);

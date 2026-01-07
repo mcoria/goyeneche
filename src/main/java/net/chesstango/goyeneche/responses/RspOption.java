@@ -16,7 +16,19 @@ public final class RspOption implements UCIResponse {
     private final String minValue;
     private final String maxValue;
 
-    RspOption(String name, OptionType type, String defaultValue, String minValue, String maxValue) {
+    static RspOption buildStringOption(String name, String defaultValue) {
+        return new RspOption(name, RspOption.OptionType.STRING, defaultValue, null, null);
+    }
+
+    static RspOption buildButtonOption(String name) {
+        return new RspOption(name, RspOption.OptionType.BUTTON, null, null, null);
+    }
+
+    static RspOption buildCheckOption(String name, boolean defaultValue) {
+        return new RspOption(name, RspOption.OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+    }
+
+    private RspOption(String name, OptionType type, String defaultValue, String minValue, String maxValue) {
         this.name = name;
         this.type = type;
         this.defaultValue = defaultValue;
