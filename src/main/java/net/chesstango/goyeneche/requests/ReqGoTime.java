@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Objects;
+
 /**
  * @author Mauricio Coria
  */
@@ -26,5 +28,16 @@ public final class ReqGoTime extends ReqGo {
     @Override
     public String toString() {
         return String.format("go movetime %d", timeOut);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ReqGoTime reqGoTime)) return false;
+        return timeOut == reqGoTime.timeOut;
+    }
+
+    @Override
+    public int hashCode() {
+        return timeOut;
     }
 }

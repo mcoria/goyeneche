@@ -26,4 +26,6 @@ public final class ReqGoInfinite extends ReqGo {
     public String toString() {
         return "go infinite";
     }
+
+
 }

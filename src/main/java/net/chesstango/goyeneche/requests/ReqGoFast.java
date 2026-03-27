@@ -3,6 +3,8 @@ package net.chesstango.goyeneche.requests;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+import java.util.Objects;
+
 /**
  * Fast chess: https://en.wikipedia.org/wiki/Fast_chess
  *
@@ -48,5 +50,16 @@ public final class ReqGoFast extends ReqGo {
         return movesToGo == null
                 ? String.format("go wtime %d btime %d winc %d binc %d", wTime, bTime, wInc, bInc)
                 : String.format("go wtime %d btime %d winc %d binc %d movestogo %d", wTime, bTime, wInc, bInc, movesToGo);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ReqGoFast reqGoFast)) return false;
+        return wTime == reqGoFast.wTime && wInc == reqGoFast.wInc && bTime == reqGoFast.bTime && bInc == reqGoFast.bInc && Objects.equals(movesToGo, reqGoFast.movesToGo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(wTime, wInc, bTime, bInc, movesToGo);
     }
 }

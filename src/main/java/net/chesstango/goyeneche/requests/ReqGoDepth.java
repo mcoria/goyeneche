@@ -27,4 +27,15 @@ public final class ReqGoDepth extends ReqGo {
     public String toString() {
         return String.format("go depth %d", depth);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ReqGoDepth that)) return false;
+        return depth == that.depth;
+    }
+
+    @Override
+    public int hashCode() {
+        return depth;
+    }
 }
