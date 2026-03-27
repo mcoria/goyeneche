@@ -63,10 +63,5 @@ import java.util.function.Consumer;
  * @author Mauricio Coria
  */
 
-public interface UCIService extends Consumer<UCICommand> {
-    void open();
-
-    void close();
-
-    void setOutputStream(UCIOutputStream output);
+public interface UCIService extends Consumer<UCICommand>, AutoCloseable {
 }

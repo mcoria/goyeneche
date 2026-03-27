@@ -22,27 +22,14 @@ import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
  *
  * @author Mauricio Coria
  */
-public class AbstractUCIEngine implements UCIService, UCIEngine {
+public abstract class AbstractUCIEngine implements UCIService, UCIEngine {
 
     private final UCIOutputStreamEngineExecutor engineExecutor;
 
-    private UCIOutputStream outputStream;
+    private final UCIOutputStream outputStream;
 
-    public AbstractUCIEngine() {
-        engineExecutor = new UCIOutputStreamEngineExecutor(this);
-    }
-
-
-    @Override
-    public void open() {
-    }
-
-    @Override
-    public void close() {
-    }
-
-    @Override
-    public void setOutputStream(UCIOutputStream output) {
+    public AbstractUCIEngine(UCIOutputStream output) {
+        this.engineExecutor = new UCIOutputStreamEngineExecutor(this);
         this.outputStream = output;
     }
 
@@ -53,7 +40,7 @@ public class AbstractUCIEngine implements UCIService, UCIEngine {
         }
     }
 
-    public void replyResponse(UCIResponse response) {
+    protected void replyResponse(UCIResponse response) {
         outputStream.accept(response);
     }
 }

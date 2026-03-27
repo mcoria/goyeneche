@@ -4,6 +4,7 @@ import net.chesstango.goyeneche.requests.*;
 import net.chesstango.goyeneche.responses.UCIResponse;
 import net.chesstango.goyeneche.stream.UCIActiveStreamReader;
 import net.chesstango.goyeneche.stream.UCIInputStreamFromStringAdapter;
+import net.chesstango.goyeneche.stream.UCIOutputStream;
 import net.chesstango.goyeneche.stream.UCIOutputStreamToStringAdapter;
 import net.chesstango.goyeneche.stream.strings.StringConsumer;
 import net.chesstango.goyeneche.stream.strings.StringSupplier;
@@ -42,23 +43,17 @@ public class EngineSkeleton extends AbstractUCIEngine {
     public static void main(String[] args) {
 
         // Create an instance of the EngineSkeleton to handle UCI commands.
-        EngineSkeleton engineSkeleton = new EngineSkeleton();
-
         // Configure the engine's output stream to forward responses to the GUI via standard output,
         // using a StringConsumer for protocol-compliant communication.
-        engineSkeleton.setOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))));
-
         // Open the engine to prepare it for communication with the GUI.
-        engineSkeleton.open();
+        try (EngineSkeleton engineSkeleton = new EngineSkeleton(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))))) {
 
-        // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
-        UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
+            // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
+            UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
 
-        // Start processing UCI commands in the active reader loop.
-        uciActiveStreamReader.run();
-
-        // Close the engine after completing the communication.
-        engineSkeleton.close();
+            // Start processing UCI commands in the active reader loop.
+            uciActiveStreamReader.run();
+        }
     }
 
 
@@ -87,6 +82,10 @@ public class EngineSkeleton extends AbstractUCIEngine {
 
         // Return the configured UCIActiveStreamReader instance to handle communication with the GUI.
         return uciActiveStreamReader;
+    }
+
+    public EngineSkeleton(UCIOutputStream output) {
+        super(output);
     }
 
     /**
@@ -138,5 +137,10 @@ public class EngineSkeleton extends AbstractUCIEngine {
     @Override
     public void do_go(ReqGo reqGo) {
         replyResponse(UCIResponse.bestMove("c2c4"));
+    }
+
+
+    @Override
+    public void close() {
     }
 }
