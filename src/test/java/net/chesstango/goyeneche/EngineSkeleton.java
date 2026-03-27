@@ -95,10 +95,10 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_uci(ReqUci reqUci) {
-        replyResponse(UCIResponse.idName("Skeleton 1.0"));
-        replyResponse(UCIResponse.idAuthor("John Doe"));
-        replyResponse(UCIResponse.createStringOption("NalimovPath", "c:\\book"));
-        replyResponse(UCIResponse.uciok());
+        reply(UCIResponse.idName("Skeleton 1.0"));
+        reply(UCIResponse.idAuthor("John Doe"));
+        reply(UCIResponse.createStringOption("NalimovPath", "c:\\book"));
+        reply(UCIResponse.uciok());
     }
 
     /**
@@ -108,7 +108,7 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_isReady(ReqIsReady reqIsReady) {
-        replyResponse(UCIResponse.readyok());
+        reply(UCIResponse.readyok());
     }
 
 
@@ -136,7 +136,7 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_go(ReqGo reqGo) {
-        replyResponse(UCIResponse.bestMove("c2c4"));
+        reply(UCIResponse.bestMove("c2c4"));
     }
 
 

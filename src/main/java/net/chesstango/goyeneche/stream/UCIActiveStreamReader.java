@@ -7,24 +7,42 @@ import net.chesstango.goyeneche.requests.ReqQuit;
  * @author Mauricio Coria
  */
 public class UCIActiveStreamReader implements Runnable {
-    protected volatile boolean keepReading;
+    protected boolean keepReading;
+    protected Thread readingPipeThread;
     protected UCIInputStream input;
     protected UCIOutputStream output;
 
-    @Override
-    public void run() {
-        UCIOutputStreamSwitch actionOutput = new UCIOutputStreamSwitch(uciMessage -> uciMessage instanceof ReqQuit, this::stopReading);
-        actionOutput.setOutputStream(output);
 
+    public UCIActiveStreamReader() {
         keepReading = true;
-        UCICommand message = null;
-        while (keepReading && (message = input.get()) != null) {
-            actionOutput.accept(message);
+    }
+
+
+    @Override
+    public synchronized void run() {
+        if (keepReading) {
+            UCIOutputStreamSwitch actionOutput = new UCIOutputStreamSwitch(ReqQuit.class::isInstance, this::stopReading);
+            actionOutput.setOutputStream(output);
+
+            readingPipeThread = Thread.currentThread();
+
+            try {
+                UCICommand message = null;
+                while (keepReading && (message = input.get()) != null) {
+                    actionOutput.accept(message);
+                }
+            } finally {
+                keepReading = false;
+                readingPipeThread = null;
+            }
         }
     }
 
-    public void stopReading() {
+    public synchronized void stopReading() {
         keepReading = false;
+        if (readingPipeThread != null && readingPipeThread.isAlive()) {
+            readingPipeThread.interrupt();
+        }
     }
 
     public void setInputStream(UCIInputStream input) {

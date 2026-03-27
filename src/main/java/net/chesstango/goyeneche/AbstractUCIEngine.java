@@ -1,7 +1,5 @@
 package net.chesstango.goyeneche;
 
-import net.chesstango.goyeneche.requests.*;
-import net.chesstango.goyeneche.responses.UCIResponse;
 import net.chesstango.goyeneche.stream.UCIOutputStream;
 import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
 
@@ -40,7 +38,7 @@ public abstract class AbstractUCIEngine implements UCIService, UCIEngine {
         }
     }
 
-    protected void replyResponse(UCIResponse response) {
-        outputStream.accept(response);
+    protected void reply(UCICommand command) {
+        outputStream.accept(command);
     }
 }
