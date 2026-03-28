@@ -4,7 +4,6 @@ import net.chesstango.goyeneche.requests.*;
 import net.chesstango.goyeneche.responses.UCIResponse;
 import net.chesstango.goyeneche.stream.UCIActiveStreamReader;
 import net.chesstango.goyeneche.stream.UCIInputStreamFromStringAdapter;
-import net.chesstango.goyeneche.stream.UCIOutputStream;
 import net.chesstango.goyeneche.stream.UCIOutputStreamToStringAdapter;
 import net.chesstango.goyeneche.stream.strings.StringConsumer;
 import net.chesstango.goyeneche.stream.strings.StringSupplier;
@@ -46,7 +45,8 @@ public class EngineSkeleton extends AbstractUCIEngine {
         // Configure the engine's output stream to forward responses to the GUI via standard output,
         // using a StringConsumer for protocol-compliant communication.
         // Open the engine to prepare it for communication with the GUI.
-        try (EngineSkeleton engineSkeleton = new EngineSkeleton(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))))) {
+        try (EngineSkeleton engineSkeleton = new EngineSkeleton()) {
+            engineSkeleton.setUCIOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))));
 
             // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
             UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
@@ -82,10 +82,6 @@ public class EngineSkeleton extends AbstractUCIEngine {
 
         // Return the configured UCIActiveStreamReader instance to handle communication with the GUI.
         return uciActiveStreamReader;
-    }
-
-    public EngineSkeleton(UCIOutputStream output) {
-        super(output);
     }
 
     /**

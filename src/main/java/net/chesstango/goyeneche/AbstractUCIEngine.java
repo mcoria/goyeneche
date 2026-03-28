@@ -3,6 +3,8 @@ package net.chesstango.goyeneche;
 import net.chesstango.goyeneche.stream.UCIOutputStream;
 import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
 
+import java.util.function.Consumer;
+
 
 /**
  * Represents an abstract implementation of a Universal Chess Interface (UCI) engine.
@@ -15,20 +17,23 @@ import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
  * <p>The class manages an {@link UCIOutputStreamEngineExecutor} for command execution
  * and provides a mechanism for processing responses through an output stream.</p>
  *
+ * @author Mauricio Coria
  * @see UCIService
  * @see UCIEngine
- *
- * @author Mauricio Coria
  */
 public abstract class AbstractUCIEngine implements UCIService, UCIEngine {
 
     private final UCIOutputStreamEngineExecutor engineExecutor;
 
-    private final UCIOutputStream outputStream;
+    private Consumer<UCICommand> output;
 
-    public AbstractUCIEngine(UCIOutputStream output) {
+    public AbstractUCIEngine() {
         this.engineExecutor = new UCIOutputStreamEngineExecutor(this);
-        this.outputStream = output;
+    }
+
+    @Override
+    public void setUCIOutputStream(UCIOutputStream output) {
+        this.output = output;
     }
 
     @Override
@@ -39,6 +44,6 @@ public abstract class AbstractUCIEngine implements UCIService, UCIEngine {
     }
 
     protected void reply(UCICommand command) {
-        outputStream.accept(command);
+        output.accept(command);
     }
 }
