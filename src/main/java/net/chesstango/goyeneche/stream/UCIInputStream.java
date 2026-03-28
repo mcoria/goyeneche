@@ -8,5 +8,4 @@ import java.util.function.Supplier;
  * @author Mauricio Coria
  */
 public interface UCIInputStream extends Supplier<UCICommand> {
-
 }

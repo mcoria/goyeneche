@@ -21,7 +21,6 @@ public class StringSupplier implements Supplier<String> {
         try {
             return reader.readLine();
         } catch (IOException e) {
-            e.printStackTrace(System.err);
             return null;
         }
     }
