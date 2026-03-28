@@ -24,3 +24,9 @@ hs_err_pid*
 replay_pid*
 target/
 .idea/
+
+# Maven release plugin backup file
+pom.xml.releaseBackup
+
+# Maven release plugin properties file
+release.properties
