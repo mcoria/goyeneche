@@ -1,17 +1,18 @@
 package net.chesstango.goyeneche.stream;
 
-import net.chesstango.goyeneche.internal.UCIDecoder;
 import net.chesstango.goyeneche.UCICommand;
-import net.chesstango.goyeneche.stream.strings.StringSupplier;
+import net.chesstango.goyeneche.internal.UCIDecoder;
+
+import java.util.function.Supplier;
 
 /**
  * @author Mauricio Coria
  */
 public class UCIInputStreamFromStringAdapter implements UCIInputStream {
     private final UCIDecoder uciDecoder = new UCIDecoder();
-    private final StringSupplier reader;
+    private final Supplier<String> reader;
 
-    public UCIInputStreamFromStringAdapter(StringSupplier reader) {
+    public UCIInputStreamFromStringAdapter(Supplier<String> reader) {
         this.reader = reader;
     }
 
