@@ -42,23 +42,18 @@ public class EngineSkeleton extends AbstractUCIEngine {
     public static void main(String[] args) {
 
         // Create an instance of the EngineSkeleton to handle UCI commands.
-        EngineSkeleton engineSkeleton = new EngineSkeleton();
-
         // Configure the engine's output stream to forward responses to the GUI via standard output,
         // using a StringConsumer for protocol-compliant communication.
-        engineSkeleton.setOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))));
-
         // Open the engine to prepare it for communication with the GUI.
-        engineSkeleton.open();
+        try (EngineSkeleton engineSkeleton = new EngineSkeleton()) {
+            engineSkeleton.setUCIOutputStream(new UCIOutputStreamToStringAdapter(new StringConsumer(new OutputStreamWriter(System.out))));
 
-        // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
-        UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
+            // Initialize and set up the UCIActiveStreamReader to read UCI commands from standard input.
+            UCIActiveStreamReader uciActiveStreamReader = createUciActiveStreamReader(engineSkeleton);
 
-        // Start processing UCI commands in the active reader loop.
-        uciActiveStreamReader.run();
-
-        // Close the engine after completing the communication.
-        engineSkeleton.close();
+            // Start processing UCI commands in the active reader loop.
+            uciActiveStreamReader.run();
+        }
     }
 
 
@@ -96,10 +91,10 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_uci(ReqUci reqUci) {
-        replyResponse(UCIResponse.idName("Skeleton 1.0"));
-        replyResponse(UCIResponse.idAuthor("John Doe"));
-        replyResponse(UCIResponse.createStringOption("NalimovPath", "c:\\book"));
-        replyResponse(UCIResponse.uciok());
+        reply(UCIResponse.idName("Skeleton 1.0"));
+        reply(UCIResponse.idAuthor("John Doe"));
+        reply(UCIResponse.createStringOption("NalimovPath", "c:\\book"));
+        reply(UCIResponse.uciok());
     }
 
     /**
@@ -109,7 +104,7 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_isReady(ReqIsReady reqIsReady) {
-        replyResponse(UCIResponse.readyok());
+        reply(UCIResponse.readyok());
     }
 
 
@@ -137,6 +132,11 @@ public class EngineSkeleton extends AbstractUCIEngine {
      */
     @Override
     public void do_go(ReqGo reqGo) {
-        replyResponse(UCIResponse.bestMove("c2c4"));
+        reply(UCIResponse.bestMove("c2c4"));
+    }
+
+
+    @Override
+    public void close() {
     }
 }

@@ -1,9 +1,9 @@
 package net.chesstango.goyeneche;
 
-import net.chesstango.goyeneche.requests.*;
-import net.chesstango.goyeneche.responses.UCIResponse;
 import net.chesstango.goyeneche.stream.UCIOutputStream;
 import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
+
+import java.util.function.Consumer;
 
 
 /**
@@ -17,33 +17,23 @@ import net.chesstango.goyeneche.stream.UCIOutputStreamEngineExecutor;
  * <p>The class manages an {@link UCIOutputStreamEngineExecutor} for command execution
  * and provides a mechanism for processing responses through an output stream.</p>
  *
+ * @author Mauricio Coria
  * @see UCIService
  * @see UCIEngine
- *
- * @author Mauricio Coria
  */
-public class AbstractUCIEngine implements UCIService, UCIEngine {
+public abstract class AbstractUCIEngine implements UCIService, UCIEngine {
 
     private final UCIOutputStreamEngineExecutor engineExecutor;
 
-    private UCIOutputStream outputStream;
+    private Consumer<UCICommand> output;
 
     public AbstractUCIEngine() {
-        engineExecutor = new UCIOutputStreamEngineExecutor(this);
-    }
-
-
-    @Override
-    public void open() {
+        this.engineExecutor = new UCIOutputStreamEngineExecutor(this);
     }
 
     @Override
-    public void close() {
-    }
-
-    @Override
-    public void setOutputStream(UCIOutputStream output) {
-        this.outputStream = output;
+    public void setUCIOutputStream(UCIOutputStream output) {
+        this.output = output;
     }
 
     @Override
@@ -53,7 +43,7 @@ public class AbstractUCIEngine implements UCIService, UCIEngine {
         }
     }
 
-    public void replyResponse(UCIResponse response) {
-        outputStream.accept(response);
+    protected void reply(UCICommand command) {
+        output.accept(command);
     }
 }

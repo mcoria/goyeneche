@@ -29,7 +29,7 @@ import java.util.function.Consumer;
  *   initialize or release required resources (e.g., connections, streams, or engine processes).</li>
  *
  *   <li><b>Response Handling:</b> Provides a method to direct responses to an output stream using
- *   {@link #setOutputStream(UCIOutputStream)}. This allows flexibility in redirecting responses to a specific target.</li>
+ *   {@link #setUCIOutputStream(UCIOutputStream)}. This allows flexibility in redirecting responses to a specific target.</li>
  * </ul>
  *
  * <h2>Usage Scenarios</h2>
@@ -47,9 +47,8 @@ import java.util.function.Consumer;
  *
  * <h2>Interface Methods</h2>
  * <ul>
- *   <li>{@link #open()}: Prepares the service for use and initializes any required resources.</li>
  *   <li>{@link #close()}: Cleans up and releases resources previously initialized by the service.</li>
- *   <li>{@link #setOutputStream(UCIOutputStream)}: Configures the output stream used to send commands from the service.</li>
+ *   <li>{@link #setUCIOutputStream(UCIOutputStream)}: Configures the output stream used to send commands from the service.</li>
  *   <li>{@link java.util.function.Consumer#accept(Object)}: Processes individual UCI protocol commands passed to the service.</li>
  * </ul>
  *
@@ -63,10 +62,6 @@ import java.util.function.Consumer;
  * @author Mauricio Coria
  */
 
-public interface UCIService extends Consumer<UCICommand> {
-    void open();
-
-    void close();
-
-    void setOutputStream(UCIOutputStream output);
+public interface UCIService extends Consumer<UCICommand>, AutoCloseable {
+    void setUCIOutputStream(UCIOutputStream output);
 }

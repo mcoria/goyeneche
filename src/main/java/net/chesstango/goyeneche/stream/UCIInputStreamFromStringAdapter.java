@@ -1,7 +1,7 @@
 package net.chesstango.goyeneche.stream;
 
-import net.chesstango.goyeneche.internal.UCIDecoder;
 import net.chesstango.goyeneche.UCICommand;
+import net.chesstango.goyeneche.internal.UCIDecoder;
 
 import java.util.function.Supplier;
 
@@ -21,5 +21,4 @@ public class UCIInputStreamFromStringAdapter implements UCIInputStream {
         String line = reader.get();
         return line == null ? null : uciDecoder.parseMessage(line);
     }
-
 }
