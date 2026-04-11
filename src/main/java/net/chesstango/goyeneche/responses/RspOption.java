@@ -8,6 +8,7 @@ import net.chesstango.goyeneche.UCIGui;
  */
 @Getter
 public final class RspOption implements UCIResponse {
+
     public enum OptionType {CHECK, STRING, COMBO, BUTTON, SPIN}
 
     private final String name;
@@ -17,15 +18,19 @@ public final class RspOption implements UCIResponse {
     private final String maxValue;
 
     static RspOption buildStringOption(String name, String defaultValue) {
-        return new RspOption(name, RspOption.OptionType.STRING, defaultValue, null, null);
+        return new RspOption(name, OptionType.STRING, defaultValue, null, null);
     }
 
     static RspOption buildButtonOption(String name) {
-        return new RspOption(name, RspOption.OptionType.BUTTON, null, null, null);
+        return new RspOption(name, OptionType.BUTTON, null, null, null);
     }
 
     static RspOption buildCheckOption(String name, boolean defaultValue) {
-        return new RspOption(name, RspOption.OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+        return new RspOption(name, OptionType.CHECK, Boolean.toString(defaultValue), null, null);
+    }
+
+    public static RspOption buildSpingOption(String name, String minValue, String maxValue) {
+        return new RspOption(name, OptionType.SPIN, null, minValue, maxValue);
     }
 
     private RspOption(String name, OptionType type, String defaultValue, String minValue, String maxValue) {
