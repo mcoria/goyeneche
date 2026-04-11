@@ -67,8 +67,8 @@ public interface UCIResponse extends UCICommand {
         return RspOption.buildButtonOption(name);
     }
 
-    static RspOption createSpingOption(String name, String minValue, String maxValue) {
-        return RspOption.buildSpingOption(name, minValue, maxValue);
+    static RspOption createSpingOption(String name, String defaultValue, String minValue, String maxValue) {
+        return RspOption.buildSpingOption(name, defaultValue, minValue, maxValue);
     }
 
     static RspInfo info(String info) {

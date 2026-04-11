@@ -29,8 +29,8 @@ public final class RspOption implements UCIResponse {
         return new RspOption(name, OptionType.CHECK, Boolean.toString(defaultValue), null, null);
     }
 
-    public static RspOption buildSpingOption(String name, String minValue, String maxValue) {
-        return new RspOption(name, OptionType.SPIN, null, minValue, maxValue);
+    public static RspOption buildSpingOption(String name, String defaultValue, String minValue, String maxValue) {
+        return new RspOption(name, OptionType.SPIN, defaultValue, minValue, maxValue);
     }
 
     private RspOption(String name, OptionType type, String defaultValue, String minValue, String maxValue) {
