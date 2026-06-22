@@ -284,8 +284,22 @@ public class UCIDecoderReqTest {
     }
 
     @Test
-    public void test_parse_error() {
+    public void test_parse_error01() {
         UCICommand result = decoder.parseMessage("go depth asd");
+
+        assertInstanceOf(UCICommandUnknown.class, result);
+    }
+
+    @Test
+    public void test_parse_error02() {
+        UCICommand result = decoder.parseMessage("setoption name PolyglotFile value");
+
+        assertInstanceOf(UCICommandUnknown.class, result);
+    }
+
+    @Test
+    public void test_parse_error03() {
+        UCICommand result = decoder.parseMessage("setoption name PolyglotFile value ");
 
         assertInstanceOf(UCICommandUnknown.class, result);
     }
