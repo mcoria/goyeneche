@@ -12,7 +12,7 @@
 
 ## Prerequisites
 
-- **Java 21** or higher
+- **Java 25** or higher
 - **Maven** or **Gradle** for dependency management (optional)
 
 ## Installation
@@ -25,14 +25,14 @@ To use **goyeneche** in your project, add the dependency to your `pom.xml` (for 
 <dependency>
     <groupId>net.chesstango</groupId>
     <artifactId>goyeneche</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.14</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'net.chesstango:goyeneche:1.0.6'
+implementation 'net.chesstango:goyeneche:1.0.14'
 ```
 
 ## Usage
