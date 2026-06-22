@@ -9,7 +9,6 @@ import net.chesstango.goyeneche.responses.UCIResponse;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -103,25 +102,6 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.goTime(Integer.parseInt(time));
     }
 
-    @Override
-    public void enterGo_time(UCIParser.Go_timeContext ctx) {
-        String wtime = ctx.INTEGER(0).getText();
-
-        String btime = ctx.INTEGER(1).getText();
-
-        String winc = ctx.INTEGER(2).getText();
-
-        String binc = ctx.INTEGER(3).getText();
-
-        TerminalNode movesToGoNode = ctx.INTEGER(4);
-
-        if (movesToGoNode != null) {
-            String movesToGoText = movesToGoNode.getText();
-            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc), Integer.parseInt(movesToGoText));
-        } else {
-            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
-        }
-    }
 
     @Override
     public void enterFen(UCIParser.FenContext ctx) {
