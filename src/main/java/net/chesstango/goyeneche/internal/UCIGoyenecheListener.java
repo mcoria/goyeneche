@@ -30,11 +30,13 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     private String optionName;
     private String ponderMove;
 
-    private enum OptionType {BUTTON, STRING}
+    private enum OptionType {BUTTON, STRING, SPIN}
 
     private OptionType optionType;
 
     private String optionDefaultValue;
+    private String optionMinValue;
+    private String optionMaxValue;
 
     private String bestMove;
 
@@ -80,7 +82,11 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     @Override
     public void enterSetoption_value(UCIParser.Setoption_valueContext ctx) {
-        setOptionValue = ctx.getText();
+        if (ctx.STRING_EMPTY() != null) {
+            setOptionValue = "";
+        } else {
+            setOptionValue = ctx.getText();
+        }
     }
 
     @Override
@@ -211,28 +217,22 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     }
 
     @Override
+    public void enterOptiontype_spin(UCIParser.Optiontype_spinContext ctx) {
+        optionType = OptionType.SPIN;
+        optionDefaultValue = ctx.INTEGER(0).getText();
+        optionMinValue = ctx.INTEGER(1).getText();
+        optionMaxValue = ctx.INTEGER(2).getText();
+    }
+
+    @Override
     public void exitOption(UCIParser.OptionContext ctx) {
         if (optionType == OptionType.BUTTON) {
             command = UCIResponse.createButtonOption(optionName);
         } else if (optionType == OptionType.STRING) {
             command = UCIResponse.createStringOption(optionName, optionDefaultValue);
+        } else if (optionType == OptionType.SPIN) {
+            command = UCIResponse.createSpingOption(optionName, optionDefaultValue, optionMinValue, optionMaxValue);
         }
-    }
-
-    private String getOriginalText(ParserRuleContext ctx) {
-        // 1. Get the start and stop token indices from the context
-        int startIndex = ctx.start.getStartIndex();
-        int stopIndex = ctx.stop.getStopIndex();
-
-        // 2. Define the interval using these indices
-        Interval interval = new Interval(startIndex, stopIndex);
-
-        // 3. Access the CharStream from the start token
-        CharStream input = ctx.start.getInputStream();
-
-        // 4. Retrieve the original text for the defined interval
-        return input.getText(interval);
-
     }
 
     @Override
@@ -252,6 +252,22 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         } else if (bestMove != null) {
             command = UCIResponse.bestMove(bestMove);
         }
+    }
+
+    private String getOriginalText(ParserRuleContext ctx) {
+        // 1. Get the start and stop token indices from the context
+        int startIndex = ctx.start.getStartIndex();
+        int stopIndex = ctx.stop.getStopIndex();
+
+        // 2. Define the interval using these indices
+        Interval interval = new Interval(startIndex, stopIndex);
+
+        // 3. Access the CharStream from the start token
+        CharStream input = ctx.start.getInputStream();
+
+        // 4. Retrieve the original text for the defined interval
+        return input.getText(interval);
+
     }
 
 }

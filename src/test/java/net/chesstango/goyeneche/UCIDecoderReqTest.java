@@ -273,6 +273,34 @@ public class UCIDecoderReqTest {
     }
 
     @Test
+    public void test_parse_setoption_empty() {
+        UCICommand result = decoder.parseMessage("setoption name tablebase value <empty>");
+
+        assertInstanceOf(ReqSetOption.class, result);
+
+        ReqSetOption option = (ReqSetOption) result;
+
+        assertEquals("tablebase", option.getId());
+        assertEquals("", option.getValue());
+
+        assertEquals("setoption name tablebase value <empty>", option.toString());
+    }
+
+    @Test
+    public void test_parse_setoption_button() {
+        UCICommand result = decoder.parseMessage("setoption name aButton");
+
+        assertInstanceOf(ReqSetOption.class, result);
+
+        ReqSetOption option = (ReqSetOption) result;
+
+        assertEquals("aButton", option.getId());
+        assertNull(option.getValue());
+
+        assertEquals("setoption name aButton", option.toString());
+    }
+
+    @Test
     public void test_unknown_command() {
         UCICommand result = decoder.parseMessage("xx xxx");
 

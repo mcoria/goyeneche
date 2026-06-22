@@ -26,6 +26,11 @@ public final class ReqSetOption implements UCIRequest {
 
     @Override
     public String toString() {
-        return value == null ? String.format("setoption name %s", id) : String.format("setoption name %s value %s", id, value);
+        if (value == null) {
+            return String.format("setoption name %s", id);
+        }
+        return value.isEmpty()
+                ? String.format("setoption name %s value <empty>", id)
+                : String.format("setoption name %s value %s", id, value);
     }
 }

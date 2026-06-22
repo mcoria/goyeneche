@@ -29,7 +29,9 @@ position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
 
 setoption_name: STRING;
 
-setoption_value: STRING;
+setoption_value
+    : STRING
+    | STRING_EMPTY;
 
 fen: STRING STRING STRING STRING INTEGER INTEGER;
 
@@ -94,13 +96,18 @@ optionname: STRING;
 
 optiontype
     : optiontype_button
-    | optiontype_string;
+    | optiontype_string
+    | optiontype_spin;
 
 optiontype_button: 'button';
 
 optiontype_string: 'string' 'default' STRING;
 
+optiontype_spin: 'spin' 'default' INTEGER 'min' INTEGER 'max' INTEGER;
+
 INTEGER: [0-9]+;
+
+STRING_EMPTY: '<empty>';
 
 STRING: ~[ \t\r\n]+;
 

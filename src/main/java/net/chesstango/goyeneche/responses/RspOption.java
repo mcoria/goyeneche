@@ -56,10 +56,10 @@ public final class RspOption implements UCIResponse {
             sb.append(" default ").append("<empty>");
         }
         if (minValue != null) {
-            sb.append(" minValue ").append(minValue);
+            sb.append(" min ").append(minValue);
         }
         if (maxValue != null) {
-            sb.append(" maxValue ").append(maxValue);
+            sb.append(" max ").append(maxValue);
         }
         return sb.toString();
     }
