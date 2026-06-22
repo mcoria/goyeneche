@@ -96,11 +96,14 @@ optionname: STRING;
 
 optiontype
     : optiontype_button
-    | optiontype_string;
+    | optiontype_string
+    | optiontype_spin;
 
 optiontype_button: 'button';
 
 optiontype_string: 'string' 'default' STRING;
+
+optiontype_spin: 'spin' 'default' INTEGER 'min' INTEGER 'max' INTEGER;
 
 INTEGER: [0-9]+;
 

@@ -57,7 +57,7 @@ class RspOptionTest {
     @Test
     void testToString_SpinOption() {
         RspOption option = RspOption.buildSpingOption("ExampleSpin", "16", "1", "100");
-        String expected = "option name ExampleSpin type spin default 16 minValue 1 maxValue 100";
+        String expected = "option name ExampleSpin type spin default 16 min 1 max 100";
         assertEquals(expected, option.toString());
     }
 

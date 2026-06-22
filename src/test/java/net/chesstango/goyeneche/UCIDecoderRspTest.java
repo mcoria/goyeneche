@@ -92,7 +92,7 @@ public class UCIDecoderRspTest {
     }
 
     @Test
-    public void test_parse_option() {
+    public void test_parse_option_string() {
         UCICommand result = decoder.parseMessage("option name NalimovPath type string default c:\\book");
 
         assertInstanceOf(RspOption.class, result);
@@ -103,5 +103,21 @@ public class UCIDecoderRspTest {
         assertEquals("c:\\book", option.getDefaultValue());
 
         assertEquals("option name NalimovPath type string default c:\\book", result.toString());
+    }
+
+    @Test
+    public void test_parse_option_spin() {
+        UCICommand result = decoder.parseMessage("option name UCI_Elo type spin default 1350 min 1300 max 1400");
+
+        assertInstanceOf(RspOption.class, result);
+
+        RspOption option = (RspOption) result;
+        assertEquals("UCI_Elo", option.getName());
+        assertEquals(RspOption.OptionType.SPIN, option.getType());
+        assertEquals("1350", option.getDefaultValue());
+        assertEquals("1300", option.getMinValue());
+        assertEquals("1400", option.getMaxValue());
+
+        assertEquals("option name UCI_Elo type spin default 1350 min 1300 max 1400", result.toString());
     }
 }
