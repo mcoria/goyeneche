@@ -4,10 +4,7 @@ import net.chesstango.goyeneche.UCICommand;
 import net.chesstango.goyeneche.UCICommandUnknown;
 import net.chesstango.goyeneche.internal.antlr4.UCILexer;
 import net.chesstango.goyeneche.internal.antlr4.UCIParser;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CodePointCharStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ConsoleErrorListener;
+import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
@@ -36,26 +33,28 @@ public class UCIDecoder {
      * @return the UCICommand object representing the parsed UCI command
      */
     public UCICommand parseMessage(String input) {
-        CodePointCharStream stream = CharStreams.fromString(input);
-        UCILexer lexer = new UCILexer(stream);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-
-        // 4. Create a parser that feeds off the tokens buffer
-        UCIParser parser = new UCIParser(tokenStream);
-        parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
-
-        // 5. Begin parsing at the 'command' rule
-        UCIParser.CommandContext tree = parser.command();
-
-        // 6. Create the walker and hook up the listener
-        ParseTreeWalker walker = ParseTreeWalker.DEFAULT;
-
-        UCIGoyenecheListener listener = new UCIGoyenecheListener();
-
-        walker.walk(listener, tree); // Initiate the walk through the parse tree
-
         UCICommand command = null;
         try {
+            CodePointCharStream stream = CharStreams.fromString(input);
+            UCILexer lexer = new UCILexer(stream);
+            CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+
+            // 4. Create a parser that feeds off the tokens buffer
+            UCIParser parser = new UCIParser(tokenStream);
+            parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
+            parser.setErrorHandler(new BailErrorStrategy());
+
+            // 5. Begin parsing at the 'command' rule
+            UCIParser.CommandContext tree = parser.command();
+
+            // 6. Create the walker and hook up the listener
+            ParseTreeWalker walker = ParseTreeWalker.DEFAULT;
+
+            UCIGoyenecheListener listener = new UCIGoyenecheListener();
+
+            walker.walk(listener, tree); // Initiate the walk through the parse tree
+
+
             command = listener.getCommand();
 
             if (command == null) {

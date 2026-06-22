@@ -283,4 +283,11 @@ public class UCIDecoderReqTest {
         assertEquals("xx xxx", cmdUnknown.getText());
     }
 
+    @Test
+    public void test_parse_error() {
+        UCICommand result = decoder.parseMessage("go depth asd");
+
+        assertInstanceOf(UCICommandUnknown.class, result);
+    }
+
 }
