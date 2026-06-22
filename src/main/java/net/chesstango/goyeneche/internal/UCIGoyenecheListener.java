@@ -38,6 +38,16 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     private String bestMove;
 
+    private int wTime = 0;
+
+    private int bTime = 0;
+
+    private int wInc = 0;
+
+    private int bInc = 0;
+
+    private Integer movesToGo = null;
+
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
         command = UCIRequest.uci();
@@ -86,7 +96,11 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Override
     public void exitGo(UCIParser.GoContext ctx) {
         if (command == null) {
-            command = UCIRequest.goInfinite();
+            if (wTime > 0 || bTime > 0 || wInc > 0 || bInc > 0 || movesToGo != null) {
+                command = UCIRequest.goFast(wTime, wInc, bTime, bInc, movesToGo);
+            } else {
+                command = UCIRequest.goInfinite();
+            }
         }
     }
 
@@ -102,6 +116,30 @@ public class UCIGoyenecheListener extends UCIBaseListener {
         command = UCIRequest.goTime(Integer.parseInt(time));
     }
 
+    @Override
+    public void enterGo_wtime(UCIParser.Go_wtimeContext ctx) {
+        wTime = Integer.parseInt(ctx.INTEGER().getText());
+    }
+
+    @Override
+    public void enterGo_btime(UCIParser.Go_btimeContext ctx) {
+        bTime = Integer.parseInt(ctx.INTEGER().getText());
+    }
+
+    @Override
+    public void enterGo_winc(UCIParser.Go_wincContext ctx) {
+        wInc = Integer.parseInt(ctx.INTEGER().getText());
+    }
+
+    @Override
+    public void enterGo_binc(UCIParser.Go_bincContext ctx) {
+        bInc = Integer.parseInt(ctx.INTEGER().getText());
+    }
+
+    @Override
+    public void enterGo_movestogo(UCIParser.Go_movestogoContext ctx) {
+        movesToGo = Integer.parseInt(ctx.INTEGER().getText());
+    }
 
     @Override
     public void enterFen(UCIParser.FenContext ctx) {

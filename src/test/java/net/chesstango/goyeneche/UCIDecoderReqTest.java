@@ -245,7 +245,7 @@ public class UCIDecoderReqTest {
         assertEquals(0, go.getBInc());
         assertEquals(40, go.getMovesToGo());
 
-        assertEquals("go wtime 120000 btime 130000 winc 6000 binc 7000 movestogo 22", result.toString());
+        assertEquals("go wtime 300000 btime 400000 winc 0 binc 0 movestogo 40", result.toString());
     }
 
 
