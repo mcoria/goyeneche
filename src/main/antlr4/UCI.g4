@@ -29,7 +29,9 @@ position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
 
 setoption_name: STRING;
 
-setoption_value: STRING;
+setoption_value
+    : STRING
+    | STRING_EMPTY;
 
 fen: STRING STRING STRING STRING INTEGER INTEGER;
 
@@ -101,6 +103,8 @@ optiontype_button: 'button';
 optiontype_string: 'string' 'default' STRING;
 
 INTEGER: [0-9]+;
+
+STRING_EMPTY: '<empty>';
 
 STRING: ~[ \t\r\n]+;
 

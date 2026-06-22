@@ -80,7 +80,11 @@ public class UCIGoyenecheListener extends UCIBaseListener {
 
     @Override
     public void enterSetoption_value(UCIParser.Setoption_valueContext ctx) {
-        setOptionValue = ctx.getText();
+        if (ctx.STRING_EMPTY() != null) {
+            setOptionValue = "";
+        } else {
+            setOptionValue = ctx.getText();
+        }
     }
 
     @Override
