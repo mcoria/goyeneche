@@ -9,7 +9,6 @@ import net.chesstango.goyeneche.responses.UCIResponse;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +37,16 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     private String optionDefaultValue;
 
     private String bestMove;
+
+    private int wTime = 0;
+
+    private int bTime = 0;
+
+    private int wInc = 0;
+
+    private int bInc = 0;
+
+    private Integer movesToGo = null;
 
     @Override
     public void enterUci(UCIParser.UciContext ctx) {
@@ -87,7 +96,11 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     @Override
     public void exitGo(UCIParser.GoContext ctx) {
         if (command == null) {
-            command = UCIRequest.goInfinite();
+            if (wTime > 0 || bTime > 0 || wInc > 0 || bInc > 0 || movesToGo != null) {
+                command = UCIRequest.goFast(wTime, wInc, bTime, bInc, movesToGo);
+            } else {
+                command = UCIRequest.goInfinite();
+            }
         }
     }
 
@@ -104,23 +117,28 @@ public class UCIGoyenecheListener extends UCIBaseListener {
     }
 
     @Override
-    public void enterGo_time(UCIParser.Go_timeContext ctx) {
-        String wtime = ctx.INTEGER(0).getText();
+    public void enterGo_wtime(UCIParser.Go_wtimeContext ctx) {
+        wTime = Integer.parseInt(ctx.INTEGER().getText());
+    }
 
-        String btime = ctx.INTEGER(1).getText();
+    @Override
+    public void enterGo_btime(UCIParser.Go_btimeContext ctx) {
+        bTime = Integer.parseInt(ctx.INTEGER().getText());
+    }
 
-        String winc = ctx.INTEGER(2).getText();
+    @Override
+    public void enterGo_winc(UCIParser.Go_wincContext ctx) {
+        wInc = Integer.parseInt(ctx.INTEGER().getText());
+    }
 
-        String binc = ctx.INTEGER(3).getText();
+    @Override
+    public void enterGo_binc(UCIParser.Go_bincContext ctx) {
+        bInc = Integer.parseInt(ctx.INTEGER().getText());
+    }
 
-        TerminalNode movesToGoNode = ctx.INTEGER(4);
-
-        if (movesToGoNode != null) {
-            String movesToGoText = movesToGoNode.getText();
-            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc), Integer.parseInt(movesToGoText));
-        } else {
-            command = UCIRequest.goFast(Integer.parseInt(wtime), Integer.parseInt(winc), Integer.parseInt(btime), Integer.parseInt(binc));
-        }
+    @Override
+    public void enterGo_movestogo(UCIParser.Go_movestogoContext ctx) {
+        movesToGo = Integer.parseInt(ctx.INTEGER().getText());
     }
 
     @Override

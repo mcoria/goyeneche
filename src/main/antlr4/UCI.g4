@@ -33,13 +33,17 @@ setoption_value: STRING;
 
 fen: STRING STRING STRING STRING INTEGER INTEGER;
 
-go: 'go' goparam?;
+go: 'go' goparam*;
 
 goparam
     : go_infinite
     | go_depth
     | go_movetime
-    | go_time
+    | go_wtime
+    | go_btime
+    | go_winc
+    | go_binc
+    | go_movestogo
     ;
 
 go_infinite: 'infinite';
@@ -48,13 +52,15 @@ go_depth: 'depth' INTEGER;
 
 go_movetime: 'movetime' INTEGER;
 
-go_time: 'wtime' INTEGER 'btime' INTEGER 'winc' INTEGER 'binc' INTEGER ('movestogo' INTEGER)?;
+go_wtime: 'wtime' INTEGER;
 
-// wtime: INTEGER;
-// btime: INTEGER;
-// winc: INTEGER;
-// binc: INTEGER;
-// movestogo: INTEGER;
+go_btime: 'btime' INTEGER;
+
+go_winc: 'winc' INTEGER;
+
+go_binc: 'binc' INTEGER;
+
+go_movestogo: 'movestogo' INTEGER;
 
 response
     : uciok
