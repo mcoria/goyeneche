@@ -301,6 +301,21 @@ public class UCIDecoderReqTest {
     }
 
     @Test
+    public void test_parse_setoption_hash() {
+        UCICommand result = decoder.parseMessage("setoption name Hash value 128");
+
+        assertInstanceOf(ReqSetOption.class, result);
+
+        ReqSetOption option = (ReqSetOption) result;
+
+        assertEquals("Hash", option.getId());
+        assertEquals("128", option.getValue());
+
+        assertEquals("setoption name Hash value 128", option.toString());
+    }
+
+
+    @Test
     public void test_unknown_command() {
         UCICommand result = decoder.parseMessage("xx xxx");
 

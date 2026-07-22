@@ -30,7 +30,8 @@ position: 'position' ('startpos' | 'fen' fen) ('moves' move+)?;
 setoption_name: STRING;
 
 setoption_value
-    : STRING
+    : INTEGER
+    | STRING
     | STRING_EMPTY;
 
 fen: STRING STRING STRING STRING INTEGER INTEGER;
